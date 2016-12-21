@@ -1,0 +1,62 @@
+
+/*.join3 .input_txt_area3 { width:50px; }
+
+
+.mlist_box > a { width:100%; display: inline-block; }
+
+
+a, button {
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+    -webkit-tap-highlight-color: transparent;
+    -webkit-user-select: none;
+	-webkit-touch-callout: none;
+}
+
+a.highlighted, button.highlighted {
+	opacity:0.85;
+}
+*/
+
+/*
+body.open .header {
+    position: absolute;
+    z-index:999;
+}
+
+body.open .contents {
+	padding-top:44px;
+}
+*/
+
+/*
+.header h1 {
+    font-size: 20px;
+    font-weight: bold;
+}
+*/
+
+.mlist_box .info_text .point5-1 {
+    color:#b937eb; font-size: 22px; font-weight:bold;
+}
+
+.mlist_box .info_text .point9 {
+    color:#666666; font-size: 14px;
+}
+
+.mlist_box .info_text .ready { display:none; }
+.mlist_box .info_text .done { display:inherit; }
+
+.mlist_box .info_text.ready .ready { display:inherit;  }
+.mlist_box .info_text.ready .done { display:none; }
+
+
+.mrd_box.secd a { display: block; text-align: center; }
+.mrd_box.secd a .ready { display:none; }
+.mrd_box.secd a .done { display:inherit; }
+
+.mrd_box.secd a.ready .ready { display:inherit;  }
+.mrd_box.secd a.ready.ready .done { display:none; }
+
+.sleep_state .bdf_grf.graph { position:relative; }
+.sleep_state .bdf_grf.graph .notyet { width:100%; text-align: center; position:absolute; left:0; top:0; padding:24px 0; }
+.sleep_state .bdf_grf.graph .notyet .ict_tx { color:#696969; display:inherit; }

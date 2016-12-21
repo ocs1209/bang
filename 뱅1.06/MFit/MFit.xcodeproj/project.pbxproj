@@ -1,0 +1,444 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXAggregateTarget section */
+		DCD850131D06AC4A0020F99A /* MFit */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = DCD850151D06AC4A0020F99A /* Build configuration list for PBXAggregateTarget "MFit" */;
+			buildPhases = (
+				DCD850161D06AC690020F99A /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = MFit;
+			productName = MFit;
+		};
+/* End PBXAggregateTarget section */
+
+/* Begin PBXBuildFile section */
+		D529A42E1AAEB8AE005A3386 /* WNInterfaceFit.m in Sources */ = {isa = PBXBuildFile; fileRef = D5620A711AAEA4CB00815FFF /* WNInterfaceFit.m */; };
+		D529A42F1AAEB8AE005A3386 /* MFitPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = D5620A741AAEA4CB00815FFF /* MFitPlugin.m */; };
+		D5620A7B1AAEA55300815FFF /* WNInterfaceFit.h in Headers */ = {isa = PBXBuildFile; fileRef = D5620A701AAEA4CB00815FFF /* WNInterfaceFit.h */; };
+		D5620A7C1AAEA55300815FFF /* MFitPlugin.h in Headers */ = {isa = PBXBuildFile; fileRef = D5620A731AAEA4CB00815FFF /* MFitPlugin.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D5620A7D1AAEA55300815FFF /* MFit.h in Headers */ = {isa = PBXBuildFile; fileRef = D5620A761AAEA4CB00815FFF /* MFit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D5620A8C1AAEA58E00815FFF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D5620A811AAEA58E00815FFF /* Localizable.strings */; };
+		D5B735A21BB0D87600F4EAFE /* MFitManager.h in Headers */ = {isa = PBXBuildFile; fileRef = D5B735A01BB0D86C00F4EAFE /* MFitManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D5B735A31BB0D87B00F4EAFE /* MFitManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D5B735A11BB0D86C00F4EAFE /* MFitManager.m */; };
+		D5B735A71BB0D93300F4EAFE /* FitBand.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5B735A41BB0D8C300F4EAFE /* FitBand.framework */; };
+		DC3DB7201D0954E6005FF77F /* HistoryInterface.h in Headers */ = {isa = PBXBuildFile; fileRef = DC3DB71E1D0954E6005FF77F /* HistoryInterface.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DC3DB7211D0954E6005FF77F /* HistoryInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = DC3DB71F1D0954E6005FF77F /* HistoryInterface.m */; };
+		DC50BCF31D251255009E21D9 /* GlobalData.h in Headers */ = {isa = PBXBuildFile; fileRef = DC50BCF11D251255009E21D9 /* GlobalData.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DC50BCF41D251255009E21D9 /* GlobalData.m in Sources */ = {isa = PBXBuildFile; fileRef = DC50BCF21D251255009E21D9 /* GlobalData.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		D52D1DC31CFECED20065369A /* config.bundle.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = config.bundle.xcconfig; sourceTree = "<group>"; };
+		D52D1DC41CFECED20065369A /* config.framework.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = config.framework.xcconfig; sourceTree = "<group>"; };
+		D52D1DC51CFECED20065369A /* config.license.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = config.license.xcconfig; sourceTree = "<group>"; };
+		D52D1DC61CFECED20065369A /* config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = config.xcconfig; sourceTree = "<group>"; };
+		D5620A701AAEA4CB00815FFF /* WNInterfaceFit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WNInterfaceFit.h; sourceTree = "<group>"; };
+		D5620A711AAEA4CB00815FFF /* WNInterfaceFit.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WNInterfaceFit.m; sourceTree = "<group>"; };
+		D5620A731AAEA4CB00815FFF /* MFitPlugin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MFitPlugin.h; sourceTree = "<group>"; };
+		D5620A741AAEA4CB00815FFF /* MFitPlugin.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MFitPlugin.m; sourceTree = "<group>"; };
+		D5620A761AAEA4CB00815FFF /* MFit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MFit.h; sourceTree = "<group>"; };
+		D5620A791AAEA4CB00815FFF /* Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Prefix.pch; sourceTree = "<group>"; };
+		D5620A7A1AAEA4F400815FFF /* Plugin-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Plugin-Info.plist"; sourceTree = "<group>"; };
+		D5620A821AAEA58E00815FFF /* en-ph */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-ph"; path = "en-ph.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		D5620A831AAEA58E00815FFF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D5620A841AAEA58E00815FFF /* id */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = id; path = id.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D5620A851AAEA58E00815FFF /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D5620A861AAEA58E00815FFF /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D5620A871AAEA58E00815FFF /* mn */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = mn; path = mn.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D5620A881AAEA58E00815FFF /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D5620A891AAEA58E00815FFF /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D5620A8A1AAEA58E00815FFF /* zh-tw */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-tw"; path = "zh-tw.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		D5620A8B1AAEA58E00815FFF /* zh */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh; path = zh.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D5620A8E1AAEA5D500815FFF /* MFit.bundle */ = {isa = PBXFileReference; lastKnownFileType = wrapper.cfBundle; name = MFit.bundle; path = ./MLibrary/MPlugins/MFit/MFit.bundle; sourceTree = "<group>"; };
+		D5620A8F1AAEA5D500815FFF /* MFit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MFit.framework; path = ./MLibrary/MPlugins/MFit/MFit.framework; sourceTree = "<group>"; };
+		D5B735A01BB0D86C00F4EAFE /* MFitManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFitManager.h; sourceTree = "<group>"; };
+		D5B735A11BB0D86C00F4EAFE /* MFitManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFitManager.m; sourceTree = "<group>"; };
+		D5B735A41BB0D8C300F4EAFE /* FitBand.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FitBand.framework; sourceTree = "<group>"; };
+		DC3DB71E1D0954E6005FF77F /* HistoryInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryInterface.h; sourceTree = "<group>"; };
+		DC3DB71F1D0954E6005FF77F /* HistoryInterface.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryInterface.m; sourceTree = "<group>"; };
+		DC50BCF11D251255009E21D9 /* GlobalData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobalData.h; sourceTree = "<group>"; };
+		DC50BCF21D251255009E21D9 /* GlobalData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlobalData.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D5620A531AAEA46000815FFF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D5B735A71BB0D93300F4EAFE /* FitBand.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D5620A391AAEA3FE00815FFF = {
+			isa = PBXGroup;
+			children = (
+				D5620A4C1AAEA44000815FFF /* config */,
+				D5620A6A1AAEA4CB00815FFF /* Bundle */,
+				D5620A6E1AAEA4CB00815FFF /* Framework */,
+				D5620A781AAEA4CB00815FFF /* Supporting Files */,
+				D5620A431AAEA3FE00815FFF /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D5620A431AAEA3FE00815FFF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D5620A8E1AAEA5D500815FFF /* MFit.bundle */,
+				D5620A8F1AAEA5D500815FFF /* MFit.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D5620A4C1AAEA44000815FFF /* config */ = {
+			isa = PBXGroup;
+			children = (
+				D52D1DC31CFECED20065369A /* config.bundle.xcconfig */,
+				D52D1DC41CFECED20065369A /* config.framework.xcconfig */,
+				D52D1DC51CFECED20065369A /* config.license.xcconfig */,
+				D52D1DC61CFECED20065369A /* config.xcconfig */,
+			);
+			path = config;
+			sourceTree = "<group>";
+		};
+		D5620A6A1AAEA4CB00815FFF /* Bundle */ = {
+			isa = PBXGroup;
+			children = (
+				D5620A7E1AAEA58E00815FFF /* Resource */,
+			);
+			path = Bundle;
+			sourceTree = SOURCE_ROOT;
+		};
+		D5620A6E1AAEA4CB00815FFF /* Framework */ = {
+			isa = PBXGroup;
+			children = (
+				DC3DB71D1D0945F9005FF77F /* AddOn */,
+				D5620A6F1AAEA4CB00815FFF /* Classes */,
+				D5620A721AAEA4CB00815FFF /* Common */,
+				D5620A751AAEA4CB00815FFF /* Headers */,
+				D5620A771AAEA4CB00815FFF /* Library */,
+			);
+			path = Framework;
+			sourceTree = SOURCE_ROOT;
+		};
+		D5620A6F1AAEA4CB00815FFF /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				D5B735A01BB0D86C00F4EAFE /* MFitManager.h */,
+				D5B735A11BB0D86C00F4EAFE /* MFitManager.m */,
+				D5620A701AAEA4CB00815FFF /* WNInterfaceFit.h */,
+				D5620A711AAEA4CB00815FFF /* WNInterfaceFit.m */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		D5620A721AAEA4CB00815FFF /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				D5620A731AAEA4CB00815FFF /* MFitPlugin.h */,
+				D5620A741AAEA4CB00815FFF /* MFitPlugin.m */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		D5620A751AAEA4CB00815FFF /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				D5620A761AAEA4CB00815FFF /* MFit.h */,
+			);
+			path = Headers;
+			sourceTree = "<group>";
+		};
+		D5620A771AAEA4CB00815FFF /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				D5B735A41BB0D8C300F4EAFE /* FitBand.framework */,
+			);
+			path = Library;
+			sourceTree = "<group>";
+		};
+		D5620A781AAEA4CB00815FFF /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				D5620A7A1AAEA4F400815FFF /* Plugin-Info.plist */,
+				D5620A791AAEA4CB00815FFF /* Prefix.pch */,
+			);
+			path = "Supporting Files";
+			sourceTree = SOURCE_ROOT;
+		};
+		D5620A7E1AAEA58E00815FFF /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				D5620A7F1AAEA58E00815FFF /* image */,
+				D5620A801AAEA58E00815FFF /* strings */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		D5620A7F1AAEA58E00815FFF /* image */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = image;
+			sourceTree = "<group>";
+		};
+		D5620A801AAEA58E00815FFF /* strings */ = {
+			isa = PBXGroup;
+			children = (
+				D5620A811AAEA58E00815FFF /* Localizable.strings */,
+			);
+			path = strings;
+			sourceTree = "<group>";
+		};
+		DC3DB71D1D0945F9005FF77F /* AddOn */ = {
+			isa = PBXGroup;
+			children = (
+				DC3DB71E1D0954E6005FF77F /* HistoryInterface.h */,
+				DC3DB71F1D0954E6005FF77F /* HistoryInterface.m */,
+				DC50BCF11D251255009E21D9 /* GlobalData.h */,
+				DC50BCF21D251255009E21D9 /* GlobalData.m */,
+			);
+			path = AddOn;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		D5620A691AAEA4B600815FFF /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D5620A7D1AAEA55300815FFF /* MFit.h in Headers */,
+				DC3DB7201D0954E6005FF77F /* HistoryInterface.h in Headers */,
+				D5620A7C1AAEA55300815FFF /* MFitPlugin.h in Headers */,
+				D5B735A21BB0D87600F4EAFE /* MFitManager.h in Headers */,
+				D5620A7B1AAEA55300815FFF /* WNInterfaceFit.h in Headers */,
+				DC50BCF31D251255009E21D9 /* GlobalData.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		D5620A551AAEA46000815FFF /* MFit.Framework */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D5620A5A1AAEA46000815FFF /* Build configuration list for PBXNativeTarget "MFit.Framework" */;
+			buildPhases = (
+				D5620A521AAEA46000815FFF /* Sources */,
+				D5620A531AAEA46000815FFF /* Frameworks */,
+				D5620A691AAEA4B600815FFF /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MFit.Framework;
+			productName = MFit.Framework;
+			productType = "com.apple.product-type.bundle";
+		};
+		D5620A5F1AAEA46A00815FFF /* MFit.Bundle */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D5620A641AAEA46A00815FFF /* Build configuration list for PBXNativeTarget "MFit.Bundle" */;
+			buildPhases = (
+				D5620A5E1AAEA46A00815FFF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MFit.Bundle;
+			productName = MFit.Bundle;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D5620A3A1AAEA3FE00815FFF /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0700;
+				ORGANIZATIONNAME = UracleLab;
+				TargetAttributes = {
+					D5620A551AAEA46000815FFF = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
+					DCD850131D06AC4A0020F99A = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
+				};
+			};
+			buildConfigurationList = D5620A3D1AAEA3FE00815FFF /* Build configuration list for PBXProject "MFit" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				"en-ph",
+				id,
+				ja,
+				ko,
+				mn,
+				th,
+				vi,
+				"zh-tw",
+				zh,
+			);
+			mainGroup = D5620A391AAEA3FE00815FFF;
+			productRefGroup = D5620A431AAEA3FE00815FFF /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D5620A551AAEA46000815FFF /* MFit.Framework */,
+				D5620A5F1AAEA46A00815FFF /* MFit.Bundle */,
+				DCD850131D06AC4A0020F99A /* MFit */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D5620A5E1AAEA46A00815FFF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D5620A8C1AAEA58E00815FFF /* Localizable.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		DCD850161D06AC690020F99A /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#!/bin/bash\n\nBUILD_DIR=\"${SRCROOT}/build\"\nINSTALL_DIR=\"${SRCROOT}/MLibrary/${TARGET_NAME}\"\n\nif [ ! -e \"${BUILD_DIR}\" ]; then\nmkdir ${BUILD_DIR}\nfi\n\n# Build Framework & Bundle\n\nFRAMEWORK_NAME=${TARGET_NAME}\n\n# Framework\nxcodebuild -configuration \"Release\" -target \"${FRAMEWORK_NAME}.Framework\" -sdk iphoneos\nxcodebuild -configuration \"Release\" -target \"${FRAMEWORK_NAME}.Framework\" -sdk iphonesimulator\n\nBUILD_FRAMEWORK_FILE=\"${BUILD_DIR}/Release-iphoneos/${FRAMEWORK_NAME}.framework\"\nINSTALL_FRAMEWORK_FILE=\"${INSTALL_DIR}/${FRAMEWORK_NAME}.framework\"\n\nif [ -e \"${INSTALL_FRAMEWORK_FILE}\" ]; then\nrm -rf \"${INSTALL_FRAMEWORK_FILE}\"\nfi\n\nmkdir -p \"${INSTALL_FRAMEWORK_FILE}\"\nmkdir -p \"${INSTALL_FRAMEWORK_FILE}/Versions\"\nmkdir -p \"${INSTALL_FRAMEWORK_FILE}/Versions/A\"\nmkdir -p \"${INSTALL_FRAMEWORK_FILE}/Versions/A/Headers\"\n\nif [ -d \"${BUILD_FRAMEWORK_FILE}/Headers/\" ]; then\ncp -R \"${BUILD_FRAMEWORK_FILE}/Headers/\" \"${INSTALL_FRAMEWORK_FILE}/Versions/A/Headers/\"\nfi\n\nif [ -e \"${SRCROOT}/Supporting Files/Plugin-Info.plist\" ]; then\nsed \"s/BNDL/FRMK/g\" \"${SRCROOT}/Supporting Files/Plugin-Info.plist\" > \"${INSTALL_FRAMEWORK_FILE}/Versions/A/Info.plist\"\nfi\n\nln -s \"A\" \"${INSTALL_FRAMEWORK_FILE}/Versions/Current\"\nln -s \"Versions/Current/Headers\" \"${INSTALL_FRAMEWORK_FILE}/Headers\"\nln -s \"Versions/Current/${FRAMEWORK_NAME}\"  \"${INSTALL_FRAMEWORK_FILE}\"\n\nlipo -create \"${BUILD_DIR}/Release-iphoneos/${FRAMEWORK_NAME}.framework/${FRAMEWORK_NAME}\" \"${BUILD_DIR}/Release-iphonesimulator/${FRAMEWORK_NAME}.framework/${FRAMEWORK_NAME}\" -output \"${INSTALL_FRAMEWORK_FILE}/Versions/A/${FRAMEWORK_NAME}\"\n\n# Bundle\nxcodebuild -configuration \"Release\" -target \"${FRAMEWORK_NAME}.Bundle\" -sdk iphoneos\n\nBUILD_BUNDLE_FILE=\"${BUILD_DIR}/Release-iphoneos/${FRAMEWORK_NAME}.bundle\"\nINSTALL_BUNDLE_FILE=\"${INSTALL_DIR}/${FRAMEWORK_NAME}.bundle\"\n\nif [ -e \"${INSTALL_BUNDLE_FILE}\" ]; then\nrm -rf \"${INSTALL_BUNDLE_FILE}\"\nfi\n\ncp -R \"${BUILD_BUNDLE_FILE}\" \"${INSTALL_BUNDLE_FILE}\"\n\nrm -rf ${BUILD_DIR}";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D5620A521AAEA46000815FFF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DC3DB7211D0954E6005FF77F /* HistoryInterface.m in Sources */,
+				D529A42E1AAEB8AE005A3386 /* WNInterfaceFit.m in Sources */,
+				D529A42F1AAEB8AE005A3386 /* MFitPlugin.m in Sources */,
+				DC50BCF41D251255009E21D9 /* GlobalData.m in Sources */,
+				D5B735A31BB0D87B00F4EAFE /* MFitManager.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		D5620A811AAEA58E00815FFF /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D5620A821AAEA58E00815FFF /* en-ph */,
+				D5620A831AAEA58E00815FFF /* en */,
+				D5620A841AAEA58E00815FFF /* id */,
+				D5620A851AAEA58E00815FFF /* ja */,
+				D5620A861AAEA58E00815FFF /* ko */,
+				D5620A871AAEA58E00815FFF /* mn */,
+				D5620A881AAEA58E00815FFF /* th */,
+				D5620A891AAEA58E00815FFF /* vi */,
+				D5620A8A1AAEA58E00815FFF /* zh-tw */,
+				D5620A8B1AAEA58E00815FFF /* zh */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		D5620A481AAEA3FF00815FFF /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D52D1DC61CFECED20065369A /* config.xcconfig */;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		D5620A5B1AAEA46000815FFF /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D52D1DC41CFECED20065369A /* config.framework.xcconfig */;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Framework/Library",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				PRODUCT_BUNDLE_IDENTIFIER = m.client.library.plugin.fit;
+			};
+			name = Release;
+		};
+		D5620A651AAEA46A00815FFF /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D52D1DC31CFECED20065369A /* config.bundle.xcconfig */;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		DCD850141D06AC4A0020F99A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D5620A3D1AAEA3FE00815FFF /* Build configuration list for PBXProject "MFit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D5620A481AAEA3FF00815FFF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D5620A5A1AAEA46000815FFF /* Build configuration list for PBXNativeTarget "MFit.Framework" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D5620A5B1AAEA46000815FFF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D5620A641AAEA46A00815FFF /* Build configuration list for PBXNativeTarget "MFit.Bundle" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D5620A651AAEA46A00815FFF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DCD850151D06AC4A0020F99A /* Build configuration list for PBXAggregateTarget "MFit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DCD850141D06AC4A0020F99A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D5620A3A1AAEA3FE00815FFF /* Project object */;
+}

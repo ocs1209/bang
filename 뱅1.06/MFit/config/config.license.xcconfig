@@ -1,0 +1,11 @@
+
+#include "./config.xcconfig"
+
+// ** Build Settings **
+
+OTHER_LDFLAGS = -ObjC
+EXECUTABLE_EXTENSION = license
+PRODUCT_NAME = MCore
+
+GCC_PRECOMPILE_PREFIX_HEADER = YES
+GCC_PREFIX_HEADER = Supporting Files/Prefix.pch

@@ -1,0 +1,495 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-touch-fullscreen" content="yes" />
+	<title>설정</title>
+	<link rel="stylesheet" type="text/css" href="../css/common.css" />
+	<script type="text/javascript" src="../js/mcore.min.js"></script>
+</head>
+<body>
+<!-- wrap -->
+<div id="wrap">
+	<!-- header-->
+	<div class="header">
+		<h1>설정</h1>
+		<!-- <div class="btn_right"><a class="btn_menu" nohref="#"><span>메뉴</span></a></div> -->
+		<div class="btn_right" role="list"><a nohref class="btn_menu"><span>목록</span></a></div>
+		<div class="btn_left" role="back"><a nohref class="btn_back" data-command="page.back" auto-command><span class="arrow"></span></a></div>
+	</div> 
+	<!-- /header-->
+	<!--추가 menu-->
+	<div id="menu">
+		<ul>
+			<li><a href="#"><span class="ic_m0"></span>홈</a></li>
+			<li><a class="white" href="#"><span class="ic_m1"></span><span class="txt">나의체성분</span></a></li>
+			<li><a class="white" href="#"><span class="ic_m2"></span><span class="txt">혈압관리</span></a></li>
+			<li><a class="white" href="#"><span class="ic_m3"></span><span class="txt">혈당관리</span></a></li>
+			<li><a class="white" href="#"><span class="ic_m4"></span><span class="txt">챌린지</span></a></li>
+			<li><a class="white" href="#"><span class="ic_m5"></span><span class="txt">친구</span></a></li>
+			<li><a class="white bdn" href="#"><span class="ic_m6"></span><span class="txt">마이페이지</span></a></li>
+			<li><a href="#">기기</a></li>
+			<li><a href="#">도움말</a></li>
+			<li><a href="#">로그아웃</a></li>
+		</ul>
+	</div>
+	<!--/ 추가 menu-->
+
+	<!-- 추가 container-->
+	<div class="container setting_list">
+
+		<!--content-->
+		<div class="contents">			
+			<p class="ss_tit" >알람설정</p>
+			<ul >
+				<li><a nohref auto-link data-link="setting.alarm.html" data-action="NEW_SRC"><span class="sst_1">알람시간 설정</span></a></li>		
+<!-- 				<li><a nohref auto-link data-link="setting.disturb.html" data-action="NEW_SRC"><span class="sst_1">방해금지시간 설정</span></a></li>		 -->
+				<li id="li_interrupt">
+					<span class="sst_1">방해금지시간 설정</span>
+					<div id="interruptTime" class="m-switch m-switch-sm" data-instance="Switch" data-isOn="false"><input type="checkbox" name="interruptTime_set"></div>
+				</li>
+			</ul>
+			
+			<p class="ss_tit" data-android-only>알림설정</p>
+			<ul data-android-only>
+				<li><div id="notification_setting"><span class="sst_1">알림설정(전화수신, 문자메세지, 카톡 등..)</span></div></li>		
+
+			</ul>
+			
+			<p class="ss_tit">수면설정</p>
+			<ul>
+				<li><a nohref auto-link data-link="setting.sleep.html" data-action="NEW_SRC"><span class="sst_1">수면설정</span></a></li>
+			</ul>
+			
+			<p class="ss_tit">기기설정</p>
+			<ul>
+				<li class="dn" ><span class="sst_1">시간형식</span><span class="sst_2">24시간 형식</span></li>
+				<!--switch 버튼 on일때 data-isOn="true", off일때 data-isOn="true"삭제 혹은 data-isOn="false"-->
+				<li  data-android-only>
+					<span class="sst_1">세로로 시계보기</span>
+					<div id="vertical_display" class="m-switch m-switch-sm" data-instance="Switch" data-isOn="true"><input type="checkbox" name="vertical_display"></div>
+				</li>
+				<li  data-android-only  class="dn">
+					<span class="sst_1">날짜표시</span>
+					<div id="date_display" class="m-switch m-switch-sm" data-instance="Switch" data-isOn="true"><input type="checkbox" name="date_display"></div>
+				</li>
+				<li>
+					<span class="sst_1">화면회전</span>
+					<div id="screen_change" class="m-switch m-switch-sm" data-instance="Switch" data-isOn="true"><input type="checkbox" name="screen_change"></div>
+				</li>
+				<li class="display_field">
+					<span class="sst_1" >디스플레이종류</span>
+					<span class="sst_display type1"></span>
+				</li>
+				<li class="notmove_field" id="not_move">
+					<span class="sst_1">장시간 무반응 알림</span>
+					<span class="sst_2" id="not_move_text"></span>
+				</li>
+				<li id="fitTestDiv" class="dn">
+					<div id="fitTest"><span class="sst_1">기기초기화</span></div>
+				</li>
+				<li id="fitTestFirmWareDiv">
+					<div id="fitTestFirmWare"><a data-action="NEW_SRC"><span class="sst_1">펌웨어업데이트</span></a></div>
+				</li>
+			</ul>
+		</div> 
+		<!-- /content-->
+
+		<!-- 추가 layer(dimd)-->			
+		<div class="layer dn"></div> 	
+		<!--/ 추가 layer(dimd)-->	
+
+		
+	</div>
+	<!-- /추가 container-->
+</div>
+<div class="pop_bg" data-pop-wrap>
+   <div class="dn popup_wrap loading_pop" id="loading_pop">
+        <div class="pop_txtw">
+            <div class="m-loadingspinner m-loadingspinner-sm m-loadingspinner-gray"><div class="m-spn m-spinner-icon m-draw2"></div></div>
+            <div class="p_txt_bold" id="loading-message">데이터 로딩중...</div>
+        </div>
+    </div>
+    <div id="pop_display" class="dn popup_wrap num_display">
+		<p class="tit">디스플레이 종류</p>
+		<ul class="pw_list">
+			<li class="on" data-type="type1"><a href="#"><span class="ic_chd"></span><span class="sst_display type1">type1</span></a></li>
+			<li data-type="type2"></span><a href="#"><span class="ic_chd"></span><span class="sst_display type2">type2</span></a></li>
+			<li data-type="type3"></span><a href="#"><span class="ic_chd"></span><span class="sst_display type3">tyep3</span></a></li>
+			<li data-type="type4"></span><a href="#"><span class="ic_chd"></span><span class="sst_display type4">type4</span></a></li>
+			<li data-type="type5"></span><a href="#"><span class="ic_chd"></span><span class="sst_display type5">type5</span></a></li>
+		</ul>
+		<div class="pbot_btn"><a nohref class="btn_bl">완료</a></div>
+	</div>
+	<div id="pop_notmove" class="dn popup_wrap num_display not_move">
+		<p class="tit">장시간 무반응 알림</p>
+		<ul class="pw_list">
+			<li class="on" data-val="0"><a href="#"><span class="ic_chd"></span><span class="txt_min">미설정</span></a></li>
+			<li data-val="30"><a href="#"><span class="ic_chd"></span><span class="txt_min">30분</span></a></li>
+			<li data-val="40"><a href="#"><span class="ic_chd"></span><span class="txt_min">40분</span></a></li>
+			<li data-val="50"><a href="#"><span class="ic_chd"></span><span class="txt_min">50분</span></a></li>
+			<li data-val="60"><a href="#"><span class="ic_chd"></span><span class="txt_min">60분</span></a></li>
+			<li data-val="70"><a href="#"><span class="ic_chd"></span><span class="txt_min">70분</span></a></li>
+			<li data-val="80"><a href="#"><span class="ic_chd"></span><span class="txt_min">80분</span></a></li>
+			<li data-val="90"><a href="#"><span class="ic_chd"></span><span class="txt_min">90분</span></a></li>
+			<li data-val="100"><a href="#"><span class="ic_chd"></span><span class="txt_min">100분</span></a></li>
+		</ul>
+		<div class="pbot_btn" id="pop_notmove_close"><a nohref class="btn_bl">완료</a></div>
+	</div>
+</div>
+</body>
+<script type="text/javascript">
+// 여기먼저 
+
+
+var testTrueFalse='Y';
+
+
+
+$(function() {
+	/* var popupController = PopupController.sharedInstance();
+	var h =M.execute("wn2PluginFitTest", {
+		callback: M.response.on( function( result ) {
+			
+		}).toString()
+	});
+	debug.log('fitTest return object', h);
+	debug.log('fitTest return json', JSON.stringify(h));
+	popupController.toast(JSON.stringify(h)); */
+	
+	$("[data-android-only]").each(function( idx, element ) { 
+		if ( M.navigator.os("ios") ) {
+			$(element).hide();
+		}
+	});
+
+	
+	var	
+	Class = UI.Class,
+	DeivceSettingInfo = Class.DeivceSettingInfo;
+		
+			
+	var notmoveVal = "";
+
+	$("#fitTestFirmWareDiv").hide();
+	$("#pop_notmove").on("click", ".pw_list a", function(){
+		var $t = $(this).parent().addClass("on");
+		$t.siblings().removeClass("on");
+		notmoveVal = parseInt($t.attr("data-val"));
+	});
+
+// 	$("#pop_notmove").on("click", ".btn_bl", function() {
+// 		var $field = $(".notmove_field .sst_2");
+		
+// 		//alert('notmoveVal ' + notmoveVal);
+//         M.fit.reminder.set({
+// 	        after: notmoveVal,
+// 	        callback: function( result ) {
+	            
+// 	        }
+// 	    }); 
+		
+// 		if (notmoveVal == 0) {
+// 			notmoveVal = "미설정";
+// 		}
+// 		if( $field.html() != notmoveVal ){
+// 			$field.html(notmoveVal+"분");	
+// 		}
+// 		DeivceSettingInfo.sharedInfo().setNotmove(notmoveVal);
+// 		window.Wellness.hideLayerPopup();
+// 	});
+
+
+	$('#not_move').on("click", function(){
+		window["Wellness"].showLayerPopup('pop_notmove');
+		});
+
+	$('#pop_notmove_close').on("click", function(){
+		var $field = $(".notmove_field .sst_2");
+		
+		if(M.navigator.os("android")) {
+	        M.fit.reminder.set({
+		        after: notmoveVal,
+		        callback: function( result ) {
+		            
+		        }
+		    }); 
+		}else{
+			 var val = notmoveVal * 60;
+			M.execute("ex2PluginRemainder", val + "");
+		}
+		
+		if (notmoveVal == 0) {
+			notmoveVal = "미설정";
+		}
+		if( $field.html() != notmoveVal ){
+			$field.html(notmoveVal+"분");	
+		}
+		DeivceSettingInfo.sharedInfo().setNotmove(notmoveVal);
+		window.Wellness.hideLayerPopup();
+		});
+	
+
+	var $displayButton = $(".setting_list .sst_display");
+	var displayType = $displayButton.attr("data-type");
+	var selectType = displayType;
+	var isChanged = false;
+
+	$(".display_field").on("click", function(){
+		window.Wellness.showLayerPopup("pop_display");
+	});
+
+	$("#pop_display").on("click", "li", function(){
+		$(this).addClass("on").siblings().removeClass("on");
+		selectType = $(this).attr("data-type");
+	});
+
+	$("#pop_display").on("click", ".btn_bl", function(){
+		if(displayType != selectType){
+			$displayButton.removeClass("type1 type2 type3 type4 type5");
+			$displayButton.addClass(selectType);
+			$displayButton.attr("data-type", selectType);
+			
+			isChanged = true;
+		}
+
+		displayType = selectType;
+		window.Wellness.hideLayerPopup();
+
+		if (isChanged == true) {
+			var displayTypeNum = selectType.replace('type', '') - 1;
+			
+			M.execute("exWN2PluginFitDisplayTypeSet", {
+				uiType: displayTypeNum
+			});
+			debug.log("click :displayTypeNum", displayTypeNum);
+			DeivceSettingInfo.sharedInfo().setUiType(displayTypeNum+1);
+		}
+	});
+	
+	//방해금지시간 클릭. neh
+	$("#interruptTime").instance("Switch").bind("uiswitchchange", function() {
+		var isOn = this.getChecked() === true ? true : false;
+		var flag = '';
+		console.log("isOn : " + isOn);
+		console.log("interruptOn : " + M.data.storage("InterruptOn"));
+		if ( isOn == true ) {  //on
+			M.data.storage("InterruptOn", "Y");
+			flag = "Y";
+		}else {  					 //off
+			M.data.storage("InterruptOn", "N");
+			flag = "N";
+		}
+
+		M.execute("exWN2PluginFitDisturbSet", {
+            index: 0,
+            type: '',
+            enabled: flag,
+            stime: M.data.storage("InterruptStime") || "00:00",
+            etime: M.data.storage("InterruptEtime") || "00:00",
+            callback:function( result ) {
+            }
+        });
+
+        
+		DeivceSettingInfo.sharedInfo().setDateDisPlay(isOn);
+		console.log("디바이스세팅인포는 무엇일까?");
+		console.log(DeivceSettingInfo);
+	});
+
+	
+	//시계보기방향 클릭.
+	$("#vertical_display").instance("Switch").bind("uiswitchchange", function() {
+		var isOn = this.getChecked() === true ? true : false;
+		M.execute("exWN2PluginFitVerticalDisplaySet", {
+			isOn: isOn
+		});
+		//가로모드가 3
+		if ( isOn === false ) {
+			$("#date_display").instance("Switch").enable();
+			$("#screen_change").instance("Switch").enable();
+			 DeivceSettingInfo.sharedInfo().setDirection(3);
+			 debug.log('vertical_display isOn false?', isOn) ;
+		}
+		//세로모드
+		//날짜표시 disable
+		//화면회전 enable
+		else {
+			$("#date_display").instance("Switch").disable();
+			$("#screen_change").instance("Switch").enable();
+			DeivceSettingInfo.sharedInfo().setDirection(1); 
+			 debug.log('vertical_display isOn true?', isOn) ;
+		}
+	});
+	//날짜표시정보 클릭.
+	$("#date_display").instance("Switch").bind("uiswitchchange", function() {
+		var isOn = this.getChecked() === true ? true : false;
+		
+		M.execute("exWN2PluginFitDateDisplaySet", {
+			isOn: isOn
+		});
+		DeivceSettingInfo.sharedInfo().setDateDisPlay(isOn);
+		console.log(")))))))))");
+		console.log(DeivceSettingInfo);
+	});
+	
+	$("#screen_change").instance("Switch").bind("uiswitchchange", function() {
+		var isOn = this.getChecked() === true ? true : false;
+		
+		M.execute("exWN2PluginFitScreenChangeSet", {
+			isOn: isOn
+		});
+		DeivceSettingInfo.sharedInfo().setScreenChange(isOn);
+	});
+	
+	$("#notification_setting").on("click", function() {		
+		var $t = $(this);
+		
+		setTimeout(function() {
+			M.execute("exWN2PluginFitNotificationSetting", {});
+		}, 250);
+	});
+
+	//테스트용
+	if(testTrueFalse=='Y'){	
+		$("#fitTestDiv").show();
+		$("#fitTestFirmWareDiv").show();
+		/*  var popupController = PopupController.sharedInstance();
+		popupController.showIndicator();
+	 	$("#fitTest").on("click", function() {		
+	
+			debug.log('###!!!!fitTest!!!!###');
+			var h =M.execute("wn2PluginFitTest", {
+				callback: M.response.on( function( result ) {
+					
+				}).toString()
+			});
+			debug.log('fitTest return object', h);
+			debug.log('fitTest return json', JSON.stringify(h));
+			popupController.toast(JSON.stringify(h));
+			popupController.hideIndicator();
+				
+		}); */
+
+		//테스트용
+ 		//var popupController = PopupController.sharedInstance();
+ 		//popupController.showIndicator();
+		$("#fitTestFirmWare").on("click", function() {		
+	
+		alert("펌웨어 업데이트는 준비중입니다.");
+
+
+			/*
+			
+			
+			debug.log('###!!!!fitTestFirmWare!!!!###');
+		
+			M.page.html("mh_06_002.html", {action:"NEW_SRC", animation:"NONE"});
+			
+			
+			*/ 
+		});
+	}
+});
+
+</script>
+	
+<!-- M-API -->
+<script type="text/javascript">
+//여기는 두번째 
+M.onReady(function(e) {
+	console.log("onReady");
+	Wellness.hideLayerPopup("loading_pop");	
+
+	if( M.data.storage("InterruptOn") == "Y" ){  //neh
+		$("#interruptTime").instance("Switch").on(false, true);
+	}else if( M.data.storage("InterruptOn") == "N" ){
+		$("#interruptTime").instance("Switch").off(false, true);
+	}
+	
+	var	
+	Class = UI.Class,
+	DeivceSettingInfo = Class.DeivceSettingInfo;
+
+	console.log("TEST : "+M.data.storage("InterruptOn") );
+
+
+		$("#li_interrupt").click(function(){   //neh
+			if( M.data.storage("InterruptOn") == "Y"  ) {
+				M.page.html("setting.disturb.html");
+			}
+		});
+	
+	
+	//시계보기 방향 셋팅.
+	var direction =  DeivceSettingInfo.sharedInfo().getDirection();
+	debug.log("##direction", direction);
+	var switchBtn = $("#vertical_display").instance("Switch");
+	if (direction == 3) { //가로모드
+		$("#screen_change").instance("Switch").enable();
+		$("#date_display").instance("Switch").enable();
+		switchBtn.off(false, true);
+	}
+	else {
+		switchBtn.on(false, true); //세로모드
+		$("#screen_change").instance("Switch").enable();
+		$("#date_display").instance("Switch").disable();
+	}
+
+	//날짜표시정보 셋팅
+	var date  = DeivceSettingInfo.sharedInfo().getDateDisPlay();
+	var uiType = DeivceSettingInfo.sharedInfo().getUiType();
+
+	debug.log("##date", date);
+	debug.log("##uiType", uiType);
+	
+	var switchBtn = $("#date_display").instance("Switch");
+
+	if (date == 0) {
+		switchBtn.off(false, true);
+	}
+	else {
+		switchBtn.on(false, true);
+	}
+	
+	var $displayButton = $(".setting_list .sst_display");
+	$displayButton.removeClass("type1 type2 type3 type4 type5");
+	var strType = 'type'+uiType;
+	$displayButton.addClass(strType);
+	$("#pop_display [data-type='"+strType+"']").addClass("on").siblings().removeClass("on");
+	$displayButton.attr("data-type", 'type'+uiType);
+
+	//화면회전 방향 셋팅.
+	var flip = DeivceSettingInfo.sharedInfo().getScreenChange();
+
+	debug.log("##flip", flip);
+	var switchBtn = $("#screen_change").instance("Switch");
+	//debug.log($("#screen_change").instance("Switch")$("#screen_change").instance("Switch").getChecked());
+	if (flip == 0) {
+		switchBtn.off(false, true);
+	}
+	else {
+		switchBtn.on(false, true);
+	}
+
+	//무반응알림.
+	var notmoveVal = DeivceSettingInfo.sharedInfo().getNotmove();
+	debug.log("##notmoveVal", notmoveVal);
+	var $field = $(".notmove_field .sst_2");
+	if (notmoveVal == 0) {
+		notmoveVal = "미설정";
+	}
+	if( $field.html() != notmoveVal ){
+		$field.html(notmoveVal+"분");	
+	}	
+	
+	$("#pop_notmove [data-val='"+notmoveVal+"']").addClass("on").siblings().removeClass("on"); 
+	$("#prev_dateMenu").addClass("dn");
+});
+
+</script>
+<!-- //M-API -->
+
+</html>

@@ -1,0 +1,1730 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-touch-fullscreen" content="yes" />
+	<link rel="stylesheet" type="text/css" href="../css/common.css" />
+    <script type="text/javascript" src="../js/mcore.min.js"></script>
+</head>
+
+<body>
+	<!-- wrap -->
+	<div id="wrap">
+
+        <!-- header-->
+        <div class="header">
+            <h1 role="date-today"><script>document.write(FitManager.defaultManager().targetDateFormat("YYYY.MM.DD KWW"))</script></h1>
+            <div class="btn_left" id="setting-button"><a nohref data-command="move.setting" auto-command class="btn_setting on"><span>설정</span></a></div>
+            <div class="btn_right" role="list"><a nohref class="btn_menu"><span>목록</span></a></div>
+            <div id="current_sync_btn" class="btn_right right2" role="refresh"><a nohref class="btn_refresh"><span>새로고침</span></a></div>
+            <!-- 이전 데이터 가져오기 버튼 -->
+            <!-- <div class="btn_right right2" role="data"><a nohref class="btn_data"><span>이전데이터 가져오기</span></a></div> -->
+        </div>
+        <!-- /header-->
+    
+		<!--추가 menu-->
+		<section id="menu"></section>
+		<!--/ 추가 menu-->
+
+        <!-- 추가 container-->
+        <div class="alert try dn">
+            <div class="try">            
+                <div class="bar" style="width:0%;">bar</div>
+                <div class="m-loadingspinner m-loadingspinner-xs m-loadingspinner-gray">
+                    <div class="m-spn m-spinner-icon m-draw2"></div>
+                </div>
+                <span id="sync-message">동기화 중입니다.</span>
+            </div>
+             <div class="retry">     
+                <span>동기화가 완료되지 않았습니다.</span>
+                <button data-command="dashboard.sync.retry" bind-command >재시도</button>
+            </div>
+        </div>
+
+        <div class="container main">
+
+            <!-- content-->
+            <div class="contents" role="main-container"></div>
+            <!--// contents -->
+    
+            <!-- layer(dimd) -->
+            <div close-gnb class="layer dn"></div>
+            <!--// layer(dimd) -->
+	
+            <div class="pop_bg dn" data-pop-wrap close-gnb>
+                <div class="popup_wrap loading_pop" id="loading_pop">
+                    <div class="pop_txtw">
+                        <div data-instacne="" class="m-loadingspinner m-loadingspinner-sm m-loadingspinner-gray"><div class="m-spn m-spinner-icon m-draw2"></div></div>
+                        <div class="p_txt_bold dn" id="loading-message"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!--// container -->
+        
+	</div>
+	<!--// wrap -->
+
+</body>
+
+<script type="text/x-template" id="dashboard-main-list">
+<div class="set_cont">
+    <!-- 목표-->
+    <div class="mlist_box">
+        <a nohref data-command="move.user.mypage.setting" auto-command data-action="NEW_SRC" data-params="tab-link=mypage.goal">
+            <div class="ic_left">
+                <span class="ic_bu1"></span>
+                <span class="ic_text1">목표</span>
+            </div>
+            <div class="info_text {{ready_goal_info}}">
+                <span class="point9 ready">불러오는 중...</span>
+                <div class="done">
+                    <span class="point1" role="goal_weight">{{goal_weight}}Kg </span>
+                    <span class="stxt">{{goal_weight_type}}</span>
+                </div>
+            </div>
+        </a>
+    </div>
+    <!-- /목표-->
+
+    <!-- 걸음-->
+    <div class="mlist_box">
+        <a nohref data-command="move.dashboard.step.weekly" auto-command data-action="NEW_SRC">
+            <div class="ic_left">
+                <span class="ic_bu2"></span>
+                <span class="ic_text2">걸음</span>
+            </div>
+            <div class="info_text">
+                <span class="point2" role="today_step">{{today_step}}</span> <span class="stxt">step</span>
+            </div>
+        </a>
+    </div>
+    <!-- /걸음-->
+
+    <!-- 이동거리-->
+    <div class="mlist_box">
+        <a nohref data-command="move.dashboard.distance.weekly" auto-command data-action="NEW_SRC">
+            <div class="ic_left">
+                <span class="ic_bu3"></span>
+                <span class="ic_text3">이동거리</span>
+            </div>
+            <div class="info_text">
+                <span class="point3" role="today_distance">{{today_distance}}</span> <span class="stxt">m</span>
+            </div>
+        </a>
+    </div>
+    <!-- /이동거리-->
+
+    <!-- 칼로리-->
+    <div class="mlist_box">
+        <a nohref data-command="move.dashboard.burn.today" auto-command data-action="NEW_SRC">
+            <div class="ic_left">
+                <span class="ic_bu4"></span>
+                <span class="ic_text4">칼로리</span>
+            </div>
+            <div class="info_text">
+                <span class="point4" role="today_burn">{{today_burn}}</span> <span class="stxt">kcal 소모</span>
+            </div>
+        </a>
+    </div>
+    <!-- /칼로리-->
+
+    <!-- 수면시간-->
+    <div class="mlist_box {{device_noexist}}">
+        <a nohref data-command="move.dashboard.sleep.today" auto-command data-action="NEW_SRC">
+            <div class="ic_left">
+                <span class="ic_bu5"></span>
+                <span class="ic_text5">수면시간</span>
+            </div>
+            <div class="info_text {{ready_sleep_info}}" id="sleepInfoText">
+                <span class="point9 ready" id="span_come">계산하는 중...</span>
+                <div class="done">
+                    <span class="point5" role="sleep_hour">{{sleep_hour}}</span> <span class="stxt">hour</span> <span class="point5" role="sleep_minute">{{sleep_minute}}</span><span class="stxt">min / </span>
+                    <span class="point5-1" role="sleep_status">{{sleep_status}}</span>
+                </div>
+            </div>
+            <div class="info_text ready" id="sleepInfoTextNone">
+            	<span class="point9 ready">어제의 수면데이터가 없습니다.</span>
+            </div>
+        </a>
+    </div>
+    <!-- /수면시간-->
+
+    <!-- 리본사용자 메세지 -->
+    <div class="blpr_notice {{rebon_first_notice_noexist}}">
+        <div class="ic_notic"></div>
+        <ul class="prt hjt">
+            <li {{rebon_first_autolink}} data-link="{{rebon_first_link}}" data-action="NEW_SRC">{{rebon_first_notice}}</li>
+            <li class="{{rebon_second_notice_noexist}}"><span class="sd_bar"></span></li>
+            <li {{rebon_second_autolink}} data-link="{{rebon_second_link}}" data-action="NEW_SRC" class="{{rebon_second_notice_noexist}}">{{rebon_second_notice}}</li>
+        </ul>
+    </div>
+    <!-- // 리본사용자 메세지 -->
+</div>
+</script>
+
+<script type="text/x-template" id="dashboard-main-complete">
+
+<!-- 목표달성 -->
+<div class="mrd_box">
+    <a nohref auto-link data-link="user.mypage.html" data-action="NEW_SRC" data-params="tab-link=mypage.goal">
+        <span class="ic_bu1"></span>
+        <span class="ic_text1" role="goal_weight">
+            <span class="{{goal_weight_noexist}}">{{goal_weight}}Kg </span>{{goal_weight_type}}
+        </span>
+    </a>
+</div>
+<!-- /목표달성 -->
+
+<!-- 정보 -->
+<div class="mlist_box2">
+    <p class="mb_ttt1">운동 목표달성</p>
+    <p class="mb_ttt2">목표 {{goal_step}}걸음</p>
+    <ul class="mb_ttt3">
+        <li>
+            <div class="mbic_w">
+                <a nohref auto-link data-link="dashboard.step.weekly.html" data-action="NEW_SRC">
+                    <span class="ic_bu2"></span>
+                    <span class="ic_text_et">{{over_goal_step}} step<br/>추가달성</span>
+                </a>
+            </div>
+        </li>
+        <li>
+            <div class="mbic_w">
+                <a nohref auto-link data-link="dashboard.burn.weekly.html" data-action="NEW_SRC">
+                    <span class="ic_bu4"></span>
+                    <span class="ic_text_et">{{today_burn}} kcal<br/>소모</span>
+                </a>
+            </div>
+        </li>
+        <li>
+            <div class="mbic_w">
+                <a nohref auto-link data-link="dashboard.distance.weekly.html" data-action="NEW_SRC">
+                    <span class="ic_bu3"></span>
+                    <span class="ic_text_et">{{today_distance}} m<br/>이동</span>
+                </a>
+            </div>
+        </li>
+    </ul>
+</div> 
+<!-- /정보 -->
+
+<!-- 수면 -->
+<div class="mrd_box secd {{device_noexist}}">
+    <a nohref auto-link data-link="dashboard.sleep.today.html" data-action="NEW_SRC" class="{{ready_sleep_info}}">
+        <div class="done" id="sleepGoalInfoText">
+            <span class="ic_bu5"></span>
+            <span class="ic_text5">{{sleep_result}}</span>
+        </div>
+        <span class="point9 ready" id="sleepGoalInfoTextIng">계산하는 중</span>
+ 		<span class="point9 ready" id="sleepGoalInfoTextNone">어제의 수면데이터가 없습니다.</span>
+    </a>
+</div>
+<!-- /수면 -->
+
+<!-- 리본사용자 메세지 -->
+<div class="blpr_notice {{rebon_first_notice_noexist}}">
+    <div class="ic_notic"></div>
+    <ul class="prt hjt">
+        <li {{rebon_first_autolink}} data-link="{{rebon_first_link}}" data-action="NEW_SRC">{{rebon_first_notice}}</li>
+        <li class="{{rebon_second_notice_noexist}}"><span class="sd_bar"></span></li>
+        <li {{rebon_second_autolink}} data-link="{{rebon_second_link}}" data-action="NEW_SRC" class="{{rebon_second_notice_noexist}}">{{rebon_second_notice}}</li>
+    </ul>
+</div>
+<!-- // 리본사용자 메세지 -->
+
+</script>
+
+<!-- 화면 스크립트 -->
+<script type="text/javascript">
+
+
+var isFirstExecute = false,
+	sleep_status = '',
+	sleep_hour = '',
+	sleep_minute = '';
+
+var flag = "A";// did_t 일때 didload거치는것,  아닐때는 didload를 거치지 않는것  
+
+
+$(document.body).bind("didLoad", function() {
+	
+	/* 
+	밴드 페어 아니하고도, 진입 가능하므로, 이 코드는 삭제한다.
+	
+	M.data.global("paired", "Y" );
+	 */
+	debug.log('didLoad!!!!!!!!!!!!!!!!!!!!');
+	flag = "L"; 
+    var 
+    controller = MainController.sharedInstance(), 
+    popupController = PopupController.sharedInstance(), 
+    fitManager = controller.fitManager(),
+    macro = controller.macro(),
+    Class = UI.Class,
+    DeivceSettingInfo = Class.DeivceSettingInfo;
+
+	M.data.global("CONNECT_PAGE", "N");
+    M.data.storage( "user_key",   fitManager.userInfo().userKey());
+    M.data.storage( "auth_token", fitManager.userInfo().authToken());
+    $(".btn_setting").removeClass("on");
+    macro.register("fit.connect", function() {
+        var commandObject = this;
+        var force = true;
+
+       /*  popupController.setIndicatorMessage("디바이스 연결중..."); */
+
+        fitManager.connect( function( result ) {
+            if ( result.error ) {
+                
+                debug.log("hyjeon","밴드 연결이 실패하였습니다.");
+                popupController.hideIndicator();
+
+                macro.cancel( function() {
+
+                	controller.execute("fit.sleep.get",{},{
+        	            showIndicator:false,
+        	            callback: function( event ) { 
+        	                if ( event.error ) {
+        	                    return;
+        	                }
+        	 			var result = event.result;
+        	 			
+        	 			console.log(result);
+        	 			
+        	 			if(result == null || result == '' || result.quality == null || result.quality == ''){
+        	 				sleep_status = 'none'; 
+        	 			} else {
+        	 				sleep_status = result.quality;
+        	 				sleep_hour = result.hour;
+        	 				sleep_minute = result.minute;
+        	 			}
+        	 			
+        	             
+        	            }
+        	        }); 
+        	        
+                	fitManager.info().data({
+                        "current_calorie": M.data.storage("CALORIE"),
+                        "current_distance": M.data.storage("DISTANCE"),
+                        "current_step": M.data.storage("STEP"),
+                        "goal_step": M.data.storage("goal_step")
+                    });
+
+    				controller.profileInfo().data({
+    					"body_weight": M.data.storage("BODY_WEIGHT"),
+    					"body_height": M.data.storage("BODY_HEIGHT"),
+    					"age": M.data.storage("AGE"),
+    					"gender": M.data.storage("GENDER")
+    				});
+    				
+    				M.data.global("paired", "N" );
+
+
+    				$(".btn_setting").addClass("on");
+
+    				macro.execute( "dashboard.load", "connect.disconnected" );
+                });
+
+                return;
+            }
+
+
+            commandObject.complete();
+        }, force);
+
+    });
+
+
+    
+    
+    macro.register("fit.dailyStep", function() {
+        var commandObject = this;
+
+        popupController.setIndicatorMessage("디바이스 정보 추출중...");
+
+        M.fit.dailyStep.get(function( result ) {
+            if ( result.error ) {
+                popupController.toast( result.error );
+
+                if ( ! macro.isProgressing() ) {
+                    return;
+                }
+                
+                fitManager.unpair( function() {} );
+                
+                macro.cancel( function() {
+                    popupController.confirm(
+                        "Band 에 연결 할 수 없습니다.\n다시 시도하시겠습니까", 
+                        ["취소", "다시 시도"],
+                        function( buttonIndex ) {
+                            if ( buttonIndex === 1 ) {
+                                macro.execute( "dashboard.load", "connect.retry" );
+                            }
+                            else {
+                                macro.execute( "dashboard.load", "connect.disconnected" );
+                            }
+                        }
+                    );
+                });
+                return;
+            }
+
+            $(".btn_setting").removeClass("on");
+         
+            fitManager.info().data({
+                "goal_step": result.step
+            });
+
+            M.data.storage( "goal_step",  result.step);
+
+            commandObject.complete();
+        });
+    });
+
+    macro.register("fit.sleepTime", function() {
+        var commandObject = this;
+
+        popupController.setIndicatorMessage("수면시간 가져오는 중...");
+
+        M.fit.sleepTime.get(function( result ) {
+            if ( result.error ) {
+
+                popupController.toast( result.error );
+
+                if ( ! macro.isProgressing() ) {
+                    return;
+                }
+
+                fitManager.unpair( function() {} );
+                
+                macro.cancel( function() {
+                    popupController.confirm(
+                        "Band 에 연결 할 수 없습니다.\n다시 시도하시겠습니까", 
+                        ["취소", "다시 시도"],
+                        function( buttonIndex ) {
+                            if ( buttonIndex === 1 ) {
+                                macro.execute( "dashboard.load", "connect.retry" );
+                            }
+                            else {
+                                macro.execute( "dashboard.load", "connect.disconnected" );
+                            }
+                        }
+                    );
+                });
+                return;
+            }
+
+            $(".btn_setting").removeClass("on");
+
+            controller.deviceInfo().data({
+                "sleep_start": result.start,
+                "sleep_end": result.end
+            });
+
+            M.data.storage( "sleep_start",  result.start+"-"+result.end);
+            
+            commandObject.complete();
+        });
+    });
+
+    macro.register("fit.profile", function() {
+        var commandObject = this;
+
+        popupController.setIndicatorMessage("프로필 정보 가져오는 중...");
+
+        M.fit.profile.get(function( result ) {
+            if ( result.error ) {
+
+                popupController.toast( result.error );
+
+                if ( ! macro.isProgressing() ) {
+                    return;
+                }
+
+                fitManager.unpair( function() {} );
+                
+                macro.cancel( function() {
+                    popupController.confirm(
+                        "Band 에 연결 할 수 없습니다.\n다시 시도하시겠습니까", 
+                        ["취소", "다시 시도"],
+                        function( buttonIndex ) {
+                            if ( buttonIndex === 1 ) {
+                                macro.execute( "dashboard.load", "connect.retry" );
+                            }
+                            else {
+                                macro.execute( "dashboard.load", "connect.disconnected" );
+                            }
+                        }
+                    );
+                });
+                return;
+            }
+
+            $(".btn_setting").removeClass("on");
+
+            controller.profileInfo().data({
+                "body_weight": result.weight + "KG",
+                "body_height": result.height + "CM",
+                "age": result.age,
+                "gender": result.gender == "male" ? "M" : "F"
+            });
+
+            M.data.storage("BODY_WEIGHT", result.weight + "KG");
+            M.data.storage("BODY_HEIGHT", result.height + "CM");
+            M.data.storage("AGE", result.age);
+            M.data.storage("GENDER", result.gender == "male" ? "M" : "F");
+
+            commandObject.complete();
+        });
+    });
+
+    macro.register("fit.set.clock", function() {
+        var commandObject = this;
+
+        popupController.setIndicatorMessage("현재시간 설정 중...");
+
+        M.fit.clock.set({
+            datetime:"NOW",
+            callback: function( result ) {
+                
+                if ( result.error ) {
+
+                    popupController.toast( result.error );
+
+                    if ( ! macro.isProgressing() ) {
+                        return;
+                    }
+
+                    fitManager.unpair( function() {} );
+                    
+                    macro.cancel( function() {
+                        popupController.confirm(
+                            "Band 에 연결 할 수 없습니다.\n다시 시도하시겠습니까", 
+                            ["취소", "다시 시도"],
+                            function( buttonIndex ) {
+                                if ( buttonIndex === 1 ) {
+                                    macro.execute( "dashboard.load", "connect.retry" );
+                                }
+                                else {
+                                    macro.execute( "dashboard.load", "connect.disconnected" );
+                                }
+                            }
+                        );
+                    });
+
+                    return;
+                }
+                
+                $(".btn_setting").removeClass("on");
+
+                commandObject.complete();
+            }
+        });
+    });
+
+    macro.register("fit.current", function() {
+        var commandObject = this;
+
+        popupController.setIndicatorMessage("현재 정보 가져오는 중...");
+
+        M.fit.current(function( result ) {
+            if ( result.error ) {
+
+                popupController.toast( result.error );
+
+                if ( ! macro.isProgressing() ) {
+                    return;
+                }
+
+                fitManager.unpair( function() {} );
+                
+                macro.cancel( function() {
+                    popupController.confirm(
+                        "Band 에 연결 할 수 없습니다.\n다시 시도하시겠습니까", 
+                        ["취소", "다시 시도"],
+                        function( buttonIndex ) {
+                            if ( buttonIndex === 1 ) {
+                                macro.execute( "dashboard.load", "connect.retry" );
+                            }
+                            else {
+                                macro.execute( "dashboard.load", "connect.disconnected" );
+                            }
+                        }
+                    );
+                });
+
+                return;
+            }
+                
+            $(".btn_setting").removeClass("on");
+
+            fitManager.info().data({
+                "current_calorie": result.calorie,
+                "current_distance": result.distance,
+                "current_step": result.step
+            });
+
+            M.data.storage("CALORIE", result.calorie);
+            M.data.storage("DISTANCE", result.distance);
+            M.data.storage("STEP", result.step);
+            
+	            var dateObj = new Date();
+				var year = dateObj.getFullYear();
+				var month = dateObj.getMonth()+1;
+				var day = dateObj.getDate();
+			
+            M.data.storage("SYNC_DATE", year+"-"+month+"-"+day);
+			
+            commandObject.complete();
+        });
+    });
+
+
+
+    macro.register("fit.current.refresh", function() {
+        var commandObject = this;
+
+        /* popupController.setIndicatorMessage("현재 정보 가져오는 중..."); */
+
+        M.fit.current(function( result ) {
+            if ( result.error ) {
+
+                popupController.toast( result.error );
+
+                if ( ! macro.isProgressing() ) {
+                    return;
+                }
+
+                fitManager.unpair( function() {} );
+                
+                macro.cancel( function() {
+                    popupController.confirm(
+                        "Band 에 연결 할 수 없습니다.\n다시 시도하시겠습니까", 
+                        ["취소", "다시 시도"],
+                        function( buttonIndex ) {
+                            if ( buttonIndex === 1 ) {
+                                macro.execute( "dashboard.load", "connect.retry" );
+                            }
+                            else {
+                                macro.execute( "dashboard.load", "connect.disconnected" );
+                            }
+                        }
+                    );
+                });
+
+                return;
+            }
+                
+            $(".btn_setting").removeClass("on");
+
+            fitManager.info().data({
+                "current_calorie": result.calorie,
+                "current_distance": result.distance,
+                "current_step": result.step
+            });
+
+            M.data.storage("CALORIE", result.calorie);
+            M.data.storage("DISTANCE", result.distance);
+            M.data.storage("STEP", result.step);
+            
+	            var dateObj = new Date();
+				var year = dateObj.getFullYear();
+				var month = dateObj.getMonth()+1;
+				var day = dateObj.getDate();
+			
+            M.data.storage("SYNC_DATE", year+"-"+month+"-"+day);
+			
+            commandObject.complete();
+        });
+    });
+    
+
+    macro.register("get.display.vertical", function() {
+		var self = this;
+
+		popupController.setIndicatorMessage("시계보기 방향 가져오는 중...");
+
+		M.execute("exWN2PluginFitVerticalClockGet", {
+			callback: M.response.on( function( result ) {
+				console.log(JSON.stringify(result));
+
+				if ( result.error ) {
+
+	                popupController.toast( result.error );
+
+	                if ( ! macro.isProgressing() ) {
+	                    return;
+	                }
+
+	                fitManager.unpair( function() {} );
+	                
+	                macro.cancel( function() {
+	                    popupController.confirm(
+	                        "Band 에 연결 할 수 없습니다.\n다시 시도하시겠습니까", 
+	                        ["취소", "다시 시도"],
+	                        function( buttonIndex ) {
+	                            if ( buttonIndex === 1 ) {
+	                                macro.execute( "dashboard.load", "connect.retry" );
+	                            }
+	                            else {
+	                                macro.execute( "dashboard.load", "connect.disconnected" );
+	                            }
+	                        }
+	                    );
+	                });
+
+	                return;
+	            }
+	                
+	            $(".btn_setting").removeClass("on");
+				
+				if (result.status == 'SUCCESS') {
+					var direction = result.direction;
+
+	                DeivceSettingInfo.sharedInfo().setDirection(direction);
+				}
+				self.complete();
+			}).toString()
+		});
+	});
+
+    macro.register("get.display.date", function() {
+    	var self = this;
+    	popupController.setIndicatorMessage("날짜표시 정보 가져오는 중...");
+
+		M.execute("exWN2PluginFitSettingValueGet", {
+			callback: M.response.on( function( result ) {
+				console.log(JSON.stringify(result));
+
+				if ( result.error ) {
+
+	                popupController.toast( result.error );
+
+	                if ( ! macro.isProgressing() ) {
+	                    return;
+	                }
+
+	                fitManager.unpair( function() {} );
+	                
+	                macro.cancel( function() {
+	                    popupController.confirm(
+	                        "Band 에 연결 할 수 없습니다.\n다시 시도하시겠습니까", 
+	                        ["취소", "다시 시도"],
+	                        function( buttonIndex ) {
+	                            if ( buttonIndex === 1 ) {
+	                                macro.execute( "dashboard.load", "connect.retry" );
+	                            }
+	                            else {
+	                                macro.execute( "dashboard.load", "connect.disconnected" );
+	                            }
+	                        }
+	                    );
+	                });
+
+	                return;
+	            }
+	                
+	            $(".btn_setting").removeClass("on");
+				if (result.status == 'SUCCESS') {
+					var date = result.date;
+					var uiType = result.uiType+1;
+					DeivceSettingInfo.sharedInfo().setDateDisPlay(date);
+					DeivceSettingInfo.sharedInfo().setUiType(uiType);
+				}	
+
+				self.complete();
+			}).toString()
+		});
+	});
+
+	macro.register("get.display.orientation", function() {
+		var self = this;
+
+		popupController.setIndicatorMessage("화면회전 방향 가져오는 중...");
+
+		M.execute("exWN2PluginFitScreenChangeGet", {
+			callback: M.response.on( function( result ) {
+				console.log(JSON.stringify(result));
+
+				if ( result.error ) {
+
+	                popupController.toast( result.error );
+
+	                if ( ! macro.isProgressing() ) {
+	                    return;
+	                }
+
+	                fitManager.unpair( function() {} );
+	                
+	                macro.cancel( function() {
+	                    popupController.confirm(
+	                        "Band 에 연결 할 수 없습니다.\n다시 시도하시겠습니까", 
+	                        ["취소", "다시 시도"],
+	                        function( buttonIndex ) {
+	                            if ( buttonIndex === 1 ) {
+	                                macro.execute( "dashboard.load", "connect.retry" );
+	                            }
+	                            else {
+	                                macro.execute( "dashboard.load", "connect.disconnected" );
+	                            }
+	                        }
+	                    );
+	                });
+
+	                return;
+	            }
+	                
+	            $(".btn_setting").removeClass("on");
+	            
+				if (result.status == 'SUCCESS') {
+					var flip = result.flip;
+				    DeivceSettingInfo.sharedInfo().setScreenChange(flip);
+					console.log('exWN2PluginFitScreenChangeGet' ,DeivceSettingInfo.sharedInfo().getScreenChange());
+				}	
+				
+				self.complete();
+			}).toString()
+		});
+	});
+	
+	macro.register("get.reminder.sedentary", function() {
+		var self = this;
+
+		popupController.setIndicatorMessage("무반응 알림 가져오는 중...");
+		
+		M.fit.reminder.get({
+			callback: function( result ) {
+				console.log(JSON.stringify(result));
+				if (result.status == 'SUCCESS') {
+
+					if ( result.error ) {
+
+		                popupController.toast( result.error );
+
+		                if ( ! macro.isProgressing() ) {
+		                    return;
+		                }
+
+		                fitManager.unpair( function() {} );
+		                
+		                macro.cancel( function() {
+		                    popupController.confirm(
+		                        "Band 에 연결 할 수 없습니다.\n다시 시도하시겠습니까", 
+		                        ["취소", "다시 시도"],
+		                        function( buttonIndex ) {
+		                            if ( buttonIndex === 1 ) {
+		                                macro.execute( "dashboard.load", "connect.retry" );
+		                            }
+		                            else {
+		                                macro.execute( "dashboard.load", "connect.disconnected" );
+		                            }
+		                        }
+		                    );
+		                });
+
+		                return;
+		            }
+		                
+		            $(".btn_setting").removeClass("on");
+					var notmoveVal = result.data;
+					DeivceSettingInfo.sharedInfo().setNotmove(notmoveVal);
+				}	
+				
+				self.complete();
+			}
+        });
+	});
+
+
+    
+    // not macro command
+    macro.register("fit.dashboard.reload", function() {
+        /* popupController.setIndicatorMessage("Dashboard 가져오는 중..."); */
+        
+        controller.execute("fit.dashboard.summary", { start: fitManager.startDate(), end: fitManager.endDate() }, {
+            showIndicator: false,
+            callback: function( event ) {
+
+                if ( event.error ) {
+                    popupController.toast( event.error );
+                    popupController.confirm(
+                        "데이타를 가져올 수 없습니다.\n다시 시도하시겠습니까", 
+                        ["취소", "다시 시도"],
+                        function( buttonIndex ) {
+                            if ( buttonIndex === 1 ) {
+                                controller.retry( event );
+                            }
+                        }
+                    );
+
+                    return;
+                }
+
+                macro.execute( "fit.show.dashboard", {} );
+            }
+        });
+    });
+
+    macro.register("fit.dashboard.load", function() {
+        var commandObject = this;
+
+        /* popupController.setIndicatorMessage("Dashboard 가져오는 중..."); */
+        
+        controller.execute("fit.dashboard.summary", { start: fitManager.startDate(), end: fitManager.endDate() }, {
+            showIndicator: false,
+            callback: function( event ) {
+
+                if ( event.error ) {
+                    popupController.toast( event.error );
+
+                    if ( ! macro.isProgressing() ) {
+                        return;
+                    }
+
+                    popupController.confirm(
+                        "데이타를 가져올 수 없습니다.\n다시 시도하시겠습니까", 
+                        ["취소", "다시 시도"],
+                        function( buttonIndex ) {
+                            if ( buttonIndex === 1 ) {
+                                controller.retry( event );
+                            }
+                            else {
+                                macro.cancel( function() {
+                                    macro.execute( "dashboard.load", "connect.disconnected" );
+                                });
+                            }
+                        }
+                    );
+
+                    return;
+                }
+                    
+                commandObject.complete();
+            }
+        });
+    });
+
+    macro.register("fit.dashboard.rebon.load", function() {
+        var commandObject = this;
+
+        if ( ! controller.userInfo().isRebonUser() ) {
+            commandObject.complete();
+            return;
+        }
+
+        popupController.setIndicatorMessage("Dashboard 가져오는 중...");
+        
+        controller.execute("fit.dashboard.rebon", {}, {
+            showIndicator: false,
+            callback: function( event ) {
+
+                if ( event.error ) {
+                    popupController.toast( event.error );
+
+                    if ( ! macro.isProgressing() ) {
+                        return;
+                    }
+                    
+                    popupController.confirm(
+                        "데이타를 가져올 수 없습니다.\n다시 시도하시겠습니까", 
+                        ["취소", "다시 시도"],
+                        function( buttonIndex ) {
+                            if ( buttonIndex === 1 ) {
+                                controller.retry( event );
+                            }
+                            else {
+                                macro.cancel( function() {
+                                    macro.execute( "dashboard.load", "connect.disconnected" );
+                                });
+                            }
+                        }
+                    );
+
+                    return;
+                }
+                    
+                commandObject.complete();
+            }
+        });
+    });
+
+    controller.refreshDashboardData = function( dashboardData ) {
+        var
+        html = "",
+        completeTemplate = UI.Template.parse( $("#dashboard-main-complete").html() ),
+        listTemplate = UI.Template.parse( $("#dashboard-main-list").html() );
+
+        if(sleep_status == 'none'){   //수정수정	
+            dashboardData.ready_sleep_info = 'none';			
+        } else {			
+                dashboardData.ready_sleep_info = 'exist';			
+        dashboardData.sleep_result =  sleep_status + " SLEEP";			
+        dashboardData.sleep_hour = sleep_hour;			
+        dashboardData.sleep_minute =  sleep_minute;			
+        dashboardData.sleep_status = sleep_status;			
+        }
+        
+        if ( fitManager.isGoalCompleted() ) {
+            html = completeTemplate.render( dashboardData );
+        }
+        else {
+            html = listTemplate.render( dashboardData );
+        }
+
+        $("[role='main-container']").html( html );
+		
+		if(dashboardData.ready_sleep_info =='none'){
+			$("#sleepInfoTextNone").show();
+			$("#sleepInfoText").hide();
+			$("#sleepGoalInfoTextNone").show();
+			$("#sleepGoalInfoTextIng").hide();
+			$("#sleepGoalInfoText").hide();
+		}else{
+			$("#sleepInfoTextNone").hide();
+			$("#sleepInfoText").show();
+			$("#sleepGoalInfoTextNone").hide();
+		}
+			
+        controller.view().loadEvent();
+    };
+
+    // it is not macro command
+    macro.register("fit.show.dashboard", function() {
+        var 
+        commandObject = this,
+        dashboardData = fitManager.dashboardData();
+        controller.refreshDashboardData( dashboardData );
+
+        //commandObject.complete();
+
+        return dashboardData;
+    });
+
+    macro.register("motion.current", function() {
+        var commandObject = this;
+
+        popupController.setIndicatorMessage("현재 정보 가져오는 중...");
+
+        M.motion.current(function( result ) {
+            if ( result.error ) {
+
+                popupController.toast( result.error );
+
+                macro.cancel( function() {
+                    popupController.confirm(
+                        "단말기 모션 정보를 가져올 수 없습니다.\n다시 시도하시겠습니까", 
+                        ["취소", "다시 시도"],
+                        function( buttonIndex ) {
+                            if ( buttonIndex === 1 ) {
+                                macro.execute( "dashboard.load", "connect.retry" );
+                            }
+                            else {
+                                macro.execute( "dashboard.load", "connect.disconnected" );
+                            }
+                        }
+                    );
+                });
+
+                return;
+            }
+
+            var currentStep = result.step;
+
+            fitManager.info().data({
+                "current_calorie": fitManager.caloriesBySteps( currentStep ),
+                "current_distance": fitManager.distancesBySteps( currentStep ),
+                "current_step": currentStep
+            });
+
+            commandObject.complete();
+        });
+    });
+
+    macro.register( "show.indicator", function() {
+        var commandObject = this;
+
+        popupController.showIndicator();
+
+        commandObject.complete();
+    });
+
+    macro.register( "hide.indicator", function() {
+        var commandObject = this;
+
+        popupController.hideIndicator();
+
+        commandObject.complete();
+    });
+
+    macro.register( "dashboard.show", function( status ) {
+        var commandObject = this;
+
+        macro.execute( "fit.show.dashboard" );
+
+        commandObject.complete();
+    });
+
+    macro.register("http.sleep.yesterday.view" , function(){   //수정
+		var commandObject = this;
+		
+		/* macro.execute( "http.sleep.yesterday" ); */
+		debug.log("hyjeon"," 어제 수면 시간 , quality 연동 합니다.");
+        //   이부분 -2
+        
+        $("#sleepInfoText").text("계산하는 중...");
+        controller.execute("fit.sleep.get",{},{
+            showIndicator:false,
+            callback: function( event ) { 
+                if ( event.error ) {
+                    return;
+                }
+ 			var result = event.result;
+ 			
+ 			console.log(result);
+ 			
+ 			if(result == null || result == '' || result.quality == null || result.quality == ''){
+ 				sleep_status = 'none'; 
+ 			} else {
+ 				sleep_status = result.quality;
+ 				sleep_hour = result.hour;
+ 				sleep_minute = result.minute;
+ 			}
+ 			
+             
+            }
+        });  
+     
+        commandObject.complete();
+        
+     });    
+
+    
+    macro.register( "dashboard.reload", function( status ) {
+        var commandObject = this;
+
+        macro.execute( "fit.show.dashboard" );
+
+        commandObject.complete();
+    });
+
+    macro.register( "show.update", function() {
+        var commandObject = this;
+
+        $alertBar.css("width", "0%");
+        $alert.removeClass("dn try retry").addClass("try");
+
+        $("#sync-message").text( "동기화 중입니다." );   
+
+        if ($spinIcon.data("startMotion") != true){
+            window.Wellness.startSpinAnimation($spinIcon);
+            $spinIcon.data("startMotion", true);
+        }
+
+        commandObject.complete();
+    });
+
+    // not macro command
+    macro.register( "dashboard.load", function( status ) {
+        
+        if ( macro.isProgressing() ) {
+            console.log( "macro is progressing." );
+            return;
+        }
+
+        if ( ! controller.isAppeared() ) {
+            console.log( "this is disappread." );
+            return;
+        }
+    		macro.clear();
+
+        	debug.log("#############################");
+        	debug.log(controller.fitManager().synchronizeManager().isFirstExecute() + ":" + M.data.global("AUTO_LOGIN"));
+        	debug.log("#############################");
+        	
+        	M.data.storage("USER_CREATED_DATE", fitManager.userInfo().userDateCreated());
+ 
+        	if(M.data.global("AUTO_LOGIN") == "AUTO"){     //자동 로그인
+        		 
+        		var dateObj = new Date();
+ 				var year = dateObj.getFullYear();
+ 				var month = dateObj.getMonth()+1;
+ 				var day = dateObj.getDate();
+ 				
+ 				var current_date = year + "-" + month + "-" + day;
+
+ 				if (M.navigator.os("ios")) {
+ 					fitManager.connect( function( result ) { 
+ 	 					M.execute("ex2PluginWriteBandInit"); 
+ 	 				}, true);
+ 				}
+ 				
+ 				if ( current_date == M.data.storage("SYNC_DATE") ){
+ 					fitManager.info().data({
+ 		                "current_calorie": M.data.storage("CALORIE"),
+ 		                "current_distance": M.data.storage("DISTANCE"),
+ 		                "current_step": M.data.storage("STEP")
+ 		            });
+ 					
+ 					controller.execute("fit.sleep.get",{},{
+ 			            showIndicator:false,
+ 			            callback: function( event ) { 
+ 			                if ( event.error ) {
+ 			                    return;
+ 			                }
+ 			 			var result = event.result;
+ 			 			
+ 			 			console.log(result);
+ 			 			
+ 			 			if(result == null || result == '' || result.quality == null || result.quality == ''){
+ 			 				sleep_status = 'none'; 
+ 			 			} else {
+ 			 				sleep_status = result.quality;
+ 			 				sleep_hour = result.hour;
+ 			 				sleep_minute = result.minute;
+ 			 			}
+ 			 			
+ 			             
+ 			            }
+ 			        }); 
+ 				}else {
+
+ 					fitManager.info().data({
+ 		                "current_calorie": 0,
+ 		                "current_distance": 0,
+ 		                "current_step": 0
+
+ 		            });
+					M.data.storage("SYNC_DATE", current_date);
+					M.data.storage("CALORIE", "0");
+					M.data.storage("DISTANCE", "0");
+					M.data.storage("STEP", "0");
+					
+					sleep_status = 'none'; 
+ 				}
+     	    	controller.refreshDashboardData( controller.fitManager().dashboardData() );  
+        			
+        	} else { 				//수동로그인 
+
+        		if ( fitManager.deviceType() === "B" ) {
+
+                    $("#setting-button").removeClass("dn");
+
+                    if ( status == "connect.disconnected"  ) {  //비연결 상태이면
+                                               
+                        macro.add( "dashboard.show" );
+
+                        if ( M.info.device("network.connected") === true ) {
+                            macro.add( "fit.dashboard.load" );
+                            macro.add( "fit.dashboard.rebon.load" );
+                        }
+                        
+                        macro.add( "dashboard.reload" );
+                        macro.add( "hide.indicator" );
+                    }
+                    else { // connect.retry or default
+                        //if ( controller.fitManager().synchronizeManager().isFirstExecute() == true) {
+                        if(isFirstExecute == false){
+
+                        	if (M.navigator.os("android")) {
+                        		M.execute("wnStopHistoryDetail");
+                        	}
+                            
+                            macro.add( "show.indicator" );
+                            
+                            macro.add( "fit.connect" );                            
+                            macro.add( "fit.set.clock" ); 
+                            macro.add( "fit.dailyStep" );
+                            macro.add( "fit.sleepTime" );
+                            macro.add( "fit.profile" );
+                            macro.add( "fit.current" );
+
+                    		debug.log('DeivceSettingInfo.sharedInfo().getDirection()', DeivceSettingInfo.sharedInfo().getDirection());
+                    		debug.log('DeivceSettingInfo.sharedInfo().getDateDisPlay()', DeivceSettingInfo.sharedInfo().getDateDisPlay());
+                    		debug.log('DeivceSettingInfo.sharedInfo().getUiType()', DeivceSettingInfo.sharedInfo().getUiType());
+                    		debug.log('DeivceSettingInfo.sharedInfo().getScreenChange()', DeivceSettingInfo.sharedInfo().getScreenChange());
+                    		debug.log('DeivceSettingInfo.sharedInfo().getNotmove()', DeivceSettingInfo.sharedInfo().getNotmove());
+
+        					
+                    		//2016.03.31 최초실행 시 디폴트값 셋팅
+                    		if(DeivceSettingInfo.sharedInfo().getDirection()=== undefined ||
+                    		   DeivceSettingInfo.sharedInfo().getDirection()==null){
+
+                    			DeivceSettingInfo.sharedInfo().setDirection(1);
+                    			DeivceSettingInfo.sharedInfo().setDateDisPlay(0);
+                    			DeivceSettingInfo.sharedInfo().setScreenChange(0)
+                    			DeivceSettingInfo.sharedInfo().setUiType(-62);
+                    			DeivceSettingInfo.sharedInfo().setNotmove(0);
+                     		   }
+
+                             macro.delay( 0.3 );
+                             macro.add( "dashboard.show" );
+                             macro.add( "hide.indicator" );
+                             macro.add( "http.sleep.yesterday.view" );
+                           
+                           
+                          if (M.navigator.os("android")) {
+                               var isAlreadyExecute =  M.data.storage("startServiceDefault");
+                               if(isAlreadyExecute != "true") {
+        	                       macro.addCallback( function() {
+        	                            M.execute("wnStartService");
+        	                       });
+        	                       M.data.storage("startServiceDefault","true");
+                               }else{
+        						   var not_complete = M.data.storage("INITIAL_INSERT_COMPLETE");
+        						   if(not_complete != "true"){
+        						   		macro.addCallback( function() {
+        								   M.execute("wnInsertInitData");
+        	                      		});
+                               	   }
+                               }
+                           
+                           }
+                           
+                           
+                           if (M.navigator.os("ios")) {
+                                macro.addCallback( function() {
+                                   //fitManager.synchronizeManager().synchronize();
+                                   WN2Common("exWN2PluginFitBandHistory", fitManager.userInfo().userKey(), fitManager.userInfo().authToken(), DeviceInfo.sharedInfo().sleepStart(), DeviceInfo.sharedInfo().sleepEnd());
+                                });
+                           }
+                           console.log("@2222@@@@@@@@@@@@@@@@@@@")
+                            macro.add( "fit.dashboard.load" );
+                            macro.add( "fit.dashboard.rebon.load" );
+                            macro.add( "dashboard.reload" );
+
+                            isFirstExecute = true;
+                        }
+                    }
+                }
+        	}
+        	
+        	
+//         if ( fitManager.deviceType() === "B" ) {
+
+//             $("#setting-button").removeClass("dn");
+
+//             if ( status == "connect.disconnected"  ) { 
+                                       
+//                 macro.add( "dashboard.show" );
+
+//                 if ( M.info.device("network.connected") === true ) {
+//                     macro.add( "fit.dashboard.load" );
+//                     macro.add( "fit.dashboard.rebon.load" );
+//                 }
+                
+//                 macro.add( "dashboard.reload" );
+//                 macro.add( "hide.indicator" );
+//             }
+//             else { // connect.retry or default
+//                 //if ( controller.fitManager().synchronizeManager().isFirstExecute() == true) {
+//                 if(isFirstExecute == false){
+
+//                 	if (M.navigator.os("android")) {
+//                 		M.execute("wnStopHistoryDetail");
+//                 	}
+                    
+//                     macro.add( "show.indicator" );
+//                     macro.add( "fit.connect" );
+//                     macro.add( "fit.set.clock" ); 
+//                     macro.add( "fit.dailyStep" );
+//                     macro.add( "fit.sleepTime" );
+//                     macro.add( "fit.profile" );
+//                     macro.add( "fit.current" );
+
+//             		debug.log('DeivceSettingInfo.sharedInfo().getDirection()', DeivceSettingInfo.sharedInfo().getDirection());
+//             		debug.log('DeivceSettingInfo.sharedInfo().getDateDisPlay()', DeivceSettingInfo.sharedInfo().getDateDisPlay());
+//             		debug.log('DeivceSettingInfo.sharedInfo().getUiType()', DeivceSettingInfo.sharedInfo().getUiType());
+//             		debug.log('DeivceSettingInfo.sharedInfo().getScreenChange()', DeivceSettingInfo.sharedInfo().getScreenChange());
+//             		debug.log('DeivceSettingInfo.sharedInfo().getNotmove()', DeivceSettingInfo.sharedInfo().getNotmove());
+
+					
+//             		//2016.03.31 최초실행 시 디폴트값 셋팅
+//             		if(DeivceSettingInfo.sharedInfo().getDirection()=== undefined ||
+//             		   DeivceSettingInfo.sharedInfo().getDirection()==null){
+
+//             			DeivceSettingInfo.sharedInfo().setDirection(1);
+//             			DeivceSettingInfo.sharedInfo().setDateDisPlay(0);
+//             			DeivceSettingInfo.sharedInfo().setScreenChange(0)
+//             			DeivceSettingInfo.sharedInfo().setUiType(-62);
+//             			DeivceSettingInfo.sharedInfo().setNotmove(0);
+//              		   }
+
+//                      macro.delay( 0.3 );
+//                      macro.add( "dashboard.show" );
+//                      macro.add( "hide.indicator" );
+//                      macro.add( "http.sleep.yesterday.view" );
+                   
+                   
+//                    if (M.navigator.os("android")) {
+                   
+//                        var isAlreadyExecute =  M.data.storage("startServiceDefault");
+//                        if(isAlreadyExecute != "true") {
+// 	                       macro.addCallback( function() {
+// 	                            M.execute("wnStartService");
+// 	                       });
+// 	                       M.data.storage("startServiceDefault","true");
+//                        }else{
+// 						   var not_complete = M.data.storage("INITIAL_INSERT_COMPLETE");
+// 						   if(not_complete != "true"){
+// 						   		macro.addCallback( function() {
+// 								   M.execute("wnInsertInitData");
+// 	                      		});
+//                        	   }
+//                        }
+                   
+//                    }
+                   
+                   
+//                    if (M.navigator.os("ios")) {
+//                         macro.addCallback( function() {
+//                            //fitManager.synchronizeManager().synchronize();
+//                            WN2Common("exWN2PluginFitBandHistory", fitManager.userInfo().userKey(), fitManager.userInfo().authToken(), DeviceInfo.sharedInfo().sleepStart(), DeviceInfo.sharedInfo().sleepEnd(), controller.userInfo().isLogin());
+//                         });
+//                    }
+//                    console.log("@2222@@@@@@@@@@@@@@@@@@@")
+//                     macro.add( "fit.dashboard.load" );
+//                     macro.add( "fit.dashboard.rebon.load" );
+//                     macro.add( "dashboard.reload" );
+
+//                     isFirstExecute = true;
+//                 }
+//                // else {
+//                //     if ( status === "current.reload" || status === "gesture.update" || status === "connection.retry" ) {
+//                //          if ( status === "gesture.update" ) {
+//                //              fitManager.info().unsynced();
+
+//                //              macro.add("show.update");
+//                //          }
+
+//                //          macro.add( "fit.connect" );
+//                //          macro.add( "fit.current" );
+//                //          macro.add( "dashboard.reload" );
+//                //          macro.add( "hide.indicator" );
+//                //      }
+//                //      else {
+                        
+//                //          macro.add( "dashboard.reload" );
+//                //          macro.add( "hide.indicator" );
+//                //      }
+                    
+//                //      macro.add( "fit.dashboard.load" );
+//                //      macro.add( "fit.dashboard.rebon.load" );
+
+//                //     if (M.navigator.os("ios")) {
+//                //         macro.addCallback( function() {
+//                //            fitManager.synchronizeManager().synchronize();
+//                //         });
+//                //     }
+//                //  }
+//             }
+//         }
+//         else { // Device Motion 연결 상태
+
+//             $("#setting-button").addClass("dn");
+            
+//             if ( status !== "connect.disconnected" ) {
+
+//                 if ( controller.fitManager().synchronizeManager().isFirstExecute() == true ) {
+//                     macro.add( "show.indicator" );
+//                     macro.add( "motion.current" );
+                    
+//                     macro.delay( 0.3 );
+//                     macro.add( "dashboard.show" );
+//                     macro.add( "hide.indicator" );
+
+//                     macro.addCallback( function() {
+//                        fitManager.synchronizeManager().synchronize();
+//                     });
+
+//                     macro.add( "fit.dashboard.load" );
+//                     macro.add( "fit.dashboard.rebon.load" );
+//                     macro.add( "dashboard.reload" );
+//                 }
+//                 else {
+//                     if ( status === "current.reload" || status === "gesture.update" || status === "connection.retry" ) {
+//                         macro.add( "motion.current" );
+//                         macro.add( "dashboard.reload" );
+//                         macro.add( "hide.indicator" );
+//                     }
+//                     else {
+//                         macro.add( "dashboard.reload" );
+//                         macro.add( "hide.indicator" );
+//                     }
+
+//                     macro.add( "fit.dashboard.load" );
+//                     macro.add( "fit.dashboard.rebon.load" );
+
+//                     macro.addCallback( function() {
+//                         fitManager.synchronizeManager().synchronize();
+//                     });
+//                 }
+//             }
+//             else {
+//                 macro.add( "dashboard.show" );
+//                 macro.add( "hide.indicator" );
+
+//                 macro.add( "fit.dashboard.load" );
+//                 macro.add( "fit.dashboard.rebon.load" );
+//                 macro.add( "dashboard.reload" );
+
+//                 macro.add( "hide.indicator" );
+//             }
+//         }
+
+        macro.finishHandler( function( finished ) {
+
+            controller.view().updateMenu();
+
+            
+
+            macro.execute( "fit.dashboard.reload", {} );
+        });
+        
+        macro.start();
+    });
+    
+
+	$("#current_sync_btn").click(function(){
+			if( M.data.global("BLE_LOCK") != "LOCK" ){
+
+				popupController.showIndicator();
+				popupController.setIndicatorMessage("현재 정보를 가져오는 중입니다..");
+
+				macro.clear();
+		        macro.add( "fit.connect" );
+		        macro.add( "fit.current.refresh");
+		        macro.start();
+		        
+		        setTimeout(function(){
+		        	popupController.hideIndicator();
+                }, 5500 );
+		        
+			} else {
+				alert('과거 데이터 업데이트 중입니다.\n 1~2분 뒤에 다시 시도하세요');
+			}
+	});
+
+
+    //isFirstExecute = true;
+
+     //   이부분 -2
+     //   controller.execute("fit.get.sleep",{},{});  
+    
+    controller.bind("didSuccessExecute", function( sender ) {
+        
+        if ( sender.action == "user.auth" ) { // 재로그인 후 호출
+            if ( ! macro.isProgressing() ) {
+                macro.execute( "fit.dashboard.reload", {} );
+            }
+        }
+    });
+    
+    controller.bind("didErrorExecute", function( sender ) {
+        
+        if ( sender.action == "user.auth" ) {
+            
+        }
+        
+    });
+    
+    controller.bind("didFinishExecute", function( sender ) {
+    	
+ 	    controller.view().updateMenu();
+ 	    
+ 	    if( sender.action == "synch.manual" ){
+ 	    	console.log(sender.dashboardData);
+ 	    	controller.refreshDashboardData( sender.dashboardData );
+ 	    }
+ 	
+        
+    });
+
+    $("[data-command][bind-command]").bind("click", function(e) {
+        controller.fitManager().synchronizeManager().retry();
+    }).removeAttr("bind-command");
+    
+    
+    controller.fitManager().initialize();
+    controller.sessionController().startSession();
+
+    var 
+    $alert = $(".alert"),
+    $alertBar = $(".alert .bar");  
+    $spinIcon = $(".alert .m-draw2");  
+
+    controller.fitManager().synchronizeManager().onProgress( function( ratio, message ) {
+        //console.log( "onProgress", ratio );
+
+        $alertBar.css("width", ratio * 100 + "%");
+        $alert.removeClass("dn try retry").addClass("try");
+
+        if ( message ) {
+            $("#sync-message").text( message );
+        }
+        else {
+            $("#sync-message").text( "동기화 중입니다." );   
+        }
+
+        if ($spinIcon.data("startMotion") != true){
+            window.Wellness.startSpinAnimation($spinIcon);
+            $spinIcon.data("startMotion", true);
+        }
+    });
+
+    controller.fitManager().synchronizeManager().onFinish( function( cancelled ) {
+        //console.log( "onFinish", cancelled );
+
+        $alertBar.css("width", "100%");
+
+        if ( cancelled === true ) {
+            $alert.removeClass("dn try").addClass("retry");
+        }
+        else {
+            $alert.removeClass("retry try").addClass("dn");
+        }
+        
+        window.Wellness.stopSpinAnimation($spinIcon);
+        $spinIcon.data("startMotion", false);
+
+        macro.execute( "fit.dashboard.reload", {} );
+    });
+
+    if ( controller.fitManager().deviceType() == "D" ) {
+        $("#setting-button").addClass("dn");
+    }
+    else {
+        $("#setting-button").removeClass("dn");
+    }
+
+    var $contents = $(".main .contents");
+    //gesture on/off control
+    var posY = null, updateFlag = true;
+    $contents.on("mousedown touchstart", function(e){
+        if(e.originalEvent && e.originalEvent.touches && e.originalEvent.touches[0]){
+            posY = e.originalEvent.touches[0].pageY;
+        }
+    });             
+    
+    $contents.on('touchmove touchcancel touchend mouseleave', function(e){
+        if(e.originalEvent && e.originalEvent.touches && e.originalEvent.touches[0]){
+            var dist = posY - e.originalEvent.touches[0].pageY;           
+            if( dist < -200 && updateFlag == true && posY != null){
+            
+                if ( macro.isProgressing() === false ){
+                   //controller.fitManager().synchronizeManager().retry();
+                   macro.execute( "dashboard.load", "gesture.update" );
+                 
+                   updateFlag = false;
+                   posY = null;
+                   setTimeout(function(){
+                       updateFlag = true;
+                   }, 3000 );
+                }
+            }
+        }
+    });
+
+});
+
+	  function refreshBySynchResult(){
+		  
+		};
+
+	$(document.body).bind("didAppear", function() { 
+		
+		debug.log('didAppear');
+		$("#prev_dateMenu").addClass("dn");
+		if ( flag == "L" )  {
+		
+			flag = "A";
+
+		} else if ( flag != "L" ) {
+		
+			var
+		    controller = MainController.sharedInstance();
+			
+			controller.execute("fit.sleep.get",{},{
+	            showIndicator:false,
+	            callback: function( event ) { 
+	                if ( event.error ) {
+	                    return;
+	                }
+	 			var result = event.result;
+	 			
+	 			console.log(result);
+	 			
+	 			if(result == null || result == '' || result.quality == null || result.quality == ''){
+	 				sleep_status = 'none'; 
+	 			} else {
+	 				sleep_status = result.quality;
+	 				sleep_hour = result.hour;
+	 				sleep_minute = result.minute;
+	 			}
+	 			
+	             
+	            }
+	        }); 
+		}
+		 
+	    var
+	    controller = MainController.sharedInstance(),
+	    macro = controller.macro();
+	
+	    controller.view().updateMenu();
+	
+	    if ( controller.sessionController().checkSession()) {
+	        if ( ! macro.isProgressing() ) {
+	            macro.execute( "dashboard.load", "current.reload" );
+	        }
+	    }
+	    else {
+	        controller.sessionController().authSession();
+	    }	    
+	});
+
+
+$(document.body).bind("willDisappear", function() {
+	debug.log('willDisappear');
+    /*
+    설정 이외에는 Cancel 하지 않음
+    if ( MainController.sharedInstance().fitManager().synchronizeManager().isSynced() === false ) {
+        MainController.sharedInstance().fitManager().synchronizeManager().cancel();
+    }
+    */
+});
+
+$(document.body).bind("applicationDidEnterForground", function() {
+
+});
+
+$(document.body).bind("applicationDidEnterForground", function() {
+	debug.log('applicationDidEnterForground');
+    var
+    controller = MainController.sharedInstance(),
+    macro = controller.macro();
+
+    if ( controller.sessionController().checkSession() && !controller.fitManager().synchronizeManager().isFirstExecute()) {
+        macro.execute( "dashboard.load", "current.reload");
+    }
+});
+
+</script>
+<!-- //화면 스크립트 -->
+
+<!-- M-API -->
+<script type="text/javascript">
+
+M.onReady(function(e) {
+    var
+    controller = MainController.sharedInstance();
+    controller.clearStack();
+});
+
+</script>
+<!-- //M-API -->
+
+</html>

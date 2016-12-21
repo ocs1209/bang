@@ -1,0 +1,721 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-touch-fullscreen" content="yes" />
+<title>수면시간</title>
+<script type="text/javascript" src="../js/mcore.min.js"></script>
+<link rel="stylesheet" type="text/css" href="../css/common.css" />
+</head>
+<body>
+	<!-- wrap -->
+	<div id="wrap">
+
+		<!-- header -->
+		<div class="header">
+			<div class="btn_left" role="back">
+				<a nohref class="btn_back" data-command="page.back" auto-command><span
+					class="arrow"></span></a>
+			</div>
+			<h1>수면시간</h1>
+			<div class="btn_right" role="list">
+				<a nohref class="btn_menu"><span>목록</span></a>
+			</div>
+		</div>
+		<!--// header -->
+
+		<!-- menu -->
+		<div id="menu"></div>
+		<!--// menu -->
+		<!-- container -->
+		<div class="container dash_sub sleep_state">
+
+			<!-- contents -->
+			<div class="contents">
+				<!--circle tab -->
+				<ul class="circle_tab ">
+					<li><a nohref auto-link data-link="dashboard.sleep.today.html"
+						data-action="REPLACE" class="selected">어제</a></li>
+					<li><a nohref auto-link
+						data-link="dashboard.sleep.weekly.html" data-action="REPLACE">이번주</a></li>
+					<li><a nohref auto-link
+						data-link="dashboard.sleep.monthly.html" data-action="REPLACE"><script>document.write( FitManager.defaultManager().targetDateFormat("M월") );</script></a></li>
+				</ul>
+				
+				<!--/circle tab -->
+				<div class="cont_wrap">
+					<!--/양 이미지 영역-->
+					<div class="cont_layer ani">
+						<div class="w_mt_sl" role="sleep-container">
+							<!-- good_sleep soso_sleep bad_sleep-->
+							<!-- 구름 + 해 -->
+							<div class="img_cl_rt"></div>
+							<div class="img_cl_lb"></div>
+							<div class="img_cl_rb"></div>
+							<div class="img_sun"></div>
+							<div class="wws_img">
+								<!-- zzz 애니 -->
+								<div class="ani_zzz dn">
+									<div class="tx_z1">
+										<img src="../images/ani_z1.png" alt="">
+									</div>
+									<div class="tx_z2">
+										<img src="../images/ani_z2.png" alt="">
+									</div>
+									<div class="tx_z3">
+										<img src="../images/ani_z3.png" alt="">
+									</div>
+								</div>
+								<!-- /zzz 애니 -->
+
+								<!-- good -->
+								<div class="sl_good_bg dn">
+									<!-- style="display:none;" 삭제 시 보임 -->
+									<img src="../images/sl_good_sheep.png"
+										style="width: 203px; height: auto;">
+								</div>
+								<!-- /good -->
+
+								<!-- soso -->
+								<div class="sl_soso_bg dn">
+									<!-- style="display:none;" 삭제 시 보임 -->
+									<!-- 양 이미지 -->
+									<div class="sl_soso_img1"></div>
+									<div class="sl_soso_img2"></div>
+									<div class="sl_soso_img3"></div>
+									<!-- /양 이미지 -->
+								</div>
+								<!-- /soso -->
+
+								<!-- bad -->
+								<div class="sl_bad_bg dn">
+									<!-- 양 이미지 -->
+									<div class="sl_bad_img1"></div>
+									<div class="sl_bad_img2"></div>
+									<div class="sl_bad_img3"></div>
+									<!-- /양 이미지 -->
+								</div>
+								<!-- /bad -->
+							</div>
+						</div>
+
+						<div class="bg_fff">
+							<!-- text -->
+							<!-- 
+                            GOOD  - 숙면
+                            SOSO  - 선잠, 기상
+                            BAD - 선잠, 기상
+                            -->
+							<div class="suc_txt_sl">
+								<span role='sleep-status'>-</span> <span class="eett"><em
+									role='sleep-time-sleep'>-</em> 수면</span>
+							</div>
+							<div class="suc_txt_sl2">
+								<span role='sleep-summary'>-</span>
+							</div>
+							<!-- /text -->
+
+							<!-- 하단버튼 -->
+							<div class="sl_bdna">
+								<a nohref class="bg_arr btn_next"></a>
+							</div>
+							<!-- /하단버튼 -->
+						</div>
+					</div>
+					<!--/양 이미지 영역-->
+					<!--수면그래프 영역-->
+					<div class="cont_layer graph">
+						<!-- 하단버튼 -->
+						<div class="sl_bdna">
+							<a nohref class="bg_arr btn_prev"></a>
+						</div>
+						<!-- /하단버튼 -->
+						<!-- 그래프_정보 -->
+						<ul class="slg_info">
+							<li><span class="ic_wake"></span><span class="ict_tx">기상</span></li>
+							<li><span class="ic_sleep"></span><span class="ict_tx">숙면</span></li>
+							<li><span class="ic_ssleep"></span><span class="ict_tx">선잠</span></li>
+						</ul>
+						<!-- /그래프_정보 -->
+						<div class="set-cont">
+							<div class="bdf_grf graph">
+								<div class="notyet dn">
+									<span class="ict_tx">그래프 데이타를 수집중 입니다.<br />잠시 후 다시 확인해
+										주시기 바랍니다.
+									</span>
+								</div>
+								<canvas id="sleep_chart"></canvas>
+								<div class="graph-txt">
+									<span role='sleep-start'></span> <span role='sleep-end'></span>
+								</div>
+							</div>
+
+
+							<!-- 수면 내용 -->
+							<table class="slg_txt">
+								<colgroup>
+									<col style="width: 50%" />
+									<col style="width: 50%" />
+								</colgroup>
+								<thead>
+									<tr>
+										<th>나의 설정 수면시간</th>
+										<th role='sleep-time-total'></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td><span class="ic_wake"></span> 기상</td>
+										<td class="tar" role='sleep-time-bad-count'>-</td>
+									</tr>
+									<tr>
+										<td><span class="ic_sleep"></span> 숙면</td>
+										<td class="tar" role='sleep-time-good'>-</td>
+									</tr>
+									<tr>
+										<td><span class="ic_ssleep"></span> 선잠</td>
+										<td class="tar" role='sleep-time-soso'>-</td>
+									</tr>
+								</tbody>
+							</table>
+							<!-- /수면 내용 -->
+						</div>
+						<!--//수면그래프 영역-->
+					</div>
+				</div>
+			</div>
+			<!--// contents -->
+			<!-- layer(dimd) -->
+			<div class="layer dn"></div>
+			<!--// layer(dimd) -->
+		</div>
+		<div id="manual_synch" style="position: fixed; height: 3rem; width: 3rem; background-color: pink; border-radius: 1rem; right: 1rem; bottom: 1rem;"></div>
+		<!--// container -->
+	</div>
+	<!--// wrap -->
+
+</body>
+
+<!-- 화면 스크립트 -->
+<script type="text/javascript">
+var  
+controller = MainController.sharedInstance(), 
+fitManager = controller.fitManager(),
+popupController = PopupController.sharedInstance();
+$(document.body).bind("didAppear", function() {
+
+    /* var  
+    controller = MainController.sharedInstance(), 
+    popupController = PopupController.sharedInstance(); */
+    popupController.showIndicator();
+    popupController.setIndicatorMessage("디바이스 연결중...");
+
+    var moveFlag = false;
+    
+    function moveToGraphContent(){
+        if(moveFlag){return;}
+        moveFlag = true;
+        $bottomCont.addClass("dn");
+        setTimeout(function(){
+            $bottomCont.removeClass("dn");
+            setTimeout(function(){
+                $topCont.css("top", "-100%");
+                $bottomCont.css("top", "0");
+                moveFlag = false;
+            },10);
+        }, 100);
+    }
+
+    function moveToSleepAniContent(){
+        if(moveFlag){return;}
+        moveFlag = true;
+        $topCont.addClass("dn");
+        setTimeout(function(){       
+            $topCont.removeClass("dn");
+            setTimeout(function(){
+                 $bottomCont.css("top", "100%");
+                $topCont.css("top", "0");
+                moveFlag = false;
+            },10);
+        }, 100);
+    }
+
+   
+    $(".sleep_state").on("click", ".btn_next", function(){
+        moveToGraphContent();
+    });
+
+    $(".sleep_state").on("click", ".btn_prev", function(){
+        moveToSleepAniContent();
+    });
+
+    $("#manual_synch").click(function(){
+      	 fitManager.connect( function( result ) {
+               if ( result.error ) {
+               }
+               M.fit.current(function( result ) {
+       			console.log('M.fit.current');
+                   if ( result.error ) {
+                   	console.log(result.error);
+                   }
+                   else {
+       				console.log('fitManager.info().data');
+                   	fitManager.info().data({
+                           "current_calorie": result.calorie,
+                           "current_distance": result.distance,
+                           "current_step": result.step
+                       });
+
+                       M.data.storage("CALORIE", result.calorie);
+                       M.data.storage("DISTANCE", result.distance);
+                       M.data.storage("STEP", result.step);
+                       
+                       fitManager.synchManually(  function() {
+                   		
+                   	 });
+                   }
+                   
+       		});
+      	 }, true);
+   	});
+
+
+    var $contLayer = $(".contents .cont_layer");
+    var $contAni = $contLayer.eq(0),
+        $contGraph = $contLayer.eq(1);
+
+    //gesture on/off control
+    var posY = null, updateFlag = true;
+    $contLayer.on("mousedown touchstart", function(e){
+        if(e.originalEvent && e.originalEvent.touches && e.originalEvent.touches[0]){
+            posY = e.originalEvent.touches[0].pageY;
+        }
+    });             
+    
+    $contLayer.on('touchmove touchcancel touchend mouseleave', function(e){
+        if(e.originalEvent && e.originalEvent.touches && e.originalEvent.touches[0]){
+            var dist = posY - e.originalEvent.touches[0].pageY;  
+            var targetDist = 100;
+            if( e.currentTarget == $contAni.get(0) ){
+                if( dist > targetDist && updateFlag == true && posY != null){
+                    moveToGraphContent();
+                    updateFlag = false;
+                }
+            }else if( e.currentTarget == $contGraph.get(0) ){
+                if( dist < (targetDist*-1) && updateFlag == true && posY != null){
+                    moveToSleepAniContent();
+                    updateFlag = false;
+                }
+            }
+
+            if(updateFlag === false){
+                posY = null;
+                setTimeout(function(){
+                   updateFlag = true;
+                }, 800 );
+            }
+        }
+    });
+
+//$(document).bind("ready",   function() {
+
+	var controller = MainController.sharedInstance(),
+	fitManager = FitManager.defaultManager().initialize();
+
+	var $topCont = $(".sleep_state .cont_layer").eq(0);
+	var $bottomCont = $(".sleep_state .cont_layer").eq(1);
+
+	eyesAniFunc($(".sleep_state .sl_soso_img1"));
+	eyesAniFunc($(".sleep_state .sl_soso_img3"));
+	eyesAniFunc($(".bad_sleep .sl_bad_img1"));
+
+	setTimeout(function(){
+	    eyesAniFunc($(".bad_sleep .sl_bad_img2"));
+	}, 200 );
+
+	eyesAniFunc($(".bad_sleep .sl_bad_img3"));
+
+	function eyesAniFunc($target){
+	    setTimeout(function(){
+	        $target.css("background-position", "0 0");
+	    },  100);
+
+	    setTimeout(function(){
+	        $target.css("background-position", "0 100%");
+	    },  250);
+
+	    setTimeout(function(){
+	        eyesAniFunc($target);
+	    },  400);
+	}
+
+	fitManager.sleepYesterdayDataByHTTP( 
+	    function( data ) {
+		   
+			sosoValue = data.sosoValue,
+			badValue = data.badValue; 
+			
+			debug.log('hyjeon', 'goodCount :' + data.timeData.goodCount);
+	        debug.log('hyjeon', 'badCount :' +  data.timeData.badCount);
+		
+
+			debug.log('hyjeon', 'sleep status :'+ data.status);
+			
+			var bleStatus = M.data.global("BLE_LOCK");
+
+			debug.log('hyjeon', 'BLE_LOCK :'+ bleStatus);
+			
+			if ( /* data.userData.length == 0 */ bleStatus == "LOCK") {
+				// 보이는 것.
+			    $(".sleep_state .bdf_grf.graph .notyet").removeClass("dn");
+			}else{
+				debug.log('hyjeon', 'BLE_LOCK : 이거 없어져야 맞는거 아님? '+ bleStatus);
+				$(".sleep_state .bdf_grf.graph .notyet").addClass("dn");
+			}
+		
+			if ( data.status === "good" ) {
+			    $("[role='sleep-summary']").text( fitManager.timeFormat( "h시간 m분 숙면", data.timeData.good ) );
+			}
+			else {
+			    var summary = ( data.timeData.soso.hour > 0 ? fitManager.timeFormat( "선잠 h시간 m분", data.timeData.soso ) : fitManager.timeFormat( "선잠 m분", data.timeData.soso ) )
+			                + ( data.timeData.badCount > 0 ? (", 기상 " + data.timeData.badCount + "회") : "" );
+		
+			    $("[role='sleep-summary']").text( summary );
+			}
+		
+		
+			$("[role='sleep-time-sleep']").text( fitManager.timeFormat( "총 h시간 m분", data.timeData.total ) );  // 총시간
+// 			$("[role='sleep-time-total']").text( fitManager.timeFormat( "총 h시간 m분", data.timeData.total ) );   //나의 설정 시간
+			$("[role='sleep-time-good']").text( fitManager.timeFormat( "h시간 m분", data.timeData.good ) );
+			$("[role='sleep-time-soso']").text( data.timeData.soso.hour > 0 ? fitManager.timeFormat( "h시간 m분", data.timeData.soso ) : fitManager.timeFormat( "m분", data.timeData.soso ) );
+			$("[role='sleep-time-bad-count']").text( data.timeData.badCount + "회" );
+		
+			if ( data.status == "BAD" ) {
+			    $("[role='sleep-status']").text( "BAD SLEEP" ).addClass("bad");
+			    $(".sl_bad_bg").removeClass("dn").show();
+			    $("[role='sleep-container']").addClass("bad_sleep");
+			}
+			else if ( data.status == "SOSO" ) {
+			    $("[role='sleep-status']").text( "SOSO SLEEP" ).addClass("soso");
+			    $(".sl_soso_bg").removeClass("dn").show();
+			    $(".ani_zzz").removeClass("dn").show();
+			    $("[role='sleep-container']").addClass("soso_sleep");
+			}
+			else {
+			    $("[role='sleep-status']").text( "GOOD SLEEP" ).addClass("good");
+			    $(".sl_good_bg").removeClass("dn").show();
+			    $(".ani_zzz").removeClass("dn").show();
+			    $("[role='sleep-container']").addClass("good_sleep");
+			}
+		
+			$("[role='sleep-start']").text( data.deviceInfo.sleepStart );
+			$("[role='sleep-end']").text( data.deviceInfo.sleepEnd );
+
+			console.log(data.deviceInfo.sleepStart)
+			console.log(data.deviceInfo.sleepEnd)
+		    M.data.global("G_sleepStart" ,data.deviceInfo.sleepStart );
+			M.data.global("G_sleepEnd" ,data.deviceInfo.sleepEnd );
+
+			console.log(M.data.global("G_sleepStart").split(":")[0]);
+			console.log(M.data.global("G_sleepStart").split(":")[1]);
+			console.log(M.data.global("G_sleepEnd").split(":")[0]);
+			console.log(M.data.global("G_sleepEnd").split(":")[1]);
+			//console.log( data.deviceInfo.sleepEnd.split(":")[0]  )
+		
+			//time : data.deviceInfo.sleepEnd.split(":")[0] + data.deviceInfo.sleepEnd.split(":")[1]
+		
+			var smallHour = parseInt(data.deviceInfo.sleepEnd.split(":")[0]),
+					smallMinute = parseInt(data.deviceInfo.sleepEnd.split(":")[1]),
+				   	bigHour = parseInt(data.deviceInfo.sleepStart.split(":")[0]),
+					bigMinute  = parseInt(data.deviceInfo.sleepStart.split(":")[1]);
+
+			console.log( smallHour - bigHour );
+	
+			var Hour = "";
+			var Minute = "";
+			if( smallHour - bigHour < 0) {
+				Hour = (smallHour - bigHour) + 24; 
+			}else{
+				Hour = smallHour - bigHour 
+			}
+										
+			if( smallMinute - bigMinute  < 0 ){
+				Minute = (smallMinute - bigMinute) + 60;
+				Hour = Hour - 1;    
+			}else{
+				Minute = smallMinute - bigMinute;
+			}
+
+			console.log ( Hour + "시" + Minute + "분");
+
+			var timeObj = {
+						hour : Hour,
+						minute : Minute,
+						time: Hour < 10 ? "0" + Hour : Hour  +  Minute < 10 ? "0" + Minute : Minute
+			}
+			
+			
+			$("[role='sleep-time-total']").text( fitManager.timeFormat( "총 h시간 m분", timeObj ) );
+			
+
+			//(data.deviceInfo.sleepEnd + 12) - ( data.deviceInfo.sleepStart - 12)
+		
+		
+			var lineWid = 4;
+			var $canvas = $("#sleep_chart");
+			var ctx = $canvas.get(0).getContext("2d");
+		
+			var size = {
+			    width: $canvas.width(),
+			    height: $canvas.height()
+			};
+		
+			console.log( "data", data );
+		
+			$canvas.attr("width", (data.totalCount)*lineWid * 4);
+			$canvas.attr("height", size.height * 4);
+		
+			$canvas.css({
+			    width: size.width,
+			    height: size.height
+			});
+		
+			ctx.scale(4, 4);
+
+			if(bleStatus == "UNLOCK"){
+
+				debug.log('hyjeon', '샘플 갯수  :'+ data.userData.length);
+				for(var i=0; i<data.userData.length; i++) {
+				    var n = parseInt(data.userData[i]);
+				    debug.log('hyjeon', '값은 ?'+ n);
+				    ctx.beginPath();
+				    ctx.lineWidth = lineWid;
+				    
+				    var startX = i*lineWid;
+				    var strokeColor = "#294b6e";
+				    var targetY = size.height/1.5;//숙면
+				    
+				    ctx.moveTo(startX, 212);
+				       
+				    if ( isNaN(n)  ) {
+				    	debug.log('hyjeon', 'isNAN 입니다.'+ n);
+				        targetY = size.height - 1;
+				    } 
+				    else if ( n >= badValue ){ //11이상
+				        strokeColor="#f78d23";//기상
+				        targetY -= (n * 3 + 20);
+				    }
+				    else if(n>= sosoValue){    //2 이상 
+				        strokeColor = "#c2caea";
+				        targetY -= (n * 2 + 20);
+				    }
+				    
+				    ctx.strokeStyle = strokeColor;
+				    ctx.lineTo(startX, targetY);
+				    ctx.stroke();
+				    ctx.closePath();
+				}
+			} 
+		}
+	);
+		
+			 
+
+  
+	
+
+});
+</script>
+<!--// 화면 스크립트 -->
+
+<!-- M-API -->
+<script type="text/javascript">
+function refreshBySynchResult(){
+	debug.log("hyjeon","[  히스토리 synch 결과를 가져온다. (어제의 수면   ))]");
+	fitManager.sleepYesterdayDataByHTTP( 
+		    function( data ) {
+			   
+				sosoValue = data.sosoValue,
+				badValue = data.badValue; 
+				
+				debug.log('hyjeon', 'goodCount :' + data.timeData.goodCount);
+		        debug.log('hyjeon', 'badCount :' +  data.timeData.badCount);
+			
+
+				debug.log('hyjeon', 'sleep status :'+ data.status);
+				
+				var bleStatus = M.data.global("BLE_LOCK");
+
+				debug.log('hyjeon', 'BLE_LOCK  >> '+ bleStatus);
+				
+				if ( /* data.userData.length == 0 */ bleStatus == "LOCK") {
+				    $(".sleep_state .bdf_grf.graph .notyet").removeClass("dn");
+				}else{
+					debug.log('hyjeon', 'BLE_LOCK : 이거 없어져야 맞는거 아님?  >>> '+ bleStatus);
+					$(".sleep_state .bdf_grf.graph .notyet").addClass("dn");
+				}
+			
+				if ( data.status === "good" ) {
+				    $("[role='sleep-summary']").text( fitManager.timeFormat( "h시간 m분 숙면", data.timeData.good ) );
+				}
+				else {
+				    var summary = ( data.timeData.soso.hour > 0 ? fitManager.timeFormat( "선잠 h시간 m분", data.timeData.soso ) : fitManager.timeFormat( "선잠 m분", data.timeData.soso ) )
+				                + ( data.timeData.badCount > 0 ? (", 기상 " + data.timeData.badCount + "회") : "" );
+			
+				    $("[role='sleep-summary']").text( summary );
+				}
+			
+			
+				$("[role='sleep-time-sleep']").text( fitManager.timeFormat( "총 h시간 m분", data.timeData.total ) );  // 총시간
+//	 			$("[role='sleep-time-total']").text( fitManager.timeFormat( "총 h시간 m분", data.timeData.total ) );   //나의 설정 시간
+				$("[role='sleep-time-good']").text( fitManager.timeFormat( "h시간 m분", data.timeData.good ) );
+				$("[role='sleep-time-soso']").text( data.timeData.soso.hour > 0 ? fitManager.timeFormat( "h시간 m분", data.timeData.soso ) : fitManager.timeFormat( "m분", data.timeData.soso ) );
+				$("[role='sleep-time-bad-count']").text( data.timeData.badCount + "회" );
+			
+				if ( data.status == "BAD" ) {
+				    $("[role='sleep-status']").text( "BAD SLEEP" ).addClass("bad");
+				    $(".sl_bad_bg").removeClass("dn").show();
+				    $("[role='sleep-container']").addClass("bad_sleep");
+				}
+				else if ( data.status == "SOSO" ) {
+				    $("[role='sleep-status']").text( "SOSO SLEEP" ).addClass("soso");
+				    $(".sl_soso_bg").removeClass("dn").show();
+				    $(".ani_zzz").removeClass("dn").show();
+				    $("[role='sleep-container']").addClass("soso_sleep");
+				}
+				else {
+				    $("[role='sleep-status']").text( "GOOD SLEEP" ).addClass("good");
+				    $(".sl_good_bg").removeClass("dn").show();
+				    $(".ani_zzz").removeClass("dn").show();
+				    $("[role='sleep-container']").addClass("good_sleep");
+				}
+			
+				$("[role='sleep-start']").text( data.deviceInfo.sleepStart );
+				$("[role='sleep-end']").text( data.deviceInfo.sleepEnd );
+
+				console.log(data.deviceInfo.sleepStart)
+				console.log(data.deviceInfo.sleepEnd)
+			    M.data.global("G_sleepStart" ,data.deviceInfo.sleepStart );
+				M.data.global("G_sleepEnd" ,data.deviceInfo.sleepEnd );
+
+				console.log(M.data.global("G_sleepStart").split(":")[0]);
+				console.log(M.data.global("G_sleepStart").split(":")[1]);
+				console.log(M.data.global("G_sleepEnd").split(":")[0]);
+				console.log(M.data.global("G_sleepEnd").split(":")[1]);
+				//console.log( data.deviceInfo.sleepEnd.split(":")[0]  )
+			
+				//time : data.deviceInfo.sleepEnd.split(":")[0] + data.deviceInfo.sleepEnd.split(":")[1]
+			
+				var smallHour = parseInt(data.deviceInfo.sleepEnd.split(":")[0]),
+						smallMinute = parseInt(data.deviceInfo.sleepEnd.split(":")[1]),
+					   	bigHour = parseInt(data.deviceInfo.sleepStart.split(":")[0]),
+						bigMinute  = parseInt(data.deviceInfo.sleepStart.split(":")[1]);
+
+				console.log( smallHour - bigHour );
+		
+				var Hour = "";
+				var Minute = "";
+				if( smallHour - bigHour < 0) {
+					Hour = (smallHour - bigHour) + 24; 
+				}else{
+					Hour = smallHour - bigHour 
+				}
+											
+				if( smallMinute - bigMinute  < 0 ){
+					Minute = (smallMinute - bigMinute) + 60;
+					Hour = Hour - 1;    
+				}else{
+					Minute = smallMinute - bigMinute;
+				}
+
+				console.log ( Hour + "시" + Minute + "분");
+
+				var timeObj = {
+							hour : Hour,
+							minute : Minute,
+							time: Hour < 10 ? "0" + Hour : Hour  +  Minute < 10 ? "0" + Minute : Minute
+				}
+				
+				
+				$("[role='sleep-time-total']").text( fitManager.timeFormat( "총 h시간 m분", timeObj ) );
+				
+
+				//(data.deviceInfo.sleepEnd + 12) - ( data.deviceInfo.sleepStart - 12)
+			
+			
+				var lineWid = 4;
+				var $canvas = $("#sleep_chart");
+				var ctx = $canvas.get(0).getContext("2d");
+			
+				var size = {
+				    width: $canvas.width(),
+				    height: $canvas.height()
+				};
+			
+				console.log( "data", data );
+			
+				$canvas.attr("width", (data.totalCount)*lineWid * 4);
+				$canvas.attr("height", size.height * 4);
+			
+				$canvas.css({
+				    width: size.width,
+				    height: size.height
+				});
+			
+				ctx.scale(4, 4);
+
+				if(bleStatus == "UNLOCK"){
+
+					debug.log('hyjeon', '샘플 갯수  :'+ data.userData.length);
+					for(var i=0; i<data.userData.length; i++) {
+					    var n = parseInt(data.userData[i]);
+					    debug.log('hyjeon', '값은 ?'+ n);
+					    ctx.beginPath();
+					    ctx.lineWidth = lineWid;
+					    
+					    var startX = i*lineWid;
+					    var strokeColor = "#294b6e";
+					    var targetY = size.height/1.5;//숙면
+					    
+					    ctx.moveTo(startX, 212);
+					       
+					    if ( isNaN(n)  ) {
+					    	debug.log('hyjeon', 'isNAN 입니다.'+ n);
+					        targetY = size.height - 1;
+					    } 
+					    else if ( n >= badValue ){ //11이상
+					        strokeColor="#f78d23";//기상
+					        targetY -= (n * 3 + 20);
+					    }
+					    else if(n>= sosoValue){    //2 이상 
+					        strokeColor = "#c2caea";
+					        targetY -= (n * 2 + 20);
+					    }
+					    
+					    ctx.strokeStyle = strokeColor;
+					    ctx.lineTo(startX, targetY);
+					    ctx.stroke();
+					    ctx.closePath();
+					}
+				} 
+			}
+		);
+};
+M.onReady(function(e) {
+
+});
+
+M.onHide(function(e){
+    
+});
+
+M.onRestore(function(e) {
+    
+});
+
+</script>
+<!--// M-API -->
+</html>

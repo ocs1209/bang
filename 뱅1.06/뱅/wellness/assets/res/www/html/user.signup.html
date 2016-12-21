@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-touch-fullscreen" content="yes" />
+    <title>회원가입</title>
+    <script type="text/javascript" src="../js/mcore.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="../css/common.css" />
+	<style>
+
+	</style>
+</head>
+
+<body>
+	<!-- wrap -->
+	<div id="wrap">
+
+        <!-- header -->
+        <div class="header">
+            <h1>회원가입</h1>
+            <div class="btn_right" role="next"><a nohref class="btn_next" bind-event data-command="submit" data-target-form="signup-form"></span><span class="txt">다음</span><span class="arrow"></a></div>
+        </div>
+        <!--// header -->
+            
+		<!-- menu -->
+		<div id="menu"></div>
+		<!--// menu -->
+
+        <!-- container -->
+        <div class="container">
+
+            <!-- contents -->
+            <div class="contents">
+            
+                <form id="signup-form" name="signup-form" action="user.signup" >
+            
+                <div class="cont_join1">
+                    
+                
+					<div class="join1">
+						<span class="tit"><label for="user_email">이메일</label></span>
+						<span class="input_txt_area"><input type="email" id="user_email" name="user_email" class="intb" value="" placeholder="이메일 주소" required="required" title="이메일" alt="이메일" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" /></span>
+                    </div>
+					
+                    <div class="join1">
+						<span class="tit"><label for="user_password">비밀번호</label></span>
+						<span class="input_txt_area"><input type="password" id="user_password" name="user_password" class="intb" value="" placeholder="비밀번호 8자리 이상 입력" required="required" title="비밀번호" alt="비밀번호" /></span>
+					</div>
+                    <div class="join1">
+                        <span class="tit"></span>
+                        <span class="input_txt_area"><input type="password" id="user_password2" name="user_password2" class="intb" value="" placeholder="비밀번호 확인" required="required" title="비밀번호" alt="비밀번호" /></span>
+                    </div>
+					
+                    <div class="join1_chd">
+						<input type="checkbox" id="news_r" name="news_r" checked="checked" value="Y" class="j_chd" /> <label for="news_r">제품, 뉴스 및 프로모션 소식을 받습니다.</label>
+					</div>
+
+                    <!--
+					<div class="bot_btn4 set_btn_facebook"><a nohref bind-event data-command="facebook-login" class="btn_facebook">페이스북 회원가입</a></div>
+                    -->
+                    
+					<div class="set-btn-login" style="">
+						<a auto-link data-link="user.login.html" data-action="NO_HISTORY" class="login" style="">이미 계정이 있으세요? 지금 로그인하세요!</a>
+					</div>
+
+				</div>
+                
+                </form>
+            
+            </div>
+            <!--// contents -->
+
+        </div>
+        <!--// container -->
+        
+        <!-- layer(dimd) -->
+        <div class="layer dn"></div>
+        <!--// layer(dimd) -->
+        
+	</div>
+	<!--// wrap -->
+	
+</body>
+
+<script type="text/javascript" src="../js/mcore.min.js"></script>
+
+<!-- 화면 스크립트 -->
+<script type="text/javascript">
+function validateEmail(email) {
+    var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+    return re.test(email);
+}
+
+function validatePassword(password) {
+	if (password.length < 8) {
+		return false;
+	}
+	else {
+		return true;
+	}
+}
+
+function validatePassword2(password, password2) {
+	if (password.length < 8 || password2.length < 8) {
+		return false;
+	}
+	else {
+		if (password != password2) {
+			return false;
+		}
+		
+		return true;
+	}
+}
+
+
+$(function(){
+  
+    var controller = MainController.sharedInstance(), popupController = PopupController.sharedInstance(), formController = new FormViewController( $("#signup-form") );
+  
+    controller.bind("didSuccessExecute", function( sender ) {
+		if ( sender.action === "user.signup" ) {
+            var result = sender.result;
+
+            M.data.storage("USER_CREATED_DATE", result.user_date_created);
+            controller.userInfo().data( result );
+
+            popupController.toast("회원 가입이 완료되었습니다.");
+
+            M.page.html("user.terms.html", {action:"NO_HISTORY"});
+		}
+        else if ( sender.action === "user.auth.signup" ) {
+            
+            var result = sender.result;
+            
+            if ( controller.userInfo().auth(result) ) {
+            
+                if ( ! controller.userInfo().userName() ) {
+                    M.page.html("user.terms.html", {action:"NO_HISTORY"});
+                }
+                else if ( ! controller.deviceInfo().hasPairedBand() ){
+                    M.page.html("intro.pairing.html", {action:"NO_HISTORY", animation:"SLIDE_LEFT"});
+                }
+                else {
+                    controller.execute("move.home", {});
+                }
+            }
+            else {
+                controller.sessionController().closeSession();
+                
+                popupController.toast("입력한 회원 정보가 유효하지 않습니다.");
+            }
+        }
+	});
+
+	controller.bind("didErrorExecute", function( sender ) {        
+        if ( sender.action === "user.login" ) {
+            popupController.alert( sender.error );
+        }
+        
+        if(sender.action === "user.signup" && sender.result && sender.result.status_msg != ""){
+            popupController.alert( sender.result.status_msg );
+        }
+	});
+  
+    $("[data-command][bind-event]").bind("click", function(e) {
+        var command = $(this).attr("data-command");
+
+        if ( command == "facebook-login" ) {
+            // Social 연동
+            
+            popupController.alert("준비중 입니다.");
+        }
+        else if ( command == "submit" ) {
+            var invalidData = [], firstBreak = false;
+            
+            // 이메일 형식 체크
+            var email = $("#user_email").val();
+            //alert("email: " + email);
+            if ( ! validateEmail( email ) ) {
+            	popupController.alert( M.locale.localizedString( "message_format_check_email", $("#user_email").attr('title')),
+                function() {
+            		$('#user_email').focus();
+                });
+            	
+            	return false;
+            }
+            
+            // 비밀번호 형식 체크
+            var password = $("#user_password").val();
+            //alert("email: " + email);
+            if ( ! validatePassword( password ) ) {
+            	popupController.alert( M.locale.localizedString( "message_format_check_password", $("#user_password").attr('title')),
+                function() {
+            		$('#user_password').focus();
+                });
+            	
+            	return false;
+            }
+            
+         // 비밀번호 형식 체크
+            var password2 = $("#user_password2").val();
+            //alert("email: " + email);
+            if ( ! validatePassword2( password, password2 ) ) {
+            	popupController.alert( M.locale.localizedString( "message_format_check_password2", $("#user_password2").attr('title')),
+                function() {
+            		$('#user_password2').focus();
+                });
+            	
+            	return false;
+            }
+            
+            if ( ! formController.isValidForm( invalidData, firstBreak ) ) {
+                for ( var i in invalidData ) {
+                    var item = invalidData[i];
+                    var type = item.type;
+                    var field = item.field;
+
+                    switch ( type ) {
+                        case 'checkbox':
+                            popupController.alert( M.locale.localizedString( "message_format_select_multi_option", $(field).attr('title')),
+                            function() {
+                                formController.scrollToElement( field );
+                            });
+                            
+                        break;
+
+                        case 'radio':
+                            popupController.alert( M.locale.localizedString( "message_format_select_option", $(field).attr('title')),
+                            function() {
+                                formController.scrollToElement( field );
+                            });
+                            
+                        break;
+
+                        case 'text':
+                        case 'password':
+                            popupController.alert( M.locale.localizedString( "message_format_required_input", $(field).attr('title')),
+                            function() {
+                                field.focus();
+                                field.select();
+                            });
+                            
+                        break;	
+                    }
+                    break;
+                }
+                
+                return false;
+            }
+            
+            formController.submit();
+        }
+    }).removeAttr("bind-event");
+});
+</script>
+<!-- //화면 스크립트 -->
+
+<!-- M-API -->
+<script type="text/javascript">
+
+M.onReady(function(e) {
+		
+});
+
+M.onHide(function(e){
+	
+});
+
+M.onRestore(function(e) {
+	
+});
+
+</script>
+<!-- //M-API -->
+
+</html>

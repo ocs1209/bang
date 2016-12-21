@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-touch-fullscreen" content="yes" />
+    <title>도움말</title>
+    <script type="text/javascript" src="../js/mcore.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="../css/common.css" />
+	<style>
+    .help_ver p em { font-size: 11px; color: #969696; }
+	</style>
+</head>
+
+<body>
+	<!-- wrap -->
+	<div id="wrap">
+
+        <!-- header -->
+        <div class="header">
+            <div class="btn_left" role="back"><a nohref class="btn_back" data-command="page.back" auto-command><span class="arrow"></span></a></div>
+            <h1>도움말</h1>
+            <div class="btn_right" role="list"><a nohref class="btn_menu"><span>목록</span></a></div>
+        </div>
+        <!--// header -->
+            
+		<!-- menu -->
+		<div id="menu"></div>
+		<!--// menu -->
+
+        <!-- container -->
+        <div class="container">
+
+            <!-- contents -->
+            <div class="contents">
+				
+				<div class="help_ver">
+                    <p>버전 <script>document.write(M.info.app("app.version"));</script> ⓒ Uracle</p>
+                    <p><em>(Resource Version <script>document.write( parseInt(M.info.app("resource.current_version")) );</script>)</em></p>
+                </div>
+
+				<ul class="help_list">
+					<!--<li><a href="mailto://support@bang.co.kr">고객 지원 센터 이메일</a></li>-->
+					<li><a nohref auto-link data-link="support.help.privacy.html" action="NEW_SRC">개인정보보호정책</a></li>
+					<!--<li><a class="app-guide" href="#">사용설명서</a></li>-->
+				</ul>
+
+			</div> 
+            <!--// contents -->
+
+        </div>
+        <!--// container -->
+        
+        <!-- layer(dimd) -->
+        <div class="layer dn"></div>
+        <!--// layer(dimd) -->
+        
+	</div>
+	<!--// wrap -->
+	
+</body>
+
+<script type="text/javascript" src="../js/mcore.min.js"></script>
+
+<!-- 화면 스크립트 -->
+<script type="text/javascript">
+$(document).ready(function(){
+	$(".app-guide").on("click", function(e){
+		e.preventDefault();
+		var localpath = '../doc/app_guide.pdf';
+		//var result = M.plugin('viewer.doc').open(localpath);
+		var result = M.plugin('viewer').open(localpath);
+		//var result = M.plugin('viewer.doc').gview(remote_url);
+		if(result.status != 'SUCCESS') {
+			// TODO : url이 유효하지 않은경우
+			console.log(result.message);
+		}	
+	});	
+});
+</script>
+<!-- //화면 스크립트 -->
+
+<!-- M-API -->
+<script type="text/javascript">
+
+M.onReady(function(e) {
+    
+});
+
+M.onHide(function(e){
+	
+});
+
+M.onRestore(function(e) {
+	
+});
+
+</script>
+<!-- //M-API -->
+
+</html>

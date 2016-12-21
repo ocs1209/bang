@@ -1,0 +1,18 @@
+<resources>
+
+    <dimen name="mp_plugin_fit_padding_small">8dp</dimen>
+    <dimen name="mp_plugin_fit_padding_medium">8dp</dimen>
+    <dimen name="mp_plugin_fit_padding_large">16dp</dimen>
+    
+    <dimen name="mp_plugin_fit_margin_small">10dp</dimen>
+    <dimen name="mp_plugin_fit_margin_medium">20dp</dimen>
+    <dimen name="mp_plugin_fit_margin_large">30dp</dimen>
+    
+    <dimen name="mp_plugin_fit_text_small">7dp</dimen>
+    <dimen name="mp_plugin_fit_text_medium">11dp</dimen>
+    <dimen name="mp_plugin_fit_text_large">16dp</dimen>
+    <dimen name="mp_plugin_fit_text_btsize">12dp</dimen>
+    <dimen name="mp_plugin_fit_text_title">20dp</dimen>
+
+    <dimen name="mp_plugin_fit_separator_height">35dp</dimen>   
+</resources>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<color name="mp_plugin_fit_white">#ffffff</color>
+	<color name="mp_plugin_fit_black">#000000</color>
+	<color name="mp_plugin_fit_bluetooth_title">#cccccc</color>
+	<color name="mp_plugin_fit_text_bt">#787878</color>
+	<color name="mp_plugin_fit_button_color">#E7E7E7</color>
+	
+	<color name="mp_plugin_fit_pressed1">#686e77</color>
+	<color name="mp_plugin_fit_pressed2">#40474f</color>
+	<color name="mp_plugin_fit_focused1">#686e77</color>
+	<color name="mp_plugin_fit_focused2">#40474f</color>
+	<color name="mp_plugin_fit_default1">#959ca4</color>
+	<color name="mp_plugin_fit_default2">#646d79</color>
+	<color name="mp_plugin_fit_stroke">#00000000</color>
+	
+</resources>

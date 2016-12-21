@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<application>
+	<projectName>Wellness</projectName>
+	<applicationName>Wellness</applicationName>
+	<android>
+		<projectName>Wellness</projectName>
+		<applicationName>Wellness</applicationName>
+		<packageName>com.uracle.wellness</packageName>
+		<compileSdk>android-19</compileSdk>
+	</android>
+	<ios>
+		<projectName>Wellness</projectName>
+		<applicationName>Wellness</applicationName>
+		<bundleIdentifier>com.uracle.wellness</bundleIdentifier>
+		<deploymentTarget>iphoneos9.0</deploymentTarget>
+	</ios>
+	<components/>
+	<libraries>
+        <library api="2.1" id="m.client.library.addon.media" revision="4.7" type="addon"/>
+        <library api="2.1" id="m.client.library.addon.net" revision="4.5" type="addon"/>
+        <library api="2.1" id="m.client.library.addon.netExt" revision="4.8" type="addon"/>
+        <library api="2.1" id="m.client.library.addon.popup" revision="4.10" type="addon"/>
+        <library api="2.1" id="m.client.library.addon.zip" revision="4.2" type="addon"/>
+        <library api="2.1" id="m.client.library.plugin.fit" revision="0.3" type="plugin"/>
+        <library api="2.1" id="m.client.library.plugin.motion" revision="0.1" type="plugin"/>
+        <library api="2.1" id="m.client.library.core" revision="6.1" type="core"/>
+        <library api="2.1" id="m.client.library.addon.db" revision="4.5" type="addon"/>
+        <library api="2.1" id="m.client.library.addon.file" revision="4.7" type="addon"/>
+    </libraries>
+</application>

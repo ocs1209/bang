@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-touch-fullscreen" content="yes" />
+    <title>도움말</title>
+    <script type="text/javascript" src="../js/mcore.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="../css/common.css" />
+	<style>
+
+	</style>
+</head>
+
+<body>
+	<!-- wrap -->
+	<div id="wrap">
+
+        <!-- header -->
+        <div class="header">
+            <div class="btn_left" role="back"><a nohref class="btn_back" data-command="page.back" auto-command><span class="arrow"></span></a></div>
+            <h1>도움말</h1>
+            <div class="btn_right" role="list"><a nohref class="btn_menu"><span>목록</span></a></div>
+        </div>
+        <!--// header -->
+            
+		<!-- menu -->
+		<div id="menu"></div>
+		<!--// menu -->
+
+        <!-- container -->
+        <div class="container">
+
+            <!-- contents -->
+            <div class="contents">
+				
+				<pre id="info-privacy">
+					
+				</pre>
+
+			</div> 
+            <!--// contents -->
+
+        </div>
+        <!--// container -->
+        
+        <!-- layer(dimd) -->
+        <div class="layer dn"></div>
+        <!--// layer(dimd) -->
+        
+	</div>
+	<!--// wrap -->
+	
+</body>
+
+<script type="text/javascript" src="../js/mcore.min.js"></script>
+
+<!-- 화면 스크립트 -->
+<script type="text/javascript">
+//$(document.body).onready( function(e) {
+$(document.body).bind("didLoad", function(e) {
+	var 
+	controller = MainController.sharedInstance(), 
+	popupController = PopupController.sharedInstance(), 
+	formController = new FormViewController( $("#signup-form") );
+  
+    controller.bind("didSuccessExecute", function( sender ) {
+		//console.log( "didSuccessExecute", sender );
+        if ( sender.action === "info.terms" ) {
+            var result = sender.result;
+            
+            //$("#info-terms").text( result.terms );
+            $("#info-privacy").text( result.privacy );
+            //$("#info-privacy-trust").text( result.privacy_trust );
+            //$("#info-consign").text( result.consign );
+        }
+	});
+
+	controller.bind("didErrorExecute", function( sender ) {
+		// console.log( "didErrorSend", sender );
+        
+	});
+
+	controller.execute( "info.terms", {} );
+});
+</script>
+<!-- //화면 스크립트 -->
+
+<!-- M-API -->
+<script type="text/javascript">
+
+M.onReady(function(e) {
+    
+});
+
+M.onHide(function(e){
+	
+});
+
+M.onRestore(function(e) {
+	
+});
+
+</script>
+<!-- //M-API -->
+
+</html>

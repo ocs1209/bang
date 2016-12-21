@@ -1,0 +1,12 @@
+{
+    "head":{
+        "result_code":200,
+        "result_message":"Success"
+    },
+    "body":{
+        "terms":"약관 테스트 #1",
+        "privacy":"약관 테스트 #2",
+        "privacy_trust":"약관 테스트 #3",
+        "consign":"약관 테스트 #4"
+    }
+}

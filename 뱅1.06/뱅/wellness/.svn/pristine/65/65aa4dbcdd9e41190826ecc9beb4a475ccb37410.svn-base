@@ -1,0 +1,10 @@
+{
+    "head":{
+        "result_code":200,
+        "result_message":"Success"
+    },
+    "body":{
+        "status":"Y",
+        "status_msg":"Success"
+    }
+}

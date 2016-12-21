@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="36" android:versionName="1.0.14" package="com.uracle.wellness">
+
+    <uses-sdk android:minSdkVersion="18"/>
+
+    <application android:icon="@drawable/icon" android:label="@string/app_name" android:name=".implementation.ExtendApplication">
+        <activity android:name=".Startup" android:theme="@android:style/Theme.Black.NoTitleBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity android:configChanges="locale|keyboardHidden|orientation|screenSize" android:imeOptions="actionSend|flagNoEnterAction" android:name=".BaseActivity"/>
+        <activity android:configChanges="locale|keyboardHidden|orientation|screenSize" android:name=".samples.activity.ImageList1Activity"/>
+        <activity android:configChanges="locale|keyboardHidden|orientation|screenSize" android:name=".samples.activity.ImageList2Activity"/>
+        <activity android:configChanges="locale|keyboardHidden|orientation|screenSize" android:name=".samples.activity.StartActivity"/>
+        <activity android:configChanges="locale|keyboardHidden|orientation|screenSize" android:name=".samples.activity.SampleActivity"/>
+        <activity android:configChanges="locale|keyboardHidden|orientation|screenSize" android:name=".samples.activity.SampleActivity2"/>
+        <activity android:configChanges="locale|keyboardHidden|orientation|screenSize" android:name=".samples.activity.BatchTempActivity"/>
+        <activity android:configChanges="locale|keyboardHidden|orientation|screenSize" android:name=".samples.activity.SampleNativeListActivity"/>
+        <activity android:configChanges="locale|keyboardHidden|orientation|screenSize" android:name=".samples.activity.SampleNativeMapActivity"/>
+        <activity android:name=".samples.activity.ShowPushPopup" android:screenOrientation="portrait" android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
+        <activity android:configChanges="locale|keyboardHidden|orientation|screenSize" android:imeOptions="actionSend|flagNoEnterAction" android:name="m.client.android.library.core.view.MainActivity"/>
+        <!-- <provider android:authorities="@string/app_package" android:name="m.client.android.library.core.managers.LocalFileContentProvider"/> -->
+        <activity android:configChanges="locale|keyboardHidden|orientation" android:name="m.client.library.addon.media.AudioRecoderActivity"/>
+        <activity android:configChanges="keyboardHidden|orientation|screenSize" android:name="m.client.library.addon.media.MediaPlayActivity" android:theme="@android:style/Theme.Black.NoTitleBar"/>
+        <activity android:configChanges="locale|keyboardHidden|orientation|screenSize" android:name="com.uracle.wellness.firmupgrade.DeviceScanActivity"/>
+        <activity android:configChanges="locale|keyboardHidden|orientation|screenSize" android:name="com.uracle.wellness.firmupgrade.DeviceControlActivity"/>
+        <!-- Motion -->
+        <service android:name="m.client.library.plugin.motion.service.MotionService"/>
+
+        <receiver android:name="m.client.library.plugin.motion.service.MotionActionReceiver">
+            <intent-filter>
+                <action android:name="com.uracle.wellness.RESET_STEP"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </receiver>
+        <receiver android:name="m.client.library.plugin.motion.service.RestartReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.USER_PRESENT"/>
+            </intent-filter>
+        </receiver>
+        <!-- fit -->
+        <service android:enabled="true" android:name="com.uracle.wellness.firmupgrade.DFUTimeoutService"/>
+        <!-- <service android:enabled="true" android:name="m.client.library.plugin.fit.service.ConnectionWatchService"/> -->
+        <service android:enabled="true" android:name="com.uracle.wellness.firmupgrade.BluetoothLeService"/>
+        <service android:enabled="true" android:name="m.client.library.plugin.fit.service.FitService"/>
+
+        <receiver android:name="m.client.library.plugin.fit.service.ServiceMonitor$MonitorBR"/>
+
+        <service android:name="m.client.library.plugin.fit.service.NotificationListenerService" android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
+            <intent-filter>
+                <action android:name="android.service.notification.NotificationListenerService"/>
+            </intent-filter>
+        </service>
+        <service android:enabled="true" android:name="com.uracle.wellness.service.SynchService"/>
+        
+        <receiver android:name="m.client.library.plugin.fit.receiver.SynchronizeAlarm" android:process=":remote"/>
+
+        <receiver android:name="m.client.library.plugin.fit.receiver.GattUpdateReceiver">
+            <intent-filter>
+                <action android:name="com.example.bluetooth.le.ACTION_GATT_CONNECTED"/>
+                <action android:name="com.example.bluetooth.le.ACTION_GATT_DISCONNECTED"/>
+                <action android:name="com.example.bluetooth.le.ACTION_GATT_SERVICES_DISCOVERED"/>
+                <action android:name="com.example.bluetooth.le.ACTION_DATA_AVAILABLE"/>
+                <action android:name="com.example.bluetooth.le.READ_DEV_OPERATION"/>
+                <action android:name="com.uracle.wellness.SEND_NOTIFICATION_MESSAGE"/>
+                <action android:name="android.intent.action.PHONE_STATE"/>
+                <action android:name="android.provider.Telephony.SMS_RECEIVED"/>
+            </intent-filter>
+        </receiver>
+        <receiver android:name="m.client.library.plugin.fit.receiver.RestartReceiver">
+            <intent-filter>
+                <action android:name="ACTION_FITSERVICE_START"/>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.USER_PRESENT"/>
+            </intent-filter>
+        </receiver>
+        <!-- provider android:authorities="@string/app_package" android:name="m.client.android.library.core.managers.LocalFileContentProvider" -->
+        <provider android:authorities="@string/app_package" android:name="m.client.android.library.core.managers.LocalFileContentProvider"/>
+    </application>
+
+    <uses-feature android:name="android.hardware.bluetooth_le" android:required="true"/>
+    <uses-feature android:name="android.hardware.telephony" android:required="false"/>
+
+    <uses-permission android:name="android.permission.RESTART_PACKAGES"/>
+    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.GET_TASKS"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.SEND_SMS"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.READ_CONTACTS"/>
+    <!--
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    -->
+    <!-- <uses-permission android:name="android.permission.RECORD_AUDIO"/> -->
+    <uses-feature android:name="android.hardware.camera"/>
+
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.FLASHLIGHT"/>
+
+    <uses-feature android:name="android.hardware.bluetooth_le" android:required="true"/>
+
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS"/>
+    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+
+</manifest>

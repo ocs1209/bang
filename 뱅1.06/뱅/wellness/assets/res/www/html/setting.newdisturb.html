@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="ko">
+	<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-touch-fullscreen" content="yes" />
+	<title>방해금지시간</title>
+	<script type="text/javascript" src="../js/mcore.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="../css/common.css" />
+	<!--picker-->
+	<script type="text/javascript" src="../js/libs/mobiscroll/mobiscroll.core.js"></script>
+	<script type="text/javascript" src="../js/libs/mobiscroll/mobiscroll.frame.js"></script>
+	<script type="text/javascript" src="../js/libs/mobiscroll/mobiscroll.scroller.js"></script>
+	<link rel="stylesheet" type="text/css" href="../js/libs/mobiscroll/mobiscroll.scroller.css">
+	<!--/picker-->
+</head>
+<body>
+<!-- wrap -->
+<div id="wrap">
+	<!-- header-->
+	<div class="header">
+		<h1>방해금지시간</h1>
+		<div class="btn_right"><a class="btn_txt btn_save" nohref="#"><span>저장</span></a></div>
+		<div class="btn_left" role="back"><a nohref class="btn_back" data-command="page.back" auto-command><span class="arrow"></span></a></div>
+	</div> 
+	<!-- /header-->
+
+	<!-- 추가 container-->
+	<div class="container">	
+		<!--content-->
+		<div class="contents">
+			<div class="alram_edit">
+				<p class="ae_tit">시작 시간</p>
+				<div id="stimepicker" class="time_picker">
+					<!--<div class="ar_clock_w">
+						<div class="sele_line"></div>
+						<ul class="ar_lsit">
+							<li>23</li>
+							<li class="selt">00</li>
+							<li>01</li>
+							<li>23</li>
+							<li>00</li>
+							<li>01</li>
+						</ul>
+					</div>
+					<div class="sd_dot">:</div>
+					<div class="ar_clock_w right">
+						<div class="sele_line"></div>
+						<ul class="ar_lsit">
+							<li>23</li>
+							<li class="selt">00</li>
+							<li>01</li>
+						</ul>
+					</div>-->
+				</div>
+			</div>
+			<div class="alram_edit">
+				<p class="ae_tit">종료 시간</p>
+				<div id="etimepicker" class="time_picker">
+				</div>
+			</div>
+		</div>
+		<!-- /content-->
+		<!-- 추가 layer(dimd)-->			
+		<div class="layer dn"></div>	
+		<!--/ 추가 layer(dimd)-->	
+	</div>
+	<!-- /추가 container-->
+</div>
+<!-- /wrap -->	
+</body>
+
+<script>
+
+M.onReady(function(e) {
+	var enabled, type, time, selectedIndex, weeks,
+	Class = UI.Class,
+	DeviceDisturbInfo = Class.DeviceDisturbInfo;
+	
+	enabled = M.data.param("enabled");
+	stime = M.data.param("stime");
+	etime = M.data.param("etime");
+	selectedIndex = parseInt(M.data.param("index"));
+	
+	var salarmTime = stime.split(':'); 
+	var salarmHour = parseInt(salarmTime[0]);
+	var salarmMinute = parseInt(salarmTime[1]);
+	
+	var ealarmTime = etime.split(':'); 
+	var ealarmHour = parseInt(ealarmTime[0]);
+	var ealarmMinute = parseInt(ealarmTime[1]);
+
+	var stimepicker = window.Wellness.createTimepicker($('#stimepicker'), [salarmHour,salarmMinute]);
+	var etimepicker = window.Wellness.createTimepicker($('#etimepicker'), [ealarmHour,ealarmMinute]);
+	
+	$(".btn_save").on("click", function(){		
+		var stimeData = window.Wellness.getTimepickerVal(stimepicker);
+		var etimeData = window.Wellness.getTimepickerVal(etimepicker);
+		
+		M.execute("exWN2PluginFitDisturbSet", {
+            index: selectedIndex,
+            type: type,
+            enabled: "Y",
+            stime: stimeData[0] + ':' + stimeData[1],
+            etime: etimeData[0] + ':' + etimeData[1],
+            callback:function( result ) {
+            }
+        });
+		//네이티브> callback 없음. 콜백상관없이 프리퍼런스셋팅
+    	var deviceDisturbInfo = new Object();
+    	deviceDisturbInfo.index = selectedIndex;
+    	deviceDisturbInfo.enabled= true;
+    	var time1 = stimeData[0].length ==1? '0'+stimeData[0] : stimeData[0];
+		var time2 = stimeData[1].length ==1? '0'+stimeData[1] : stimeData[1];
+		var time3 = etimeData[0].length ==1? '0'+etimeData[0] : etimeData[0];
+		var time4 = etimeData[1].length ==1? '0'+etimeData[1] : etimeData[1];
+
+		deviceDisturbInfo.stime= time1+':'+time2;
+		deviceDisturbInfo.etime= time3+':'+time4;
+		
+    	debug.log("deviceDisturbInfo setting", deviceDisturbInfo);
+
+		var list = [];
+		list=  DeviceDisturbInfo.sharedInfo().getListData();
+    	list[selectedIndex] = null;
+    	list[selectedIndex] = deviceDisturbInfo;
+		list.sort();
+		DeviceDisturbInfo.sharedInfo().setListData(JSON.stringify(list));
+    	debug.log("preference deviceDisturbInfo setting", DeviceDisturbInfo.sharedInfo().getListData());
+		M.page.back( {param:"act=refresh"} );
+	});
+
+	$(".disturb_set_week li a").on("click", function(){
+		var $t = $(this);
+		if($t.hasClass("day_off")){
+			$t.addClass("day_on").removeClass("day_off");
+		} else {
+			$t.addClass("day_off").removeClass("day_on");
+		}
+	});
+});
+
+</script>
+</html>

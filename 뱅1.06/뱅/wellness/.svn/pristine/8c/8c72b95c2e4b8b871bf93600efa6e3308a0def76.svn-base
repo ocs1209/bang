@@ -1,0 +1,12 @@
+//
+//  ExtendWNInterface.h
+//
+
+#import <Foundation/Foundation.h>
+#import <MFit/HistoryInterface.h>
+
+@interface ExtendWNInterface : NSObject<WNInterface, FitHistoryDelegate>
+
+@property (nonatomic, readonly) PPWebViewController *viewController;
+
+@end

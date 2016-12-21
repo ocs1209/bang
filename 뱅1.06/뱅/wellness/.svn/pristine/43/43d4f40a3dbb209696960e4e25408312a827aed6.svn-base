@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-touch-fullscreen" content="yes" />
+<title>이동거리</title>
+<script type="text/javascript" src="../js/mcore.min.js"></script>
+<link rel="stylesheet" type="text/css" href="../css/common.css" />
+</head>
+<body>
+<!-- wrap -->
+<div id="wrap">
+    <!-- header -->
+    <div class="header">
+        <div class="btn_left" role="back"><a nohref class="btn_back" data-command="page.back" auto-command><span class="arrow"></span></a></div>
+        <h1>이동거리</h1>
+        <div class="btn_right" role="list"><a nohref class="btn_menu"><span>목록</span></a></div>
+    </div> 
+    <!--// header -->
+        
+    <!-- menu -->
+    <div id="menu"></div>
+    <!--// menu -->
+    <!-- container -->
+    <div class="container dash_sub w_mt_w">
+
+        <!-- contents -->
+        <div class="contents">
+            <!--circle tab -->
+            <ul class="circle_tab ">
+                <li><a nohref auto-link data-link="dashboard.distance.weekly.html" data-action="REPLACE">이번주</a></li>
+                <li><a nohref auto-link data-link="dashboard.distance.monthly.html" data-action="REPLACE"><script>document.write( FitManager.defaultManager().targetDateFormat("M월") );</script></a></li>
+                <li><a nohref auto-link data-link="dashboard.distance.cumulatively.html" data-action="REPLACE" class="selected" >전체</a></li>
+            </ul>
+            <!--/circle tab -->
+            <div class="set-cont w_mt_w">
+                <div class="m-scrollswipe">
+                    <div class="m-scroll">
+                        <div class="m-scroll-container">
+                            <ul class="sl_list">
+                                <script type="text/x-template" id="template-mountain-list">
+                                {{loop $items}}
+                                <li data-height="{{$height}}" class="ww_img {{$bgClass}}">
+                                    <div class="mtps"><img src="../images/mountain/{{$imgName}}" alt=""><div class="w_flag"></div></div>
+                                </li>
+                                {{/}}
+                                </script>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="w_mt_w">                
+                <!-- text -->
+                <div class="suc_txt">
+                    총 누적 : <em>0</em>m
+                </div>
+                <!-- /text -->
+                <!-- 하단정보 -->
+                <div class="wm_info">
+                    <div class="wm_cont">
+                        <a nohref class="wm_pre dn"><span>이전</span></a>
+                        <div class="wm_txt">
+                            <p class="t1">청계산</p>
+                            <p class="t2">0m</p>
+                        </div>
+                        <div>
+                        	<label style ="color: #FF5E00;"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 월간 합산 데이터와 다소 차이가 있을 수 있습니다. </label>
+                        </div>
+                        <a nohref class="wm_next"><span>다음</span></a>
+                    </div>
+                </div>
+            <!-- /하단정보 -->
+            </div>           
+        </div> 
+        <!--// contents -->
+        <!-- layer(dimd) -->
+        <div class="layer dn"></div>
+        <!--// layer(dimd) -->
+    </div>
+    <!--// container -->        
+</div>
+<!--// wrap -->
+ <div class="pop_bg dn" data-pop-wrap="">
+    <div id="pop01" class="popup_wrap">
+        <ul class="photo_select">
+            <li><a href="#">이번 산을 정복하셔야
+            <br>다음 산을 보실 수 있습니다.
+            </a></li>
+            <li><a nohref data-close-pop="">확인</a></li>
+        </ul>
+    </div>
+</div>   
+</body>
+
+<!-- 화면 스크립트 -->
+<script type="text/javascript">
+
+var  controller = MainController.sharedInstance(),
+fitManager = controller.fitManager();
+
+$(document.body).bind("didAppear", function() {
+    controller.execute("fit.distance.all",{},{});
+});
+
+</script>
+<!--// 화면 스크립트 -->
+
+<!-- M-API -->
+<script type="text/javascript">
+function refreshBySynchResult(){
+	debug.log("hyjeon","[  히스토리 synch 결과를 가져온다. 이동거리 > 누적 화면  ))]");
+	 controller.execute("fit.distance.all",{},{});
+};
+M.onReady(function(e) {
+    
+});
+
+M.onHide(function(e){
+    
+});
+
+M.onRestore(function(e) {
+    
+});
+
+</script>
+<!--// M-API -->
+</html>

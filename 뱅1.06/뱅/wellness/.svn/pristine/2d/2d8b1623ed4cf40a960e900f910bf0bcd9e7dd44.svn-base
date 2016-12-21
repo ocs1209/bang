@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-touch-fullscreen" content="yes" />
+<title>수면시간</title>
+<script type="text/javascript" src="../js/mcore.min.js"></script>
+<!-- <script type="text/javascript" src="../js/libs/instance/instance.ui.js"></script> -->
+<link rel="stylesheet" type="text/css" href="../css/common.css" />
+
+</head>
+
+<body>
+	<!-- wrap -->
+	<div id="wrap">
+        <!-- header -->
+        <div class="header">
+            <div class="btn_left" role="back"><a nohref class="btn_back" data-command="page.back" auto-command><span class="arrow"></a></div>
+            <h1>수면시간</h1>
+            <div class="btn_right" role="list"><a nohref class="btn_menu"><span>목록</span></a></div>
+        </div>
+        <!--// header -->
+            
+		<!-- menu -->
+		<div id="menu"></div>
+		<!--// menu -->
+
+        <!-- container -->
+        <div class="container dash_sub sleep_month">
+
+            <!-- contents -->
+            <div class="contents">
+                
+                <!--circle tab -->
+                <ul class="circle_tab">
+                     <li><a nohref auto-link data-link="dashboard.sleep.today.html" data-action="REPLACE">어제</a></li>
+                    <li><a nohref auto-link data-link="dashboard.sleep.weekly.html" data-action="REPLACE">이번주</a></li>
+                    <li><a nohref auto-link data-link="dashboard.sleep.monthly.html" data-action="REPLACE" class="selected"><script>document.write( FitManager.defaultManager().targetDateFormat("M월") );</script></a></li>
+                </ul>
+                 <div id="manual_synch" style="position: fixed; height: 3rem; width: 3rem; background-color: pink; border-radius: 1rem; right: 1rem; bottom: 1rem;"></div>
+                <!--/circle tab -->
+                <!-- text -->
+                <div class="suc_txt">
+                    <div class="suc_ok">GOOD SLEEP <em>0</em>일</div>
+                    <div class="suc_txt_sl2">SOSO SLEEP <em>0</em>일</div>
+                    <div class="suc_fa">BAD SLEEP <em>0</em>일</div>
+                </div>
+                <!-- /text -->
+                <!--/circle tab -->
+               <div class="set-cont step-month m-calendar">
+                    <!-- 달력 -->
+                    <!--
+                    <table class="cal_list">
+
+                        <colgroup>
+                            <col style="width:40px;" />
+                            <col style="width:40px;" />
+                            <col style="width:40px;" />
+                            <col style="width:40px;" />
+                            <col style="width:40px;" />
+                            <col style="width:40px;" />
+                            <col style="width:40px;" />
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>MON</th>
+                                <th>TUE</th>
+                                <th>WED</th>
+                                <th>THU</li>
+                                <th>FRI</th>
+                                <th>SAT</th>
+                                <th>SUN</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td></td>
+                                <td><div class="cierbx failure">1</div></td>
+                                <td><div class="cierbx failure">2</div></td>
+                                <td><div class="cierbx ok">3</div></td>
+                                <td><div class="cierbx ok">4</div></td>
+                                <td><div class="cierbx ok">5</div></td>
+                                <td><div class="cierbx ok">6</div></td>
+                            </tr>
+                            <tr>
+                                <td><div class="cierbx failure">7</div></td>
+                                <td><div class="cierbx failure">8</div></td>
+                                <td><div class="cierbx ok">9</div></td>
+                                <td><div class="cierbx ok">10</div></td>
+                                <td><div class="cierbx ok">11</div></td>
+                                <td><div class="cierbx ok">12</div></td>
+                                <td><div class="cierbx failure">13</div></td>
+                            </tr>
+                            <tr>
+                                <td><div class="cierbx failure">14</div></td>
+                                <td><div class="cierbx bad">15</div></td>
+                                <td><div class="cierbx bad">16</div></td>
+                                <td><div class="cierbx bad">17</div></td>
+                                <td><div class="cierbx ok">18</div></td>
+                                <td><div class="cierbx failure">19</div></td>
+                                <td><div class="cierbx failure">20</div></td>
+                            </tr>
+                            <tr>
+                                <td><div class="cierbx ok">21</div></td>
+                                <td><div class="cierbx ok">22</div></td>
+                                <td><div class="cierbx ok">23</div></td>
+                                <td><div class="cierbx ok">24</div></td>
+                                <td><div class="cierbx failure">25</div></td>
+                                <td><div class="cierbx failure">26</div></td>
+                                <td><div class="cierbx ok">27</div></td>
+                            </tr>
+                            <tr>
+                                <td><div class="cierbx ok">28</div></td>
+                                <td><div class="cierbx ok">29</div></td>
+                                <td><div class="cierbx ok">30</div></td>
+                                <td><div class="cierbx ok">31</div></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    -->
+                    <!-- /달력 -->
+                </div>                
+            </div> 
+            <!--// contents -->
+
+        </div>
+        <!--// container -->
+        
+        <!-- layer(dimd) -->
+        <div class="layer dn"></div>
+        <!--// layer(dimd) -->
+        
+	</div>
+	<!--// wrap -->
+	 <div class="popup_wrap toast_popup dn" id="guide_pop">
+        <div class="pop_txtw"></div>
+    </div>    
+</body>
+
+<!-- 화면 스크립트 -->
+<script type="text/javascript">
+var  controller = MainController.sharedInstance(),
+fitManager = controller.fitManager();
+
+$(document.body).bind("didAppear", function() {
+	
+    controller.execute("fit.sleep.monthly",{},{});
+
+    $("#manual_synch").click(function(){
+	   	 fitManager.connect( function( result ) {
+	            if ( result.error ) {
+	            }
+	            M.fit.current(function( result ) {
+	    			console.log('M.fit.current');
+	                if ( result.error ) {
+	                	console.log(result.error);
+	                }
+	                else {
+	    				console.log('fitManager.info().data');
+	                	fitManager.info().data({
+	                        "current_calorie": result.calorie,
+	                        "current_distance": result.distance,
+	                        "current_step": result.step
+	                    });
+	
+	                    M.data.storage("CALORIE", result.calorie);
+	                    M.data.storage("DISTANCE", result.distance);
+	                    M.data.storage("STEP", result.step);
+	                    
+	                    fitManager.synchManually(  function() {
+	                		
+	                	 });
+	                }
+	                
+	    		});
+	   	 }, true);
+	});
+});
+</script>
+<!-- //화면 스크립트 -->
+
+<!-- M-API -->
+<script type="text/javascript">
+function refreshBySynchResult(){
+	debug.log("hyjeon","[  히스토리 synch 결과를 가져온다.----> 수면 월간 ");
+	controller.execute("fit.sleep.monthly",{},{});
+};
+M.onReady(function(e) {
+    
+});
+
+M.onHide(function(e){
+	
+});
+
+M.onRestore(function(e) {
+	
+});
+
+</script>
+<!-- //M-API -->
+
+</html>

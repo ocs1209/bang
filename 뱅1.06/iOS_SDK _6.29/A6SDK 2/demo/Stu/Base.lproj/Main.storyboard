@@ -1,0 +1,579 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="R4t-wU-edh">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Stu" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="qCe-n0-xxx">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="aqH-6p-6Ry"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="vhN-Gc-Pu9"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <navigationItem key="navigationItem" id="kpA-T5-Nbi">
+                        <nil key="title"/>
+                        <button key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="c7L-MO-ykC">
+                            <rect key="frame" x="96" y="7" width="128" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" title="search"/>
+                            <connections>
+                                <action selector="scanAct:" destination="BYZ-38-t0r" eventType="touchUpInside" id="uFX-eW-2L5"/>
+                            </connections>
+                        </button>
+                        <barButtonItem key="rightBarButtonItem" id="hAl-4t-ZhR">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Tju-n9-g7F">
+                                <rect key="frame" x="233" y="7" width="71" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="DFU"/>
+                                <connections>
+                                    <action selector="dfu:" destination="BYZ-38-t0r" eventType="touchUpInside" id="b0B-Np-ak6"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="ble" destination="qCe-n0-xxx" id="tqg-Pz-gEK"/>
+                        <segue destination="QV0-qc-xUi" kind="push" identifier="s2h" id="V5c-E9-Dg6"/>
+                        <segue destination="q7f-Ob-jjY" kind="push" identifier="h2u" id="UCn-vM-LCI"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="149" y="222"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="eIn-di-fa7">
+            <objects>
+                <navigationController id="R4t-wU-edh" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="sUT-CC-Brl">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="rZe-LH-sXU"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="h1R-DK-ZpM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-229" y="222"/>
+        </scene>
+        <!--Home-->
+        <scene sceneID="GK4-x2-shG">
+            <objects>
+                <viewController storyboardIdentifier="homeid" useStoryboardIdentifierAsRestorationIdentifier="YES" id="QV0-qc-xUi" customClass="Home" customModule="Stu" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="00B-RE-FX2">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="InS-q6-k1P">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="QV0-qc-xUi" id="Ewr-9A-NaC"/>
+                                    <outlet property="delegate" destination="QV0-qc-xUi" id="ndc-sC-oDd"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <navigationItem key="navigationItem" id="8y0-hr-n0U">
+                        <barButtonItem key="rightBarButtonItem" id="qV8-78-6qd">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="ucY-9A-zse">
+                                <rect key="frame" x="233" y="7" width="71" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="EXIT"/>
+                                <connections>
+                                    <action selector="exitt:" destination="QV0-qc-xUi" eventType="touchUpInside" id="cy4-nU-GWc"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="tab" destination="InS-q6-k1P" id="78Z-JD-FBx"/>
+                        <segue destination="CN0-cx-xQX" kind="push" identifier="h2r" id="Ko5-55-ciI"/>
+                        <segue destination="M8k-9H-fAF" kind="push" identifier="h2w" id="yEM-zf-z7i"/>
+                        <segue destination="xQb-2R-6sd" kind="push" identifier="h2rx" id="bJW-i7-KSG"/>
+                        <segue destination="Fge-5N-gdt" kind="push" identifier="h2wx" id="y9f-of-HCq"/>
+                        <segue destination="vdE-3S-PYp" kind="push" identifier="h2g" id="ncm-Af-udB"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZEi-1X-fgB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="536" y="222"/>
+        </scene>
+        <!--Read-->
+        <scene sceneID="ftF-Si-DiQ">
+            <objects>
+                <viewController id="CN0-cx-xQX" customClass="Read" customModule="Stu" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="NYm-WE-hA0">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" id="qWU-eA-fpP">
+                                <rect key="frame" x="20" y="20" width="280" height="464"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <navigationItem key="navigationItem" id="A5E-yY-GsC"/>
+                    <connections>
+                        <outlet property="par" destination="qWU-eA-fpP" id="pTp-zs-5vQ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5rV-n1-t4R" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="910" y="222"/>
+        </scene>
+        <!--Write-->
+        <scene sceneID="0UJ-V1-F70">
+            <objects>
+                <viewController id="M8k-9H-fAF" customClass="Write" customModule="Stu" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="CHN-Xd-n7T">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="qa8-mr-JzO">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <button opaque="NO" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="YDQ-gz-p8x">
+                                        <rect key="frame" x="8" y="7" width="304" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Personal information"/>
+                                        <connections>
+                                            <action selector="Act:" destination="M8k-9H-fAF" eventType="touchUpInside" id="qva-ec-YeB"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="11" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="fvT-AF-Rrh">
+                                        <rect key="frame" x="8" y="45" width="304" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Moving target"/>
+                                        <connections>
+                                            <action selector="Act:" destination="M8k-9H-fAF" eventType="touchUpInside" id="3NL-UH-ren"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="13" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="wTM-eG-kUa">
+                                        <rect key="frame" x="8" y="121" width="304" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="You Are the One Time"/>
+                                        <connections>
+                                            <action selector="Act:" destination="M8k-9H-fAF" eventType="touchUpInside" id="NQG-GZ-9e5"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="14" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="aNA-to-DeQ">
+                                        <rect key="frame" x="8" y="159" width="304" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Function parameter"/>
+                                        <connections>
+                                            <action selector="Act:" destination="M8k-9H-fAF" eventType="touchUpInside" id="Xvs-e2-b9X"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="15" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="ePb-xh-U2Y">
+                                        <rect key="frame" x="8" y="197" width="304" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Display parameters"/>
+                                        <connections>
+                                            <action selector="Act:" destination="M8k-9H-fAF" eventType="touchUpInside" id="CGH-Dw-oef"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="16" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="RVJ-QR-4Zi">
+                                        <rect key="frame" x="8" y="235" width="304" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Notification Settings"/>
+                                        <connections>
+                                            <action selector="Act:" destination="M8k-9H-fAF" eventType="touchUpInside" id="dpa-M9-zUY"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="17" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="chY-wM-TjB">
+                                        <rect key="frame" x="8" y="273" width="304" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Heart rate setting"/>
+                                        <connections>
+                                            <action selector="Act:" destination="M8k-9H-fAF" eventType="touchUpInside" id="yo6-eb-Kqv"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="18" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="DPD-Gx-Agf">
+                                        <rect key="frame" x="8" y="311" width="304" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Time bracelet"/>
+                                        <connections>
+                                            <action selector="Act:" destination="M8k-9H-fAF" eventType="touchUpInside" id="qWh-cI-RCz"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="19" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="NF3-vT-gRP">
+                                        <rect key="frame" x="8" y="349" width="304" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Wristband alarm clock"/>
+                                        <connections>
+                                            <action selector="Act:" destination="M8k-9H-fAF" eventType="touchUpInside" id="Dl0-qH-kJs"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="20" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="lBX-33-gDA">
+                                        <rect key="frame" x="8" y="387" width="304" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Reboot the system"/>
+                                        <connections>
+                                            <action selector="Act:" destination="M8k-9H-fAF" eventType="touchUpInside" id="KVA-fO-8SD"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="21" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Dhm-MX-dod">
+                                        <rect key="frame" x="8" y="425" width="304" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Clear historical data"/>
+                                        <connections>
+                                            <action selector="Act:" destination="M8k-9H-fAF" eventType="touchUpInside" id="59T-4s-zXh"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="22" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="mdF-c1-0IL">
+                                        <rect key="frame" x="8" y="463" width="304" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Restore Defaults"/>
+                                        <connections>
+                                            <action selector="Act:" destination="M8k-9H-fAF" eventType="touchUpInside" id="iWv-7a-iW5"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="12" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="CeL-Js-58f">
+                                        <rect key="frame" x="8" y="83" width="304" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="sleeping time"/>
+                                        <connections>
+                                            <action selector="Act:" destination="M8k-9H-fAF" eventType="touchUpInside" id="N7a-UV-9gi"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <connections>
+                                    <outlet property="delegate" destination="M8k-9H-fAF" id="GOX-8v-ztE"/>
+                                </connections>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <navigationItem key="navigationItem" id="4fI-MG-Z3d"/>
+                    <connections>
+                        <outlet property="scro" destination="qa8-mr-JzO" id="Vum-VE-ytz"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4ey-gd-UNO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1285" y="222"/>
+        </scene>
+        <!--UP-->
+        <scene sceneID="qAN-8o-DYr">
+            <objects>
+                <viewController id="vdE-3S-PYp" customClass="UP" customModule="Stu" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="xgE-MY-29G">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="GV3-gu-r40">
+                                <rect key="frame" x="20" y="46" width="280" height="73"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="upgrade"/>
+                                <connections>
+                                    <action selector="act:" destination="vdE-3S-PYp" eventType="touchUpInside" id="kKg-pk-wZB"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="rgY-5o-sSG">
+                                <rect key="frame" x="20" y="155" width="280" height="153"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="50"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="V1I-gt-EaM">
+                                <rect key="frame" x="20" y="357" width="280" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="close"/>
+                                <connections>
+                                    <action selector="closeAct:" destination="vdE-3S-PYp" eventType="touchUpInside" id="Cg0-pl-Xun"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <navigationItem key="navigationItem" id="ffB-Li-cxr"/>
+                    <connections>
+                        <outlet property="btn" destination="GV3-gu-r40" id="TTS-l9-YqR"/>
+                        <outlet property="cbtn" destination="V1I-gt-EaM" id="SQX-WU-e2A"/>
+                        <outlet property="pro" destination="rgY-5o-sSG" id="pIe-5I-aDD"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RaN-Xg-GfT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1664" y="222"/>
+        </scene>
+        <!--DFU-->
+        <scene sceneID="oxd-dG-eoc">
+            <objects>
+                <viewController id="q7f-Ob-jjY" customClass="DFU" customModule="Stu" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="xnY-9k-Qtr">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" tag="20" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="OHK-Eb-Srd">
+                                <rect key="frame" x="20" y="131" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="X6C"/>
+                                <connections>
+                                    <action selector="act:" destination="q7f-Ob-jjY" eventType="touchUpInside" id="chM-i3-Htj"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" tag="21" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Uzm-gs-j2H">
+                                <rect key="frame" x="137" y="131" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="X6S"/>
+                                <connections>
+                                    <action selector="act:" destination="q7f-Ob-jjY" eventType="touchUpInside" id="U44-7G-tUX"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" tag="22" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="jAH-eL-DHz">
+                                <rect key="frame" x="254" y="131" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="A6"/>
+                                <connections>
+                                    <action selector="act:" destination="q7f-Ob-jjY" eventType="touchUpInside" id="f6K-TP-5cK"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="epF-sr-ejk">
+                                <rect key="frame" x="80" y="213" width="153" height="142"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="CvV-7J-Ere">
+                                <rect key="frame" x="133" y="411" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="关闭"/>
+                                <connections>
+                                    <action selector="closeAct:" destination="q7f-Ob-jjY" eventType="touchUpInside" id="Li2-u1-2c4"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="lg5-wa-zvd"/>
+                    <connections>
+                        <outlet property="a6" destination="jAH-eL-DHz" id="mwH-c4-Jo1"/>
+                        <outlet property="pro" destination="epF-sr-ejk" id="mfR-gj-cPx"/>
+                        <outlet property="x6c" destination="OHK-Eb-Srd" id="Mpo-bo-6sQ"/>
+                        <outlet property="x6s" destination="Uzm-gs-j2H" id="mIn-72-M3F"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6vB-dh-t7U" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2049" y="222"/>
+        </scene>
+        <!--ReadX-->
+        <scene sceneID="1Wr-qF-hFY">
+            <objects>
+                <viewController id="xQb-2R-6sd" customClass="ReadX" customModule="Stu" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="FJ8-iN-pZU">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" id="Inu-Ya-tCV">
+                                <rect key="frame" x="20" y="20" width="280" height="464"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <navigationItem key="navigationItem" id="vGE-FU-N1w"/>
+                    <connections>
+                        <outlet property="par" destination="Inu-Ya-tCV" id="4T9-qC-0Yy"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xk8-1j-1T8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="910" y="932"/>
+        </scene>
+        <!--WriteX-->
+        <scene sceneID="yJc-Lu-Ymq">
+            <objects>
+                <viewController id="Fge-5N-gdt" customClass="WriteX" customModule="Stu" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Zqi-hd-uEX">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="srp-Bc-itB">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="678"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <button opaque="NO" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="jl5-4o-e0B">
+                                        <rect key="frame" x="8" y="7" width="304" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Personal information"/>
+                                        <connections>
+                                            <action selector="Act:" destination="Fge-5N-gdt" eventType="touchUpInside" id="Ef8-gZ-JWg"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="11" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="deh-it-nuT">
+                                        <rect key="frame" x="8" y="45" width="304" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Moving Target"/>
+                                        <connections>
+                                            <action selector="Act:" destination="Fge-5N-gdt" eventType="touchUpInside" id="HLW-se-boS"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="12" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Neq-4g-o74">
+                                        <rect key="frame" x="8" y="83" width="304" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="sleeping time"/>
+                                        <connections>
+                                            <action selector="Act:" destination="Fge-5N-gdt" eventType="touchUpInside" id="Lln-0t-VDY"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="13" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="OtW-5m-Hns">
+                                        <rect key="frame" x="8" y="121" width="304" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="You Are the One Time"/>
+                                        <connections>
+                                            <action selector="Act:" destination="Fge-5N-gdt" eventType="touchUpInside" id="2Me-zb-ovp"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="14" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="vWT-B5-jYk">
+                                        <rect key="frame" x="8" y="159" width="304" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Sedentary reminder"/>
+                                        <connections>
+                                            <action selector="Act:" destination="Fge-5N-gdt" eventType="touchUpInside" id="BY1-2H-ITN"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="15" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="zPd-Xh-pMq">
+                                        <rect key="frame" x="8" y="197" width="304" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Time format"/>
+                                        <connections>
+                                            <action selector="Act:" destination="Fge-5N-gdt" eventType="touchUpInside" id="old-k4-uDA"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="16" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="QeN-aO-n7A">
+                                        <rect key="frame" x="8" y="235" width="304" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Bracelet language"/>
+                                        <connections>
+                                            <action selector="Act:" destination="Fge-5N-gdt" eventType="touchUpInside" id="6Qi-Zd-ziY"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="17" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="wzj-Fc-Ogv">
+                                        <rect key="frame" x="8" y="273" width="304" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Screen Flip Horizontal"/>
+                                        <connections>
+                                            <action selector="Act:" destination="Fge-5N-gdt" eventType="touchUpInside" id="d38-le-NXD"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="18" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="C9Z-PJ-HW3">
+                                        <rect key="frame" x="8" y="310" width="304" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Time bracelet"/>
+                                        <connections>
+                                            <action selector="Act:" destination="Fge-5N-gdt" eventType="touchUpInside" id="8hS-MT-1DB"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="19" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="JUQ-C3-3Pe">
+                                        <rect key="frame" x="8" y="348" width="304" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Wristband alarm clock"/>
+                                        <connections>
+                                            <action selector="Act:" destination="Fge-5N-gdt" eventType="touchUpInside" id="Cik-bD-lwk"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="20" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="pxu-Uc-1Ur">
+                                        <rect key="frame" x="8" y="386" width="304" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Reboot the system"/>
+                                        <connections>
+                                            <action selector="Act:" destination="Fge-5N-gdt" eventType="touchUpInside" id="rBe-Us-uqA"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="21" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="KuY-Dv-zeN">
+                                        <rect key="frame" x="8" y="424" width="304" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Clear historical data"/>
+                                        <connections>
+                                            <action selector="Act:" destination="Fge-5N-gdt" eventType="touchUpInside" id="18S-OA-vOD"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="22" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="bVO-vQ-ZWc">
+                                        <rect key="frame" x="8" y="462" width="304" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Restore Defaults"/>
+                                        <connections>
+                                            <action selector="Act:" destination="Fge-5N-gdt" eventType="touchUpInside" id="7cn-It-NXW"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="23" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="TaV-V7-SAk">
+                                        <rect key="frame" x="8" y="500" width="304" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Lift wrist bright screen"/>
+                                        <connections>
+                                            <action selector="Act:" destination="Fge-5N-gdt" eventType="touchUpInside" id="bzu-pu-SLG"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="24" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="bis-Ew-LEv">
+                                        <rect key="frame" x="8" y="538" width="304" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Information Switch"/>
+                                        <connections>
+                                            <action selector="Act:" destination="Fge-5N-gdt" eventType="touchUpInside" id="J7P-sp-KZe"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="25" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="wJm-Et-Xnl">
+                                        <rect key="frame" x="8" y="576" width="304" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Temporary mode"/>
+                                        <connections>
+                                            <action selector="Act:" destination="Fge-5N-gdt" eventType="touchUpInside" id="ql7-Yu-dwc"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <connections>
+                                    <outlet property="delegate" destination="Fge-5N-gdt" id="1NF-Hj-U5q"/>
+                                </connections>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <navigationItem key="navigationItem" id="QDM-rx-V3c"/>
+                    <connections>
+                        <outlet property="scro" destination="srp-Bc-itB" id="83M-lV-oZj"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UUU-ee-vRQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1285" y="932"/>
+        </scene>
+    </scenes>
+</document>

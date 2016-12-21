@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" 
+    android:layout_gravity="center_vertical">
+    <LinearLayout
+	    android:layout_height="40dp"
+	    android:layout_width="0dip"
+        android:layout_weight="0.8" 
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/mp_plugin_fit_padding_small">
+        <TextView
+	        android:id="@+id/list_with_button_text_name"
+	        android:layout_width="0dip"
+	        android:layout_weight="0.5" 
+	        android:gravity="left|center_vertical"
+	        android:layout_height="fill_parent"
+	        android:textSize="@dimen/mp_plugin_fit_text_btsize"
+	        android:textColor="@color/mp_plugin_fit_text_bt">
+	    </TextView>
+	    <TextView
+	        android:id="@+id/list_with_button_text_address"
+	        android:layout_width="0dip"
+	        android:layout_weight="0.5" 
+	        android:gravity="left|center_vertical"
+	        android:layout_height="fill_parent"
+	        android:textSize="@dimen/mp_plugin_fit_text_btsize"
+	        android:textColor="@color/mp_plugin_fit_text_bt">
+	    </TextView>
+	</LinearLayout>
+    <Button
+        android:id="@+id/list_with_button_button"
+        android:background="@drawable/fit_button_selector"
+		android:textColor="@color/mp_plugin_fit_button_color"
+        android:layout_width="0dip"
+        android:layout_weight="0.2" 
+        android:visibility="invisible"
+        android:layout_margin="4dp"
+        android:textSize="@dimen/mp_plugin_fit_text_btsize"
+        android:layout_height="fill_parent" >
+    </Button>
+
+</LinearLayout>

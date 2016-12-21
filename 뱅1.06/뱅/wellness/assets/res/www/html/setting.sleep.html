@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-touch-fullscreen" content="yes" />
+<title>수면시간 설정</title>
+<script type="text/javascript" src="../js/mcore.min.js"></script>
+<link rel="stylesheet" type="text/css" href="../css/common.css" />
+<!--picker-->
+<script type="text/javascript" src="../js/libs/mobiscroll/mobiscroll.core.js"></script>
+<script type="text/javascript" src="../js/libs/mobiscroll/mobiscroll.frame.js"></script>
+<script type="text/javascript" src="../js/libs/mobiscroll/mobiscroll.scroller.js"></script>
+<link rel="stylesheet" type="text/css" href="../js/libs/mobiscroll/mobiscroll.scroller.css">
+<!--/picker-->
+<script>
+
+/* $(function() {
+	//피커생성
+
+	//12시 30분 시간 설정시 
+	//var timepicker = startTimepicker = window.Wellness.createTimepicker($('#start_picker'), [12,30]);
+	var startTimepicker = window.Wellness.createTimepicker($('#start_picker'));
+	var finishTimepicker = window.Wellness.createTimepicker($('#finish_picker'));
+
+	$(".btn_save").on("click", function(){		
+		var startTime = window.Wellness.getTimepickerVal(startTimepicker);
+		var finishTime = window.Wellness.getTimepickerVal(finishTimepicker);
+		alert(startTime[0]+"시"+"  "+startTime[1]+"분 ~ "+finishTime[0]+"시"+"  "+finishTime[1]+"분");
+		
+		M.fit.sleepTime.set({
+            start: startTime[0] + ":" + startTime[1],
+            end: finishTime[0] + ":" + finishTime[1],
+            callback:function( result ) {
+                M.tool.log( result );
+            }
+        });
+	});
+}); */
+</script>
+</head>
+<body>
+<!-- wrap -->
+<div id="wrap">
+	<!-- header-->
+	<div class="header">
+		<h1>수면시간 설정</h1>
+		<div class="btn_right"><a class="btn_txt btn_save" nohref="#"><span>저장</span></a></div>
+		<div class="btn_left" role="back"><a nohref class="btn_back" data-command="page.back" auto-command><span class="arrow"></span></a></div>
+	</div> 
+	<!-- /header-->
+	<!--추가 menu-->
+	<div id="menu">
+		<ul>
+			<li><a href="#"><span class="ic_m0"></span>홈</a></li>
+			<li><a class="white" href="#"><span class="ic_m1"></span><span class="txt">나의체성분</span></a></li>
+			<li><a class="white" href="#"><span class="ic_m2"></span><span class="txt">혈압관리</span></a></li>
+			<li><a class="white" href="#"><span class="ic_m3"></span><span class="txt">혈당관리</span></a></li>
+			<li><a class="white" href="#"><span class="ic_m4"></span><span class="txt">챌린지</span></a></li>
+			<li><a class="white" href="#"><span class="ic_m5"></span><span class="txt">친구</span></a></li>
+			<li><a class="white bdn" href="#"><span class="ic_m6"></span><span class="txt">마이페이지</span></a></li>
+			<li><a href="#">기기</a></li>
+			<li><a href="#">도움말</a></li>
+			<li><a href="#">로그아웃</a></li>
+		</ul>
+	</div>
+	<!--/ 추가 menu-->
+
+	<!-- 추가 container-->
+	<div class="container">	
+		<!--content-->
+		<div class="contents">
+			<div class="alram_edit">
+				<p class="ae_tit">수면시작</p>
+				<div id="start_picker" class="time_picker">
+					
+				</div>
+			</div>
+			<div class="alram_edit">
+				<p class="ae_tit">수면종료</p>
+				<div id="finish_picker" class="time_picker">
+					
+				</div>
+			</div>
+		</div>
+		<!-- /content-->
+		<!-- 추가 layer(dimd)-->			
+		<div class="layer dn"></div>	
+		<!--/ 추가 layer(dimd)-->	
+	</div>
+	<!-- /추가 container-->
+</div>
+<!-- /wrap -->	
+</body>
+
+<!-- M-API -->
+<script type="text/javascript">
+
+M.onReady(function(e) {
+	var controller = MainController.sharedInstance();
+	var popupController = PopupController.sharedInstance();
+	var startTimepicker = window.Wellness.createTimepicker($('#start_picker'));
+	var finishTimepicker = window.Wellness.createTimepicker($('#finish_picker'));
+	
+	var startTime = DeviceInfo.sharedInfo().sleepStart();
+	var start = startTime.split(':'); 
+	var startHour = parseInt(start[0]);
+	var startMinute = parseInt(start[1]);
+	
+	var endTime = DeviceInfo.sharedInfo().sleepEnd();
+	var end = endTime.split(':'); 
+	var endHour = parseInt(end[0]);
+	var endMinute = parseInt(end[1]);
+	
+	//var timepicker = startTimepicker = window.Wellness.createTimepicker($('#start_picker'), [12,30]);
+	startTimepicker = window.Wellness.createTimepicker($('#start_picker'), [startHour,startMinute]);
+	finishTimepicker = window.Wellness.createTimepicker($('#finish_picker'), [endHour,endMinute]);
+	
+	$(".btn_save").on("click", function(){		
+		var startTime = window.Wellness.getTimepickerVal(startTimepicker);
+		var finishTime = window.Wellness.getTimepickerVal(finishTimepicker);
+		var sleepInfo = {
+			start: DataHelper.str2num(startTime[0]) + ":" + DataHelper.str2num(startTime[1]),
+            end: DataHelper.str2num(finishTime[0]) + ":" + DataHelper.str2num(finishTime[1])
+		};
+
+		console.log( "sleepInfo", sleepInfo );
+
+		popupController.showIndicator();
+		M.fit.sleepTime.set({
+            start: sleepInfo.start,
+            end: sleepInfo.end,
+            callback:function( result ) {
+
+            	popupController.hideIndicator();
+                popupController.alert( "수면시간 설정이 완료되었습니다." );
+            	controller.deviceInfo().data({
+	                "sleep_start": sleepInfo.start,
+	                "sleep_end": sleepInfo.end
+            	});
+            	M.execute("wnChangeSleepingTime",sleepInfo.start+"-"+sleepInfo.end);
+            	
+            	controller.deviceInfo().saveData(); 
+                
+            }
+        });
+	});
+});
+
+M.onHide(function(e){
+	
+});
+
+M.onRestore(function(e) {
+	
+});
+
+</script>
+<!-- //M-API -->
+</html>

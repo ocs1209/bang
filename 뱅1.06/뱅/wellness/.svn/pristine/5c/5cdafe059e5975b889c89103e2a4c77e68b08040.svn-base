@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-touch-fullscreen" content="yes" />
+    <title>비밀번호 변경</title>
+    <script type="text/javascript" src="../js/mcore.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="../css/common.css" />
+	<style>
+
+	</style>
+</head>
+
+<body>
+	<!-- wrap -->
+	<div id="wrap">
+
+        <!-- header -->
+        <div class="header">
+           <div class="btn_left" role="back"><a nohref class="btn_back" data-command="page.back" auto-command><span class="arrow"></span></a></div>
+            <h1>비밀번호 변경</h1>
+        </div> 
+        <!--// header -->
+
+        <!-- container -->
+        <div class="container">
+
+            <!-- contents -->
+            <div class="contents">
+                
+                <div class="cont_reset_pw">
+                <!-- 콘텐츠 영역 -->
+                
+                    <form id="password-form" name="password-form" action="user.reset.password" >
+                
+                    <div class="join1">
+                        <span class="tit"><label for="user_old_password">현재 비밀번호</label></span>
+                        <span class="input_txt_area">
+                            <input type="password" id="user_old_password" placeholder="현재 비밀번호" name="user_old_password" class="intb" required="required" title="현재 비밀번호" alt="현재 비밀번호" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"  />
+                        </span>
+                    </div>
+
+                    <div class="join1">
+                        <span class="tit"><label for="user_password">새로운 비밀번호</label></span>
+                        <span class="input_txt_area">
+                            <input type="password" id="user_password" placeholder="새로운 비밀번호 8자리 이상" name="user_password" class="intb" required="required" title="새 비밀번호" alt="새로운 비밀번호" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"  />
+                        </span>
+                    </div>
+
+                    <div class="join1">
+                        <span class="tit"><label for="user_password_confirm">비밀번호 확인</label></span>
+                        <span class="input_txt_area">
+                            <input type="password" id="user_password_confirm" placeholder="새로운 비밀번호 확인" name="user_password_confirm" class="intb" required="required" title="비밀번호 확인" alt="비밀번호 확인" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"  />
+                        </span>
+                    </div>
+                    
+                    </form>
+
+                    <!-- 하단버튼 -->
+                    <div class="bot_btn"><a class="btn_rd" nohref bind-event data-command="submit" data-target-form="password-form" class="btn_bl">비밀번호 변경</a></div>
+                    <!-- /하단버튼 -->
+                    
+                <!--/콘텐츠 영역 -->
+                </div>
+                
+            </div> 
+            <!--// contents -->
+            <!--popup-->
+            <div class="pop_bg dn" data-pop-wrap>
+                 <div class="popup_wrap loading_pop" id="loading_pop">
+                    <div class="pop_txtw">
+                        <div data-instacne="" class="m-loadingspinner m-loadingspinner-sm m-loadingspinner-gray"><div class="m-spn m-spinner-icon m-draw2"></div></div>
+                        <div class="p_txt_bold dn" id="loading-message"></div>
+                    </div>
+                </div>
+                <!--팝업띄우기 Wellness.showLayerPopup("complete_save");-->
+                <!--팝업 닫기 Wellness.hideLayerPopup("complete_save");-->
+                <div id="complete_save" class="popup_wrap">
+                    <div class="pop_txtw">
+                        <div class="p_txt_bold">저장이 완료되었습니다.</div>
+                    </div>
+                </div>
+            </div>
+            <!--/popup-->
+        </div>
+        <!--// container -->
+        
+        <!-- layer(dimd) -->
+        <div class="layer dn"></div>
+        <!--// layer(dimd) -->
+        
+	</div>
+	<!--// wrap -->
+	
+</body>
+
+<!-- 화면 스크립트 -->
+<script type="text/javascript">
+$(function(){
+
+    var 
+    controller = MainController.sharedInstance(), 
+    popupController = PopupController.sharedInstance(), 
+    resetFormController = new FormViewController( $("#password-form") );
+    resetFormController.showIndicator( false ); // Indicator 를 보여주지 않음
+  
+    var $newField1 = $("#user_password");
+    var $newField2 = $("#user_password_confirm");
+    $("[data-command][bind-event]").bind("click", function(e) {
+        var command = $(this).attr("data-command");
+        
+        if ( command == "submit" ) {
+            var invalidData = [], firstBreak = false;
+            
+            if ( ! resetFormController.isValidForm( invalidData, firstBreak ) ) {
+                for ( var i in invalidData ) {
+                    var item = invalidData[i];
+                    var type = item.type;
+                    var field = item.field;
+
+                    switch ( type ) {
+
+                        case 'text':
+                        case 'password':
+                            popupController.alert( M.locale.localizedString( "message_format_required_input", $(field).attr('title')),
+                            function() {
+                                field.focus();
+                                field.select();
+                            });
+                            
+                        break;  
+                    }
+                    break;
+                }
+                
+                return false;
+            }
+
+            if($newField1.val().length < 8){
+                popupController.alert("비밀번호 8자리 이상 입력해 주세요");
+                $newField1.focus();
+                $newField1.select();
+                return;
+            }
+
+            if($newField1.val() != $newField2.val()){
+                popupController.alert("비밀번호가 일치하지 않습니다");
+                $newField2.focus();
+                $newField2.select();
+                return;
+            }
+
+            popupController.showIndicator();  
+
+            resetFormController.submit( function( event ) {
+                popupController.hideIndicator();
+
+                if ( event.error ) {
+                    // 비밀번호 변경 실패
+                    popupController.toast( event.error );
+                    return;
+                }
+                // 비밀번호 변경 성공
+                popupController.alert("비밀번호가 변경되었습니다.", function() {
+                    M.page.back();
+                });
+            });
+        }
+
+    }).removeAttr("bind-event");
+});
+</script>
+<!--// 화면 스크립트 -->
+
+<!-- M-API -->
+<script type="text/javascript">
+
+M.onReady(function(e) {
+    
+});
+
+M.onHide(function(e){
+	
+});
+
+M.onRestore(function(e) {
+	
+});
+
+</script>
+<!--// M-API -->
+
+</html>

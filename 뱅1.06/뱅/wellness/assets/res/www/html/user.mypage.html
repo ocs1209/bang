@@ -1,0 +1,751 @@
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-touch-fullscreen" content="yes" />
+<title>마이페이지</title>
+<script type="text/javascript" src="../js/mcore.min.js"></script>
+<link rel="stylesheet" type="text/css" href="../css/common.css" />
+</head>
+<body>
+<!-- wrap -->
+<div id="wrap">
+
+    <!-- header -->
+    <div class="header">
+       <div class="btn_left" role="back"><a nohref class="btn_back" data-command="page.back" auto-command><span class="arrow"></span></a></div>
+        <h1>마이페이지</h1>
+        <div class="btn_right" role="list"><a nohref class="btn_menu"><span>목록</span></a></div>
+    </div> 
+    <!--// header -->
+        
+	<!-- menu -->
+	<div id="menu"></div>
+	<!--// menu -->
+
+    <!-- container -->
+    <div class="container mypage">
+
+        <!-- contents -->
+        <div class="contents">
+			<!-- 프로필 -->
+			<div class="my_profile">
+				<div class="pr_photo">
+					<!--이미지 없을 시 <div class="ph_img no_img">-->
+					<div id="profile-image-container" data-command="open.media.menu" class="ph_img no_img"><img id="profile-image" src="" alt="" /></div>
+                    
+                    <div class="pr_txt">
+						<span class="name"><em><script>document.write( MainController.sharedInstance().userInfo().userName() );</script></em>님</span> 반갑습니다.<br/>
+					</div>
+				</div>
+			</div>
+			<!-- /프로필 -->
+
+			<!-- 탭 컨텐츠 -->
+			<div class="myp_list_con">
+				<!-- 탭메뉴 -->
+				<ul class="myp_list_tab">
+					<li><a nohref data-tab-link="mypage.badge">뱃지</a></li>
+					<li><a nohref data-tab-link="mypage.info">정보</a></li>
+					<li><a nohref data-tab-link="mypage.goal">목표설정</a></li>
+				</ul>
+				<!-- /탭메뉴 -->
+
+				<!-- 뱃지 -->
+				<div class="mlc_wrap mcc1 dn" role="mypage.badge">
+					<!-- 뱃지 없음-->
+					<div class="no_con">
+						<p class="tit">걸음을 걸어 뱃지를 얻으세요</p>
+						<p class="txt"><span id="remain-goal-step"><script>document.write( UI.Helper.Number.format(MainController.sharedInstance().fitManager().remainGoalStep()) );</script></span>걸음을 걸어 첫 뱃지를 받으세요!<br/> 즐겁게 걸으세요</p>
+					</div>
+					<!-- /뱃지 없음-->
+					<!-- 뱃지 리스트 -->
+					<div class="bagdge_list dn">
+						<ul>
+							<!--<li>
+								<p class="bd1"><span class="rank1"></span></p>
+								<p class="bd2"><span>5000걸음 달성 5000걸음 달성 5000걸음 달성</span></p>
+								<p class="bd3">2015.06.06</p>
+							</li>
+							<li>
+								<p class="bd1"><span class="rank1"></span></p>
+								<p class="bd2"><span>5000걸음 달성</span></p>
+								<p class="bd3">2015.06.06</p>
+							</li>
+							<li>
+								<p class="bd1"><span class="rank2"></span></p>
+								<p class="bd2"><span>5000걸음 달성</span></p>
+								<p class="bd3">2015.06.06</p>
+							</li>
+							<li>
+								<p class="bd1"><span class="rank3"></span></p>
+								<p class="bd2"><span>5000걸음 달성</span></p>
+								<p class="bd3">2015.06.06</p>
+							</li>
+							<li>
+								<p class="bd1"><span class="rank3"></span></p>
+								<p class="bd2"><span>5000걸음 달성</span></p>
+								<p class="bd3">2015.06.06</p>
+							</li>
+							<li>
+								<p class="bd1"><span class="rank1"></span></p>
+								<p class="bd2"><span>5000걸음 달성 5000걸음 달성 5000걸음 달성</span></p>
+								<p class="bd3">2015.06.06</p>
+							</li>
+							<li>
+								<p class="bd1"><span class="rank1"></span></p>
+								<p class="bd2"><span>5000걸음 달성</span></p>
+								<p class="bd3">2015.06.06</p>
+							</li>
+							<li>
+								<p class="bd1"><span class="rank2"></span></p>
+								<p class="bd2"><span>5000걸음 달성</span></p>
+								<p class="bd3">2015.06.06</p>
+							</li>
+							<li>
+								<p class="bd1"><span class="rank3"></span></p>
+								<p class="bd2"><span>5000걸음 달성</span></p>
+								<p class="bd3">2015.06.06</p>
+							</li>
+							<li>
+								<p class="bd1"><span class="rank3"></span></p>
+								<p class="bd2"><span>5000걸음 달성</span></p>
+								<p class="bd3">2015.06.06</p>
+							</li>-->
+						</ul>
+					</div>
+					<!-- /뱃지 리스트 -->
+				</div>
+				<!-- /뱃지 -->
+
+				<!-- 정보 -->
+				<div class="mlc_wrap mcc2 dn" role="mypage.info">
+					<!-- 정보입력 -->
+					<form id="profile-form" name="profile-form" action="user.profile.edit" >
+
+					<div class="join3_list">
+						<div class="join3">
+							<div class="box1">
+								<span class="tit4_tac"><label for="user_name">이름</label></span>
+								<span class="input_txt_area7">
+									<input type="text" id="user_name" maxlength="10" name="user_name" class="intb"  placeholder="" required="required" title="이름">
+									<script> $("#user_name").val( MainController.sharedInstance().userInfo().userName() );</script>
+								</span>
+							</div>
+							<div class="box1">
+								<span class="titt2"><label for="user_gender">성별</label></span>
+								<input class="dn user_gender" type="text" id="user_gender" name="user_gender" title="성별" readonly="readonly" required/>
+								<button type="button" class="input_txt_area3" data-open-pop="pop_user_gender">
+									<span class="user_gender intb">&nbsp;</span>
+								</button>
+
+								<script> 
+								if ( MainController.sharedInstance().profileInfo().gender() == "F" ) {
+									$(".user_gender").text("여성");
+								}
+								else if ( MainController.sharedInstance().profileInfo().gender() == "M" ) {
+									$(".user_gender").text("남성");
+								}
+								</script>
+							</div>
+						</div>
+
+						<div class="join3">
+							<span class="tit4_tac"><label for="user_birth">생년월일</label></span>
+							<span class="input_txt_area6">
+								<input type="text" id="user_birth" name="user_birth" class="intb" placeholder="" readonly required="required" title="생년월일" >
+								<span class="user_birth"></span>
+								<script> $("#user_birth").val( MainController.sharedInstance().profileInfo().userBirth().split("-").join(".") );</script>
+							</span>
+						</div>
+						<div class="join3">
+							<div class="box1">
+								<span class="tit4_tac"><label for="body_height">신장</label></span>
+								<span class="input_txt_area5">
+									<input type="tel" min="0" maxlength="3" pattern="\d*" id="body_height" name="body_height" title="신장" class="intb" placeholder="" required="required" title="신장" alt="신장">
+									
+									<script> $("#body_height").val( MainController.sharedInstance().profileInfo().bodyHeight("CM") );</script>
+								</span>
+								<span class="input_txt_area4">cm</span>
+							</div>
+							<div class="box1">
+								<span class="titt2"><label for="body_weight">체중</label></span>
+								<span class="input_txt_area5">
+									<input type="tel" min="0" maxlength="3" pattern="\d*" id="body_weight" name="body_weight"  title="체중" class="intb" placeholder="" required="required" title="체중">
+									<script> $("#body_weight").val( MainController.sharedInstance().profileInfo().bodyWeight("KG") );</script>
+								</span>
+								<span class="input_txt_area4">kg</span>
+							</div>
+						</div>
+						<!--<div class="join3">
+							<span class="tit4_tac"><label for="user_phone">휴대전화</label></span>
+							<span class="input_txt_area6">								
+								<input type="tel" maxlength="11" size="11" pattern="\d*" id="user_phone" name="user_phone" title="휴대전화" class="intb" placeholder="">
+								<script> $("#user_phone").val( MainController.sharedInstance().userInfo().userPhone() );</script>
+							</span>
+						</div>-->
+
+						<div class="txt_link"><a nohref auto-link data-link="user.password.reset.html">비밀번호 변경하기</a></div>
+						<!--<div class="join1 join1_chd">
+							<input type="checkbox" id="news_r" name="news_r" class="j_chd"><label for="news_r">비밀번호 변경</label>
+						</div>
+						<div class="join3">
+							<span class="tit5_tac"><label for="user_old_password">현재 비밀번호</label></span>
+							<span class="input_txt_area6 pw_area">
+								<input type="password" id="user_old_password" placeholder="이전 비밀번호" name="user_old_password" class="intb" required="required" title="이전 비밀번호" alt="현재 비밀번호" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"  />
+							</span>
+						</div>
+						<div class="join3">
+							<span class="tit5_tac"><label for="user_password">새로운 비밀번호</label></span>
+							<span class="input_txt_area6 pw_area">								
+								 <input type="password" id="user_password" placeholder="새 비밀번호" name="user_password" class="intb" required="required" title="새 비밀번호" alt="새로운 비밀번호" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"  />
+							</span>
+						</div>
+						<div class="join3">
+							<span class="tit5_tac"><label for="user_phone">비밀번호 확인</label></span>
+							<span class="input_txt_area6 pw_area">								
+								 <input type="password" id="user_password_confirm" placeholder="비밀번호 확인" name="user_password_confirm" class="intb" required="required" title="새로운 비밀번호 확인" alt="새로운 비밀번호 확인" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"  />
+
+							</span>
+						</div>-->
+						<!-- 하단버튼 -->
+						<div class="bot_btn"><a nohref data-command="profile.submit" data-target-form="profile-form" class="btn_rd">저장</a></div>
+						<!-- /하단버튼 -->
+					</div>
+
+
+					</form>
+					<!-- /정보입력 -->
+				</div>
+				<!-- /정보 -->
+
+				<!-- 목표설정 -->
+				<div class="mlc_wrap mcc3 dn" role="mypage.goal">
+					<!-- 정보입력 -->
+
+					<form id="goal-form" name="goal-form" action="fit.goal" >
+
+					<div class="join3_list">
+						<div class="join3">
+							<span class="tit2"><label for="goal_weight">목표 체중</label></span>
+							<span class="input_txt_area5">
+								<input type="tel" maxlength="3" min="0" pattern="\d*" id="goal_weight" name="goal_weight" class="intb" placeholder="목표 체중" title="목표 체중">
+								<script> $("#goal_weight").val( FitManager.defaultManager().info().goalWeight("KG") );</script>
+							</span> 
+							<span class="input_txt_area4">Kg</span>
+						</div>
+						<div class="join3">
+							<span class="tit2"><label for="goal_step">걸음 목표</label></span>
+							<span class="input_txt_area5">
+								<input type="tel" min="0" maxlength="7" pattern="\d*" id="goal_step" name="goal_step" class="intb" placeholder="목표 걸음" title="목표 걸음">
+								<script> $("#goal_step").val( FitManager.defaultManager().info().goalStep() );</script>
+							</span>
+							<span class="input_txt_area4">걸음</span>
+						</div>
+						<!--div class="join3">
+							<span class="tit3">푸시알림</span>
+							<div class="agree_a">
+								<input type="checkbox" id="push_yn" name="push_yn" class="j_chd2">
+								<label for="push_yn">통산 기록 뱃지 성과와 걸음 수 목표 진행 <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 과정에 대한 알림을 받으세요.</label>
+							</div>
+						</div-->
+					</div>
+					<!-- /정보입력 -->
+
+					<!-- 하단버튼 -->
+					<div class="bot_btn"><a nohref data-command="goal.submit" data-target-form="goal-form" class="btn_rd">저장</a></div>
+					<!-- /하단버튼 -->
+
+					</form>
+
+				</div>
+				<!-- /목표설정 -->
+			</div>
+			<!-- /탭 컨텐츠 -->
+        </div> 
+        <!--// contents -->
+
+        <!-- layer(dimd) -->
+        <div class="layer dn"></div>
+        <!--// layer(dimd) -->
+
+		<!--popup-->
+		<div class="pop_bg dn" data-pop-wrap>
+		     <div class="popup_wrap loading_pop" id="loading_pop">
+		        <div class="pop_txtw">
+		            <div data-instacne="" class="m-loadingspinner m-loadingspinner-sm m-loadingspinner-gray"><div class="m-spn m-spinner-icon m-draw"></div></div>
+		            <div class="p_txt_bold dn" id="loading-message"></div>
+		        </div>
+		    </div>
+		    <!--팝업띄우기 Wellness.showLayerPopup("complete_save");-->
+		    <!--팝업 닫기 Wellness.hideLayerPopup("complete_save");-->
+		    <div id="complete_save" class="popup_wrap">
+		        <div class="pop_txtw">
+		            <div class="p_txt_bold">저장이 완료되었습니다.</div>
+		        </div>
+		    </div>
+		    
+		    <div id="open_pic" class="popup_wrap">
+		        <ul class="photo_select">
+		            <!--자동 닫기 data-close-pop추가-->
+		            <li><a nohref data-command="open.media.picker">앨범에서 선택</a></li>
+		            <!--자동 닫기 data-close-pop추가-->
+		            <li><a nohref data-command="open.media.camera">사진 찍기</a></li>
+		            <li><a nohref data-close-pop class="btn_gr2 selectd">취소</a></li>
+
+		        </ul>
+		    </div>
+		    
+		    <div id="pop_user_gender" class="popup_wrap">
+		        <p class="tit">성별</p>
+		        <div class="pop_txtw">
+		            <div class="pp_sex_w">
+		                <a nohref class="ic_man"></a><!-- on추가시 활성화 -->
+		                <a nohref class="ic_woman"></a><!-- on추가시 활성화 -->
+		            </div>
+		            <!--자동 닫기 data-close-pop추가-->
+		            <div class="pbot_btn"><a nohref data-close-pop class="btn_bl">완료</a></div>
+		        </div>
+		    </div>
+		</div>
+		<!--/popup-->
+        
+    </div>
+    <!--// container -->
+</div>
+<!--// wrap -->	
+</body>
+<!-- 화면 스크립트 -->
+<script type="text/javascript">
+var isPopupClosed = false;
+$(document.body).bind("didLoad", function() {
+    
+    if(MainController.sharedInstance().profileInfo().gender()=="F"){
+    	$("#pop_user_gender .ic_woman").trigger("click");
+    	$("input.user_gender").val("F");
+    }else if(MainController.sharedInstance().profileInfo().gender()=="M"){
+    	$("#pop_user_gender .ic_man").trigger("click");
+    	$("input.user_gender").val("M");
+    }
+
+    var
+    controller = MainController.sharedInstance(),
+    popupController = PopupController.sharedInstance(),
+    fitManager = FitManager.defaultManager(),
+    profileFormController = new FormViewController( $("#profile-form") ),
+    goalFormController = new FormViewController( $("#goal-form") );
+
+    profileFormController.showIndicator( false ); // Indicator 를 보여주지 않음
+    goalFormController.showIndicator( false ); // Indicator 를 보여주지 않음
+
+    console.log("user info", MainController.sharedInstance().userInfo());
+    console.log("user phone", MainController.sharedInstance().userInfo().userPhone());
+
+    controller.applyProfileImage = function(msg) {
+    	console.log( "applyProfileImage", msg);
+        var $image = $("#profile-image");
+        var $imageContainer = $("#profile-image-container");
+        var frameWidth = $imageContainer.width();
+        var userProfileUrl = controller.profileInfo().userProfileUrl();
+        console.log("userProfileUrl", userProfileUrl);
+        if ( typeof userProfileUrl == "undefined" || userProfileUrl == "" ) {
+            $imageContainer.addClass("no_img");
+            if(msg != "first_load"){
+            	 popupController.toast( "이미지 업로드에 실패했습니다" );
+            }
+            return;
+        }
+        
+        $image.one("load", function(e) {
+        	console.log( "image loaded" );
+        	$image.unbind("load");
+        	$image.unbind("error");
+
+            var imageWidth = $image.width();
+            var imageHeight = $image.height();
+            
+            if (imageWidth-imageHeight > 0) {
+                //가로사진
+                $image.css({"width":"auto", "height":frameWidth});
+                
+                var left = ($image.width() - frameWidth)*0.5;
+                $image.css({"left":(left*-1), "top":0});
+            }
+            else{
+                //세로사진
+                $image.css({"width":frameWidth, "height":"auto"});
+                
+                var top = ($image.height() - frameWidth)*0.5;
+                $image.css({"left":0, "top": (top*-1) });
+            }
+            
+            $imageContainer.removeClass("no_img");
+        });
+        
+        $image.one("error", function(e) {
+        	console.log( "image error" );
+        	if(msg != "first_load"){
+            	 popupController.toast( "이미지 업로드에 실패했습니다" );
+            }
+        	$image.unbind("load");
+        	$image.unbind("error");
+
+        	/*
+        	var noImagePath = $(this).attr("data-no-image-path");
+        	if ( $(this).attr("src") != noImagePath ) {
+        		$(this).attr("src", noImagePath);
+        	}
+        	*/
+
+            $imageContainer.addClass("no_img");
+        });
+        
+        $image.attr("src", userProfileUrl );
+        $image.each(function() {
+		    if(this.complete) {
+		      $(this).load();
+		    } else if(this.error) {
+		      $(this).error();
+		    }
+		});
+    };
+  
+    controller.bind("didSuccessExecute", function( sender ) {
+        if ( sender.action === "user.profile.upload" ) {
+            var result = sender.result;
+            console.log("result.user_profile_url", result.user_profile_url);
+            controller.profileInfo().data({
+            	"user_profile_url": result.user_profile_url
+            });
+            
+            controller.applyProfileImage("didSuccessExecute");
+        }        
+	});
+    
+    $("[data-command]").bind("click", function(e) {
+        var command = $(this).attr("data-command");
+        
+        if ( command == "open.media.menu" ) {
+           	Wellness.showLayerPopup("open_pic");
+        }
+        else if ( command == "open.media.camera" ) {
+            
+            Wellness.hideLayerPopup("open_pic");
+            
+            M.media.camera({
+                mode: "PHOTO",
+                path: "/temp",
+                ontake: function(status, result, option) {
+                    if (status == 'SUCCESS') {
+                        controller.profileInfo().data({
+                            "user_profile_url": result.path
+                        });
+                    	
+                        controller.applyProfileImage("ontake");
+                        controller.execute("user.profile.upload", {path: result.path}, {showIndicator:true} );
+                    }
+                }
+            });
+        }
+        else if ( command == "open.media.picker" ) {
+        
+            Wellness.hideLayerPopup("open_pic");
+            
+            M.media.picker({
+                mode: "SINGLE",
+                onselect: function( status, result ) {
+                    if (status == 'SUCCESS') {
+                    
+                        controller.profileInfo().data({
+                            "user_profile_url": result.path
+                        });
+                    	
+                        controller.applyProfileImage("select");
+
+                        controller.execute("user.profile.upload", {path: result.path}, {showIndicator:true} );
+                    }
+                }
+            });
+        }
+        else if ( command == "profile.submit" ) {
+        	if ( M.navigator.os("ios")  && ! controller.fitManager().isPaired() ) { //ios일떄
+                popupController.alert( "밴드 연결이 되어있지 않습니다." );
+				return;
+        	} 
+
+        	if( M.navigator.os("android") && M.data.global("paired") == "N" ) {
+        		popupController.alert( "밴드 연결이 되어있지 않습니다." );
+				return;
+            }
+
+        	var invalidData = [], firstBreak = false;
+            
+            if ( ! profileFormController.isValidForm( invalidData, firstBreak ) ) {
+                for ( var i in invalidData ) {
+                    var item = invalidData[i];
+                    var type = item.type;
+                    var field = item.field;
+
+                    switch ( type ) {
+                        case 'checkbox':
+                            popupController.alert( M.locale.localizedString( "message_format_select_multi_option", $(field).attr('title')),
+                            function() {
+                                profileFormController.scrollToElement( field );
+                            });
+                            
+                        break;
+
+                        case 'radio':
+                            popupController.alert( M.locale.localizedString( "message_format_select_option", $(field).attr('title')),
+                            function() {
+                                profileFormController.scrollToElement( field );
+                            });
+                            
+                        break;
+                        case 'tel':
+                        case 'text':
+                        case 'password':
+                            popupController.alert( M.locale.localizedString( "message_format_required_input", $(field).attr('title')),
+                            function() {
+                                field.focus();
+                                field.select();
+                            });
+                            
+                        break;	
+                    }
+                    break;
+                }
+                
+                return false;
+            }
+            
+           	popupController.showIndicator();
+            profileFormController.submit(function( event ) {
+               	if ( event.error ) {
+                    popupController.toast(event.error);
+                    popupController.hideIndicator();
+                    return;
+                }
+                
+                var result = event.params || {};
+
+               	controller.userInfo().data( result );
+
+	            controller.profileInfo().data( result );
+	            
+	            $(".my_profile .name em").html(MainController.sharedInstance().userInfo().userName());
+
+
+	            
+	            if(command == "profile.submit"){
+	            	isPopupClosed = false;
+		            
+	            	fitManager.updateProfile( result, function() {
+
+	            		if(!isPopupClosed){
+			            	popupController.hideIndicator();
+			                popupController.alert( "프로필 설정이 완료되었습니다." , function(){
+			                	isPopupClosed = true;
+			                });
+	            		}
+		            });
+	            }
+            });
+        }
+        else if ( command == "goal.submit" ) {
+        	if ( M.navigator.os("ios")  && ! controller.fitManager().isPaired() ) { //ios일떄
+                popupController.alert( "밴드 연결이 되어있지 않습니다." );
+				return;
+        	} 
+
+        	if( M.navigator.os("android") && M.data.global("paired") == "N" ) {
+        		popupController.alert( "밴드 연결이 되어있지 않습니다." );
+				return;
+            }
+        	var invalidData = [], firstBreak = false;
+            
+            if ( ! goalFormController.isValidForm( invalidData, firstBreak ) ) {
+                for ( var i in invalidData ) {
+                    var item = invalidData[i];
+                    var type = item.type;
+                    var field = item.field;
+
+                    switch ( type ) {
+                        case 'checkbox':
+                            popupController.alert( M.locale.localizedString( "message_format_select_multi_option", $(field).attr('title')),
+                            function() {
+                                goalFormController.scrollToElement( field );
+                            });
+                            
+                        break;
+
+                        case 'radio':
+                            popupController.alert( M.locale.localizedString( "message_format_select_option", $(field).attr('title')),
+                            function() {
+                                goalFormController.scrollToElement( field );
+                            });
+                            
+                        break;
+                        case 'tel':
+                        case 'text':
+                        case 'password':
+                            popupController.alert( M.locale.localizedString( "message_format_required_input", $(field).attr('title')),
+                            function() {
+                                field.focus();
+                                field.select();
+                            });
+                            
+                        break;	
+                    }
+                    break;
+                }
+                
+                return false;
+            }
+            
+            popupController.showIndicator();
+            goalFormController.submit(function( event ) {
+
+				// 2016.03.31 현재값으로 셋팅되도록 변경.
+            	/* controller.fitManager.info().data({
+            		"goal_weight": $("#goal_weight").val(),
+                    "goal_step": $("#goal_step").val()
+                }); */
+                if ( event.error ) {
+                    // 비밀번호 변경 실패
+                    popupController.hideIndicator();
+                    popupController.toast(event.error);
+                    return;
+                }
+                // 비밀번호 변경 성공var result = event.result;
+	        	//
+	        
+	        	var result = event.params || {};
+
+	           controller.fitManager().info().data( result );
+
+	           isPopupClosed = false;
+	           fitManager.updateGoal( result, function() {
+
+	            	var remainGoalStep = UI.Helper.Number.format(MainController.sharedInstance().fitManager().remainGoalStep());
+
+	            	$("#remain-goal-step").text( remainGoalStep );
+	            	
+	            	popupController.hideIndicator();
+	            	if(!isPopupClosed){
+		                popupController.alert( "목표 설정이 완료되었습니다." , function(){
+		                	isPopupClosed = true;
+		                });
+	           		}
+	            });	        	
+            });
+        }
+    });
+    
+    $("[data-tab-link]").unbind("tab.mypage").bind("tab.mypage", function(e) {
+        var link = $(this).attr("data-tab-link") || "";
+        var moveTab = function() {
+            $("[data-tab-link]").removeClass("selectd");
+            $("[data-tab-link='"+link+"']").addClass("selectd");
+
+            $(".mlc_wrap").addClass("dn");
+            $("[role='"+link+"']").removeClass("dn");
+        };
+        
+        if ( link == "" ) {
+            return;
+        }
+
+        moveTab();
+    });
+
+	var endDate = function() {
+		var d = new Date();
+		var year, month, date;
+		year = d.getFullYear();
+		month = d.getMonth()+1;
+		date = d.getDate();
+
+		if(month<10){
+			month = "0"+month;
+		}
+
+		if(date<10){
+			date = "0"+date;
+		}
+
+		return String(year)+String(month)+String(date);
+	}();
+
+	var $birth = $("#user_birth").on("click", function() {
+		M.pop.date({
+		    type      : 'YMD',
+		    initDate  : ! $birth.val() ? '19800101' : $birth.val().split(".").join("").split("-").join(""),
+		    startDate : '19190101',
+		    endDate   : endDate
+		}, function(result, setting) {
+		    if ( result.status == "SUCCESS" ) {
+			    $birth.html(result.yyyy + "." + result.MM + "." + result.dd);
+				$birth.val(result.yyyy + "." + result.MM + "." + result.dd);
+			}
+		});
+	});
+    
+    $("#goal_weight").val( fitManager.info().goalWeight("KG") );
+
+    if ( M.navigator.os("android")){
+    	$("#goal_step").val( M.data.storage( "goal_step"));
+	}else{
+		$("#goal_step").val( FitManager.defaultManager().info().goalStep());
+	}
+    
+    
+	
+	$("[data-tab-link]").unbind("click.mypage").bind("click.mypage", function(e) {
+        $(this).trigger("tab.mypage");
+    });
+    var tabLink = M.data.param("tab-link") || "mypage.badge";
+    $("[data-tab-link='"+tabLink+"']").trigger("tab.mypage");
+
+    controller.sessionController().startSession();
+	controller.applyProfileImage("first_load");
+
+});
+
+$(document.body).bind("didAppear", function() {
+	var
+    controller = MainController.sharedInstance();
+	 if (MainController.sharedInstance().fitManager().userInfo().isRebonUser() == false){
+         $("li.only_rebon").addClass("dn");
+         console.log("false");
+     }
+     else if (MainController.sharedInstance().fitManager().userInfo().isRebonUser() == true){
+         $("li.only_rebon").removeClass("dn");
+         console.log("true");
+     }
+    if ( controller.sessionController().checkSession() ) {
+        
+    }
+    $("#prev_dateMenu").addClass("dn");
+});
+</script>
+<!-- //화면 스크립트 -->
+
+<!-- M-API -->
+<script type="text/javascript">
+
+M.onReady(function(e) {
+
+});
+
+M.onHide(function(e){
+	
+});
+
+M.onRestore(function(e) {
+	
+});
+
+</script>
+</html>

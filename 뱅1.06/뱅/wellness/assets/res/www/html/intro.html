@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-touch-fullscreen" content="yes" />
+	<title>Wellness</title>
+	<link rel="stylesheet" type="text/css" href="../css/common.css" />
+	<link rel="stylesheet" type="text/css" href="../css/uikit.all.css" />
+    <script type="text/javascript" src="../js/mcore.min.js"></script>
+</head>
+
+<body class="intro_bg">
+	<!-- wrap -->
+	<div id="wrap">
+    
+		<!-- 인트로-->
+		<div class="intro_img">
+        
+			<!-- 슬라이스 원 -->
+			<div class="sl_ellips" data-indicator>
+				<a nohref class="el_off on"></a>
+				<a nohref class="el_off"></a>
+				<a nohref class="el_off"></a>
+<!--				<a nohref class="el_off"></a>-->
+<!--				<a nohref class="el_off"></a>-->
+			</div>
+			<!-- /슬라이스 원 -->
+            
+			<div class="m-scrollswipe" >
+			    <div class="m-scroll">
+			        <div class="m-scroll-container">
+                        <ul class="sl_list dn">
+                            <li>
+                                <div class="set-img">
+                                    <p class="txt1">재미있는<br><strong>헬스케어 서비스</strong></p>
+                                    <img data-src="../images/intro_img1.png" alt="재미있는 헬스케어 서비스"/>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="set-img">
+                                    <p class="txt2"><strong>걸음수와 이동거리를 측정</strong>하고<br>
+                                    누적한 수만큼 재미있는 성과를<br>
+                                    획득하세요</p>
+                                    <img src="../images/intro_img2.png" alt="걸음수와 이동거리를 측정하고 누적한 수만큼 재미있는 성과를 획득하세요"/>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="set-img">
+                                    <p class="txt3"><strong>칼로리 소모량과 수면 시간</strong>을<br>
+                                    귀여운 그래픽으로<br>
+                                    느껴보세요</p>
+                                    <img src="../images/intro_img3.png" alt="칼로리 소모량과 수면 시간을 귀여운 그래픽으로 느껴보세요"/>
+                                </div>
+                                <div class="int5_bot"><a nohref auto-link data-link="user.signup.html" action="NO_HISTORY" class="btn_sjoin">서비스 회원가입</a></div>
+                                </div>
+                            </li>
+<!--                            <li>-->
+<!--                                <div class="set-img">-->
+<!--                                    <p class="txt4"><strong>친구와 가족간에 대결</strong>에서<br>-->
+<!--                                    승리하여 뱃지를<br>-->
+<!--                                    받으세요</p>-->
+<!--                                    <img src="../images/intro_img4.png" alt="친구와 가족간에 대결에서 승리하여 뱃지를 받으세요"/>-->
+<!--                                </div>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <div class="set-img">-->
+<!--                                    <p class="txt5"><strong>그럼 시작해 볼까요?</strong></p>-->
+<!--                                    <img src="../images/intro_img5.png" alt="그럼 시작해 볼까요?"/>-->
+<!--                                </div>-->
+<!--                                 <div class="int5_bot"><a nohref auto-link data-link="user.signup.html" action="NO_HISTORY" class="btn_sjoin">서비스 회원가입</a></div>-->
+<!--                                </div>-->
+<!--                            </li>-->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+		<!-- /인트로-->
+        
+	</div>
+	<!-- /wrap -->
+
+    <div class="pop_bg dn" data-pop-wrap>
+        <div class="popup_wrap loading_pop" id="loading_pop">
+            <div class="pop_txtw">
+                <div class="m-loadingspinner m-loadingspinner-sm m-loadingspinner-gray"><div class="m-spn m-spinner-icon m-draw"></div></div>
+                <div class="p_txt_bold dn" id="loading-message"></div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<!-- 화면 스크립트 -->
+<script type="text/javascript">
+var loadCount=0;
+$(".set-img [data-src]").attr("src", $(".set-img [data-src]").attr("data-src"));
+$(".set-img img").load(function(){
+    if(loadCount == 0){       
+        $(".sl_list").removeClass("dn");
+        var $indicator = $("[data-indicator] a");
+        $(".int5_bot").css("bottom", $(".int5_bot").outerHeight() *-1);
+        $(".m-scrollswipe").instance("ScrollSwipe",{
+            autoResize: true,
+            usePageIndicator: false,
+            onlyLeftToRight: true
+        }).bind("change", function(swipe, page){
+            $indicator.eq(page-1).addClass("on").siblings().removeClass("on");
+            if(page == 3){
+                var $target = $(".int5_bot");
+                var height = $target.removeClass("dn").outerHeight();
+                $target.css("bottom", height*-1);
+                $target.stop().delay(50).animate({"bottom": 0}, 250);
+            }
+        });
+        
+        $(".sl_ellips").css("top", $("p.txt1").offset().top+$("p.txt1").height());
+        M.data.storage("APPEARED_INTRO", "Y");
+    }
+
+    loadCount++;
+});
+</script>
+<!-- //화면 스크립트 -->
+
+<!-- M-API -->
+<script type="text/javascript">
+
+M.onReady(function(e) {
+    var
+    controller = MainController.sharedInstance();
+    controller.clearStack();
+});
+
+M.onHide(function(e){
+	
+});
+
+M.onRestore(function(e) {
+	
+});
+
+</script>
+<!-- //M-API -->
+
+</html>

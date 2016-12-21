@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-touch-fullscreen" content="yes" />
+<title>혈압관리</title>
+<script type="text/javascript" src="../js/mcore.min.js"></script>
+<link rel="stylesheet" type="text/css" href="../css/common.css" />
+<script type="text/javascript" src="../js/libs/chart/chart_custom.js"></script>
+<script type="text/javascript" src="../js/ui/graph.line.js"></script>
+</head>
+
+<body>
+<!-- wrap -->
+<div id="wrap">
+    <!-- header -->
+    <div class="header">
+        <div class="btn_left" role="back"><a nohref class="btn_back" data-command="page.back" auto-command><span class="arrow"></span></a></div>
+        <h1>혈압관리</h1>
+        <div class="btn_right" role="list"><a nohref class="btn_menu"><span>목록</span></a></div>
+    </div> 
+    <!--// header -->
+    <!-- menu -->
+    <div id="menu"></div>
+    <!--// menu -->
+
+   <!-- container -->
+   <div class="container dash_sub blood_ps">
+        <div class="contents dn">
+            <div class="no_data">
+                <p class="no_data_img"></p>
+                <p class="no_data_txt">측정된 데이터 없습니다.</p>
+            </div>
+        </div>
+        <!-- contents -->
+        <div class="contents dn">
+            <div class="bggray_bar">최근측정일 : <em></em></div>
+            
+            <div class="bodyfat_txt1"><strong>혈압수치</strong>( mmHg )</div>
+            <div class="bodyfat_txt2"><span class="hg">0</span><span class="low">0</span><a href="#" class="ic_notice" data-open-pop="blood_ps_info"></a></div>
+            <div class="bodyfat_rdbg"></div>
+            <div class="set-cont">
+                <!-- 그래프 정보 -->
+                <div class="gr_info">
+                    <ul>
+                        <li><span class="type1"></span><span class="t_txt">수축기</span></li>
+                        <li><span class="type2"></span><span class="t_txt">이완기</span></li>
+                    </ul>
+                </div>
+                <!-- /그래프 정보 -->
+                <!-- 그래프 -->
+                <div class="bdf_grf" style=""><canvas id="chart"></canvas></div>
+            <!-- /그래프 -->
+            </div>
+        </div>
+       <!--// contents -->
+       <!-- layer(dimd) -->
+       <div class="layer dn"></div>
+       <!--// layer(dimd) -->  
+    
+        <div class="pop_bg dn" data-pop-wrap>
+            <div class="popup_wrap loading_pop" id="loading_pop">
+                <div class="pop_txtw">
+                    <div data-instacne="" class="m-loadingspinner m-loadingspinner-sm m-loadingspinner-gray"><div class="m-spn m-spinner-icon m-draw2"></div></div>
+                    <div class="p_txt_bold dn" id="loading-message"></div>
+                </div>
+            </div>
+
+            <div id="blood_ps_info" class="popup_wrap">
+                <p class="tit">알림</p>
+                <div class="pop_txtw">
+                    <div class="p_txt">수축기 혈압 90이상 120미만,<br>이완기 혈압 60이상 80미만이<br>정상 혈압 수치 입니다</div>            
+                    <div class="pbot_btn"><a href="#" class="btn_bl" data-close-pop="">완료</a></div> 
+                </div>            
+            </div>
+        </div>     
+   </div>
+   <!--// container -->
+</div>
+<!--// wrap -->
+</body>
+
+<script type="text/javascript">
+$(document.body).bind("didLoad", function() {
+    var 
+    controller = MainController.sharedInstance(), 
+    popupController = PopupController.sharedInstance(), 
+    fitManager = FitManager.defaultManager().initialize(),
+    macro = controller.macro();
+    
+    $(".ic_notice").add(".btn_bl").on("click", function(e){
+        e.preventDefault();
+    });
+
+    controller.loadView = function() {
+        var bloodPressureData = fitManager.bloodPressureData();
+
+        if ( !(bloodPressureData.dateKeys && bloodPressureData.dateKeys.length) ) {
+            $(".contents").eq(0).removeClass("dn");
+            $(".contents").eq(1).addClass("dn");
+            return;
+        }
+
+        $(".contents").eq(0).addClass("dn");
+        $(".contents").eq(1).removeClass("dn");
+
+        $(".bodyfat_txt2 .hg").html(bloodPressureData.lastData.systolic);
+        $(".bodyfat_txt2 .low").html(bloodPressureData.lastData.diastolic);
+        
+        //최근측정날짜
+        $(".bggray_bar em").html( fitManager.dateFormat("YYYY년 M월 D일", bloodPressureData.lastData.date) );
+     
+        //console.log(">>> LAST DATA", bloodPressureData.lastData);
+        $(".bodyfat_rdbg").html(bloodPressureData.lastData.comment);
+        
+        var getDateAry=function(ary){
+            var newAry = [];
+            var dataAry = ary.concat();
+            $.each(ary.concat(), function(){
+               
+            }); 
+
+            for(var i=0; i<dataAry.length; i++){
+                newAry.push( fitManager.dateFormat("MM.DD", dataAry[i] ));
+            }
+
+            return newAry;
+        }
+        
+        var labels = getDateAry( bloodPressureData.dateKeys );
+        var systolicData = [];
+        var diastolicData = [];
+        
+        $.each(bloodPressureData.dateKeys, function(){
+            var data = bloodPressureData.data[this];
+            if(data){
+                systolicData.push(bloodPressureData.data[this]["systolic"]);
+                diastolicData.push(bloodPressureData.data[this]["diastolic"]);
+            }
+        });
+
+        //console.log("bloodPressureData", bloodPressureData);
+        //console.log("labels", labels, "systolicData", systolicData, "diastolicData", diastolicData );
+
+        new WellnessLineGraph( $("#chart"), {
+            labels : labels, 
+                //["05.11","06.11","07.11","08.11","09.11","10.11","11.11"],//["15.05.11","15.06.11","15.07.11","15.08.11","15.09.11","15.10.11","15.11.11"],
+            datasets : [
+                {
+                    label: "",
+                    strokeColor : "#f28d24",
+                    pointColor : "#fff",
+                    pointStrokeColor : "#f28d24",
+                    data : systolicData
+                },{
+                    label: "",
+                    strokeColor : "#75adcb",
+                    pointColor : "#fff",
+                    pointStrokeColor : "#75adcb",
+                    data : diastolicData
+                }
+            ]
+        });
+    };
+
+    macro.register("fit.dashboard.rebon.load", function() {
+        var self = this;
+
+        if ( ! controller.userInfo().isRebonUser() ) {
+            self.complete();
+            return;
+        }
+
+        popupController.setIndicatorMessage("데이타 가져오는 중...");
+        
+        controller.execute("fit.dashboard.rebon", {}, {
+            showIndicator: false,
+            callback: function( event ) {
+
+                if ( event.error ) {
+                    popupController.toast( event.error );
+                    macro.cancel( function( ) {
+
+                        popupController.confirm( 
+                            "데이타를 가져올 수 없습니다.\n다시 시도하시겠습니까", 
+                            ["다시 시도"],
+                            function( buttonIndex ) {
+                                if ( buttonIndex == 0 ) {
+                                    macro.execute("dashboard.load", "dashboard.data.retry" );
+                                }
+                            }
+                        );
+
+                    });
+                    return;
+                }
+                    
+                self.complete();
+            }
+        });
+    });
+
+    macro.register( "load.view", function() {
+        var self = this;
+
+        controller.loadView();
+
+        self.complete();
+    });
+
+    macro.register( "show.indicator", function() {
+        var self = this;
+
+        popupController.showIndicator();
+
+        self.complete();
+    });
+
+    macro.register( "hide.indicator", function() {
+        var self = this;
+
+        popupController.hideIndicator();
+
+        self.complete();
+    });
+});
+
+$(document.body).bind("didAppear", function() {
+    var 
+    controller = MainController.sharedInstance(), 
+    macro = controller.macro();
+    
+    macro.clear();
+
+    macro.add( "show.indicator" );
+    macro.add( "fit.dashboard.rebon.load" );
+    macro.add( "load.view" );
+    macro.add( "hide.indicator" );
+
+    macro.start();
+});
+</script>
+
+<!-- M-API -->
+<script type="text/javascript">
+
+M.onReady(function(e) {
+    
+});
+
+M.onHide(function(e){
+    
+});
+
+M.onRestore(function(e) {
+    
+});
+</script>
+<!--// M-API -->
+</html>

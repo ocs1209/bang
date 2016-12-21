@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-touch-fullscreen" content="yes" />
+<title>기기 연동하기</title>
+<script type="text/javascript" src="../js/mcore.min.js"></script>
+<link rel="stylesheet" type="text/css" href="../css/common.css" />
+</head>
+
+<body>
+	<!-- wrap -->
+	<div id="wrap">
+		<div class="header">
+            <h1>기기 연동하기</h1>
+            <div class="btn_left" role="back"><a nohref class="btn_back" bind-event data-command="page.back" auto-command><span>뒤로</span></a></div>
+        </div>
+        <div class="container device_connect">  
+            <!--content-->
+            <div class="contents">
+                <!-- 콘텐츠 영역 -->
+                    <!-- 기기연동-->
+                <div class="dev_wrap">
+                    <div class="img_dv"></div>
+                </div>
+                <!-- /기기연동-->
+
+                <!-- 하단버튼 -->
+                <div class="bot_btn2"><a nohref bind-event data-command="pairing" class="btn_rd2">연동 시작</a></div>
+                <!-- /하단버튼 -->
+                <!--/콘텐츠 영역 -->
+            </div> 
+            <!-- /content-->
+        </div>
+
+        <div class="pop_bg dn" data-pop-wrap>
+            <div class="popup_wrap loading_pop" id="loading_pop">
+                <div class="pop_txtw">
+                    <div class="m-loadingspinner m-loadingspinner-sm m-loadingspinner-gray"><div class="m-spn m-spinner-icon m-draw"></div></div>
+                    <div class="p_txt_bold dn" id="loading-message"></div>
+                </div>
+            </div>
+        </div>
+
+	</div>
+	<!-- /wrap -->
+</body>
+
+<script type="text/javascript" src="../js/mcore.min.js"></script>
+
+<!-- 화면 스크립트 -->
+<script type="text/javascript">
+M.data.global("CONNECT_PAGE", "Y");
+$(document.body).bind("didLoad", function() {
+
+
+	M.data.global("AUTO_LOGIN", "MANUAL");
+    
+    var 
+    controller = MainController.sharedInstance(),
+    popupController = PopupController.sharedInstance();
+    
+    controller.moveToNextPageEnabled = true;
+    controller.moveToNextPage = function() {
+        if ( controller.moveToNextPageEnabled == false ) {
+            return;
+        }
+        
+        controller.moveToNextPageEnabled = false;
+
+    	if ( M.navigator.os("ios") ) {
+			
+        	M.data.storage("FIRST_PAIRING", "Y");
+		}
+            
+//         var nextPage = M.data.param("next-page");
+//         var nextAction = M.data.param("next-action");
+
+//         if ( nextPage && nextPage.indexOf(".html") !== -1 ) {
+//             alert(nextPage);
+//             var animation = nextAction == "CLEAR_TOP" ? "SLIDE_RIGHT" : "SLIDE_LEFT";
+//             M.page.html(nextPage, {action:nextAction, animation:animation});
+//         }
+//         else {
+            M.page.html("dashboard.main.html", {action:"NEW_SRC", animation:"SLIDE_LEFT"});
+//         }
+    };
+    
+    controller.connectAndPairingEnabled = true;
+    controller.connectAndPairing = function() {
+        if ( controller.connectAndPairingEnabled == false ) {
+            return;
+        }
+        
+        controller.connectAndPairingEnabled = false;
+        
+        popupController.showIndicator();
+        popupController.setIndicatorMessage("디바이스 연결중...");
+        
+        controller.fitManager().pair( function( result ) {
+        
+            if ( result.error ) {
+                controller.connectAndPairingEnabled = true;
+                popupController.hideIndicator();
+
+                return;
+            }
+
+	        M.data.global("CONNECT_PAGE", "N");
+	        
+            controller.deviceInfo().set("skip_band", "N");
+            controller.deviceInfo().set("device_type", "B");
+            controller.deviceInfo().set("paired_band_uuid", result.uuid);
+            controller.deviceInfo().saveData();
+
+
+            M.fit.clock.set({
+                datetime:"NOW",
+                callback: function( result ) {
+                    M.execute("ex2PluginWriteBandInit", {
+                    	callback:M.response.on(function(result){
+		                    		setTimeout( function() {
+		                                controller.connectAndPairingEnabled = true;
+		                                popupController.hideIndicator();
+		                                controller.moveToNextPage();
+		                            }, 1000);
+                        		}).toString()
+                    });
+                }
+            });
+
+
+
+            
+        });
+    };
+  
+    $("[data-command][bind-event]").bind("click", function(e) {
+        var command = $(this).attr("data-command");
+        
+        if ( command == "skip" ) {
+            controller.moveToNextPage();
+        }
+        else if ( command == "pairing" ) {
+
+            setTimeout( function() {
+                controller.connectAndPairing();
+            }, 100);
+        }
+    }).removeAttr("bind-event");
+});
+
+</script>
+<!-- //화면 스크립트 -->
+
+<!-- M-API -->
+<script type="text/javascript">
+
+M.onReady(function(e) {
+    
+});
+
+M.onHide(function(e){
+	
+});
+
+M.onRestore(function(e) {
+	
+});
+
+/* function iosPairedResult(result){
+	M.execute("ex2PluginShowBandListClose");
+
+	var 
+	controller = MainController.sharedInstance();
+
+	
+	if ( result.state === "DISABLED" ) {
+
+        M.pop.instance( "Bluetooth is disabled." );
+
+//         callback({
+//            status: 'FAIL',
+//            error: 'bluetooth is disabled.'
+//         });
+    }
+    else { //ios 페어링 성공했을 때
+    		M.data.storage("FIRST_PAIRING", "Y");
+			$(".btn_setting").removeClass("on");
+	        M.db.close( DatabaseConfig.databaseName() );
+	        
+	        controller.deviceInfo().restoreData();
+	        controller.deviceInfo().set("paired_band_uuid", result.uuid);
+	        controller.deviceInfo().set("paired_band_devicename", result.devicename);
+	        controller.deviceInfo().saveData();
+	        controller.deviceInfo().restoreData();
+
+	        M.db.create( DatabaseConfig.databaseName() );
+	        debug.log('DatabaseConfig.databaseName= ', DatabaseConfig.databaseName());
+	        M.db.open( DatabaseConfig.databaseName() );
+	        
+	        isConnected = true;
+
+	        controller.deviceInfo().set("skip_band", "N");
+	        controller.deviceInfo().set("device_type", "B");
+	        controller.deviceInfo().saveData();
+
+
+	        
+            M.fit.clock.set({
+                datetime:"NOW",
+                callback: function( result ) {
+
+                     M.execute("ex2PluginWriteBandInit", {
+                    	callback:M.response.on(function(result){
+                    		setTimeout( function() {
+                                controller.connectAndPairingEnabled = true;
+                                popupController.hideIndicator();
+                                controller.moveToNextPage();
+                            }, 1000);
+                        }).toString()
+                    });
+
+                    M.data.global("CONNECT_PAGE", "N");
+         	        M.execute("ex2PluginHideIndicator");
+         	        M.page.html("dashboard.main.html", {action:"CLEAR_TOP"});
+                     
+                }
+            });
+	      
+    }
+} */
+
+
+function iosPairedResult(result){
+    
+	var controller = MainController.sharedInstance();
+
+	//controller.fitManager().showBandListClose();
+	
+	
+	if ( result.state === "DISABLED" ) {
+
+        M.pop.instance( "Bluetooth is disabled." );
+
+
+    }
+    else { //ios 페어링 성공했을 때
+    		M.data.storage("FIRST_PAIRING", "Y");
+			$(".btn_setting").removeClass("on");
+	        M.db.close( DatabaseConfig.databaseName() );
+	        
+	        controller.deviceInfo().restoreData();
+	        controller.deviceInfo().set("paired_band_uuid", result.uuid);
+	        controller.deviceInfo().set("paired_band_devicename", result.devicename);
+	        controller.deviceInfo().saveData();
+	        controller.deviceInfo().restoreData();
+
+	        M.db.create( DatabaseConfig.databaseName() );
+	        debug.log('DatabaseConfig.databaseName= ', DatabaseConfig.databaseName());
+	        M.db.open( DatabaseConfig.databaseName() );
+	        
+	        isConnected = true;
+
+	        controller.deviceInfo().set("skip_band", "N");
+	        controller.deviceInfo().set("device_type", "B");
+	        controller.deviceInfo().saveData();
+
+	        M.fit.clock.set({
+                datetime:"NOW",
+                callback: function( result ) {
+                	controller.fitManager().showBandListClose();
+                }
+            });
+	        
+	        //controller.fitManager().showBandListClose();
+	        //controller.fitManager().initBandData();
+    }
+}
+
+
+function iosPairingBand(uuid, devicename){
+
+	M.execute("wn2PluginFitSelectBluetoothPair", {
+		uuid: uuid,
+		devicename : devicename,
+		timeout: 15000,
+		callback:function( result ) {
+			 
+        }
+	});
+
+}
+function iosBandInitResult(){
+	 var controller = MainController.sharedInstance();
+	 /* controller.connectAndPairingEnabled = true;
+     popupController.hideIndicator();
+     controller.moveToNextPage(); */
+
+     M.data.global("CONNECT_PAGE", "N");
+      M.execute("ex2PluginHideIndicator");
+      M.page.html("dashboard.main.html", {action:"CLEAR_TOP"});
+}
+
+</script>
+<!-- //M-API -->
+
+</html>

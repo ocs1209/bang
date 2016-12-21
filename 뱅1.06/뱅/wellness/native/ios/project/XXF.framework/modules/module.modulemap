@@ -1,0 +1,10 @@
+framework module XXF {
+  umbrella header "XXF.h"
+
+  export *
+  module * { export * }
+}
+
+module XXF.Swift {
+    header "XXF-Swift.h"
+}

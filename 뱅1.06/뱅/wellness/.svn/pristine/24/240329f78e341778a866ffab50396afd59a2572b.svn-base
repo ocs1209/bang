@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-touch-fullscreen" content="yes" />
+<title>칼로리 소모량</title>
+<script type="text/javascript" src="../js/mcore.min.js"></script>
+<script type="text/javascript" src="../js/ui/graph.bar.js"></script>
+<link rel="stylesheet" type="text/css" href="../css/common.css" />
+</head>
+<body>
+    <!-- wrap -->
+    <div id="wrap">
+        <!-- header -->
+        <div class="header">
+            <div class="btn_left" role="back"><a nohref class="btn_back" data-command="page.back" auto-command><span class="arrow"></span></a></div>
+            <h1>칼로리 소모량</h1>
+            <div class="btn_right" role="list"><a nohref class="btn_menu"><span>목록</span></a></div>
+        </div> 
+        <!--// header -->
+            
+        <!-- menu -->
+        <div id="menu"></div>
+        <!--// menu -->
+        <!-- container -->
+        <div class="container dash_sub">
+
+            <!-- contents -->
+            <div class="contents">
+                <!--circle tab -->
+                <ul class="circle_tab ">
+                    <li><a nohref auto-link data-link="dashboard.burn.today.html" data-action="REPLACE">오늘</a></li>
+                    <li><a nohref auto-link data-link="dashboard.burn.weekly.html" data-action="REPLACE" class="selected">이번주</a></li>
+                    <li><a nohref auto-link data-link="dashboard.burn.monthly.html" data-action="REPLACE"><script>document.write( FitManager.defaultManager().targetDateFormat("M월") );</script></a></li>
+                </ul>
+                <!--/circle tab -->
+                
+                <div class="set-cont">
+                    <div class="cont_bargraph">
+                    <!-- 요일 -->
+                        <div class="table_top week">
+                            <ul>
+                                <li data-day="mon" class="no-data">MON</li>
+                                <li data-day="tue" class="no-data">TUE</li>
+                                <li data-day="wed" class="no-data">WED</li>
+                                <li data-day="thu" class="no-data">THU</li>
+                                <li data-day="fri" class="no-data">FRI</li>
+                                <li data-day="sat" class="no-data">SAT</li>
+                                <li data-day="sun" class="no-data">SUN</li>
+                            </ul>
+                        </div>
+                        <!-- /요일 -->
+
+                        <!-- text -->
+                        <div class="suc_txt">
+                            <span class="goal"><em>오늘 0</em>kcal 목표 중</span><br/>
+                            <span class="value"><em>0</em>kcal 소모</span><br/>
+                            <div>
+                                <span class="suc">목표달성</span>
+                                <span class="fail">목표미달</span>
+                            </div>
+                        </div>
+                        <!-- /text -->
+
+                        <!-- 그래프 -->
+                        <div class="gr_wrap graph">
+                            <ul>
+                                <li data-day="mon">
+                                    <div class="gr_bar" style="height:0%"></div>
+                                </li>
+                                <li data-day="tue">
+                                    <div class="gr_bar" style="height:0%"></div>
+                                </li>
+                                <li data-day="wed">
+                                    <div class="gr_bar" style="height:0%"></div>
+                                </li>
+                                <li data-day="thu">
+                                    <div class="gr_bar" style="height:0%"></div>
+                                </li>
+                                <li data-day="fri">
+                                    <div class="gr_bar" style="height:0%"></div>
+                                </li>
+                                <li data-day="sat">
+                                    <div class="gr_bar" style="height:0%"></div>
+                                </li>
+                                <li data-day="sun">
+                                    <div class="gr_bar" style="height:0%"></div>
+                                </li>
+                            </ul>
+                            <div class="n8000 vertical-txt01">0</div>
+                            <div class="n6000 vertical-txt02">0</div>
+                            <div class="nline">
+                                <div class="stxt">목표<br/><em>0</em></div>
+                                <div class="ic_arr"></div>
+                            </div>
+                        </div>
+                        <!-- /그래프 -->
+                        <!-- 평균 -->
+                        <div class="gr_txt">이번주 평균 <em>0</em>kcal 소모</div>
+                    <!-- /평균 -->
+                    </div>
+                </div>
+            </div> 
+            <!--// contents -->
+            <!-- layer(dimd) -->
+            <div class="layer dn"></div>
+            <!--// layer(dimd) -->
+        </div>
+        <!--// container -->        
+    </div>
+    <!--// wrap -->
+    
+</body>
+
+<!-- 화면 스크립트 -->
+<script type="text/javascript">
+
+var  controller = MainController.sharedInstance(),
+fitManager = controller.fitManager();
+$(document.body).bind("didAppear", function() {
+    controller.execute("fit.calory.weekly",{},{});
+});
+</script>
+<!--// 화면 스크립트 -->
+
+<!-- M-API -->
+<script type="text/javascript">
+function refreshBySynchResult(){
+	debug.log("hyjeon","[  히스토리 synch 결과를 가져온다.----> 칼로리 주간  > ");
+	controller.execute("fit.calory.weekly",{},{});
+};
+M.onReady(function(e) {
+    
+});
+
+M.onHide(function(e){
+    
+});
+
+M.onRestore(function(e) {
+    
+});
+
+</script>
+<!--// M-API -->
+</html>

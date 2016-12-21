@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+	<group id="Frameworks">
+		<file>AVFoundation.framework</file>
+		<file>CoreVideo.framework</file>
+		<file>CoreMedia.framework</file>
+		<file>MediaPlayer.framework</file>
+		<file>AssetsLibrary.framework</file>
+		<file>CoreData.framework</file>
+		<file>UIKit.framework</file>
+		<file>Foundation.framework</file>
+	</group>
+</config>

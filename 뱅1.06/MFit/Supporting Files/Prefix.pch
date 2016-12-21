@@ -1,0 +1,11 @@
+//
+// Prefix header for all source files of the 'MFit' target in the 'MFit' project
+//
+
+#ifdef __OBJC__
+    #import <UIKit/UIKit.h>
+    #import <Foundation/Foundation.h>
+#endif
+
+#import <MCore/MCore.h>
+#import "MFitPlugin.h"

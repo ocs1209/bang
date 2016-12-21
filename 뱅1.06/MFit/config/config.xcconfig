@@ -1,0 +1,19 @@
+/////////////////////////////////////////////////////
+
+// ** Build Settings **
+
+// build arch
+// ARCHS=$(ARCHS_STANDARD_32_BIT)
+
+// build valid arch
+// VALID_ARCHS=armv7
+
+SDKROOT=iphoneos
+IPHONEOS_DEPLOYMENT_TARGET = 5.1
+TARGETED_DEVICE_FAMILY = 1,2
+
+PRODUCT_NAME = $(PROJECT_NAME)
+GCC_GENERATE_DEBUGGING_SYMBOLS = NO
+STRIP_STYLE = non-global
+COPY_PHASE_STRIP = NO
+DEAD_CODE_STRIPPING = NO

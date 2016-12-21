@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-touch-fullscreen" content="yes" />
+<title>이동거리</title>
+<script type="text/javascript" src="../js/mcore.min.js"></script>
+<link rel="stylesheet" type="text/css" href="../css/common.css" />
+</head>
+<body>
+    <!-- wrap -->
+    <div id="wrap">
+        <!-- header -->
+        <div class="header">
+            <div class="btn_left" role="back"><a nohref class="btn_back" data-command="page.back" auto-command><span class="arrow"></span></a></div>
+            <h1>이동거리</h1>
+            <div class="btn_right" role="list"><a nohref class="btn_menu"><span>목록</span></a></div>
+        </div> 
+        <!--// header -->
+            
+        <!-- menu -->
+        <div id="menu"></div>
+        <!--// menu -->
+        <!-- container -->
+        <div class="container dash_sub">
+
+            <!-- contents -->
+            <div class="contents">
+                <!--circle tab -->
+                <ul class="circle_tab ">
+                    <li><a nohref auto-link data-link="dashboard.distance.weekly.html" data-action="REPLACE">이번주</a></li>
+                    <li><a nohref auto-link data-link="dashboard.distance.monthly.html" data-action="REPLACE" class="selected"><script>document.write( FitManager.defaultManager().targetDateFormat("M월") );</script></a></li>
+                    <li><a nohref auto-link data-link="dashboard.distance.cumulatively.html" data-action="REPLACE" >전체</a></li>
+                </ul>
+                <div id="manual_synch" style="position: fixed; height: 3rem; width: 3rem; background-color: pink; border-radius: 1rem; right: 1rem; bottom: 1rem;"></div>
+                <!--/circle tab -->
+                <!-- text -->
+                <div class="suc_txt">
+                    이번 달 누적 <em>0</em>m
+                </div>
+                <!-- /text -->
+                <!-- list -->
+                <div class="w_wrap">
+                    <!--<div class="wl_w current">
+                        <p class="ww1">5W</p>
+                        <p class="ww2">+</p>
+                        <p class="ww3">5,00m</p>
+                    </div>
+                    <div class="wl_w">
+                        <p class="ww1">4W</p>
+                        <p class="ww2">+</p>
+                        <p class="ww3">5,00m</p>
+                    </div>
+                    <div class="wl_w">
+                        <p class="ww1">3W</p>
+                        <p class="ww2">+</p>
+                        <p class="ww3">5,00m</p>
+                    </div>
+                    <div class="wl_w">
+                        <p class="ww1">2W</p>
+                        <p class="ww2">+</p>
+                        <p class="ww3">5,00m</p>
+                    </div>
+                    <div class="wl_w">
+                        <p class="ww1">1W</p>
+                        <p class="ww2">+</p>
+                        <p class="ww3">5,00m</p>
+                    </div>-->
+                </div>
+                <!-- /list -->                
+            </div> 
+            <!--// contents -->
+            <!-- layer(dimd) -->
+            <div class="layer dn"></div>
+            <!--// layer(dimd) -->
+        </div>
+        <!--// container -->        
+    </div>
+    <!--// wrap -->
+    
+</body>
+
+<!-- 화면 스크립트 -->
+<script type="text/javascript">
+
+var  controller = MainController.sharedInstance(),
+fitManager = controller.fitManager();
+
+$(document.body).bind("didAppear", function() {
+    controller.execute("fit.distance.monthly",{},{});
+
+    $("#manual_synch").click(function(){
+	   	 fitManager.connect( function( result ) {
+	            if ( result.error ) {
+	            }
+	            M.fit.current(function( result ) {
+	    			console.log('M.fit.current');
+	                if ( result.error ) {
+	                	console.log(result.error);
+	                }
+	                else {
+	    				console.log('fitManager.info().data');
+	                	fitManager.info().data({
+	                        "current_calorie": result.calorie,
+	                        "current_distance": result.distance,
+	                        "current_step": result.step
+	                    });
+	
+	                    M.data.storage("CALORIE", result.calorie);
+	                    M.data.storage("DISTANCE", result.distance);
+	                    M.data.storage("STEP", result.step);
+	                    
+	                    fitManager.synchManually(  function() {
+	                		
+	                	 });
+	                }
+	                
+	    		});
+	   	 }, true);
+	});
+    
+});
+</script>
+<!--// 화면 스크립트 -->
+
+<!-- M-API -->
+<script type="text/javascript">
+function refreshBySynchResult(){
+	debug.log("hyjeon","[  히스토리 synch 결과를 가져온다. 이동거리 (월별 ))]");
+	controller.execute("fit.distance.monthly",{},{});
+
+	
+};
+M.onReady(function(e) {
+    
+});
+
+M.onHide(function(e){
+    
+});
+
+M.onRestore(function(e) {
+    
+});
+
+</script>
+<!--// M-API -->
+</html>

@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-touch-fullscreen" content="yes" />
+<title>약관동의</title>
+<script type="text/javascript" src="../js/mcore.min.js"></script>
+<link rel="stylesheet" type="text/css" href="../css/common.css" />
+<style>
+</style>
+</head>
+
+<body>
+	<!-- wrap -->
+	<div id="wrap">
+
+        <!-- header -->
+        <div class="header">
+            <h1>약관동의</h1>
+            <div class="btn_right" role="next"><a nohref class="btn_next"></span><span class="txt">다음</span><span class="arrow"></a></div>
+        </div>
+        <!--// header -->
+            
+		<!-- menu -->
+		<div id="menu"></div>
+		<!--// menu -->
+
+        <!-- container -->
+        <div class="container join2">
+            <!-- contents -->
+            <div class="contents">
+                <!-- 콘텐츠 영역 -->             
+                <div class="cont_join2">
+                    <div class="join2_chd">
+                        <input type="checkbox" id="all_agree" name="all_agree" class="j_chd2" /> <label for="all_agree">전체동의</label>
+                    </div>
+                    <p class="join2_txt pdb20">이용약관, 개인정보수집 및 이용동의, <br/>개인정보 제3자 제공에 대한 동의</p>
+                </div>
+                <div class="set-cont">
+                    <!-- 이용약관 -->
+                    <div class="join2_box">
+                        <p class="tit">이용약관</p>
+                        <div class="jb_scroll" id="info-terms">
+                            
+                        </div>
+                        <div class="agree_a"><input type="checkbox" id="agree1" name="agree1" class="j_chd3" /> <label for="agree1">동의함</label></div>
+                    </div>
+                    <!-- /이용약관 -->
+
+                    <!-- 개인정보수집 및 이용동의 -->
+                    <div class="join2_box">
+                        <p class="tit">개인정보수집 및 이용동의</p>
+                        <div class="jb_scroll" id="info-privacy">
+                            
+                        </div>
+                        <div class="agree_a"><input type="checkbox" id="agree2" name="agree1"  class="j_chd3" /> <label for="agree2">동의함</label></div>
+                    </div>
+                    <!-- /개인정보수집 및 이용동의 -->
+
+                    <!-- 개인정보 및 건강정보 취급위탁 -->
+                    <div class="join2_box">
+                        <p class="tit">개인정보 및 건강정보 취급위탁</p>
+                        <div class="jb_scroll" id="info-privacy-trust">
+                            
+                        </div>
+                        <div class="agree_a"><input type="checkbox" id="agree3" name="agree3"  class="j_chd3" /> <label for="agree3">동의함</label></div>
+                    </div>
+                    <!-- /개인정보 및 건강정보 취급위탁 -->
+
+                    <!-- 개인정보 제3자 제공에 대한 동의 -->
+                    <div class="join2_box">
+                        <p class="tit">개인정보 제3자 제공에 대한 동의</p>
+                        <div class="jb_scroll" id="info-consign">
+                            
+                        </div>
+                        <div class="agree_a"><input type="checkbox" id="agree4" name="agree4"  class="j_chd3" /> <label for="agree4">동의함</label></div>
+                    </div>
+                    <!-- /개인정보 제3자 제공에 대한 동의 -->
+                </div>
+                <!--/콘텐츠 영역 -->                
+            </div>
+            <!--// contents -->
+
+        </div>
+        <!--// container -->
+        
+        <!-- layer(dimd) -->
+        <div class="layer dn"></div>
+        <!--// layer(dimd) -->
+        
+	</div>
+<!--// wrap -->
+<div class="pop_bg dn" data-pop-wrap="">
+    <div id="pop_terms" class="popup_wrap">
+        <div class="pop_txtw">
+            <div class="p_txt">
+                이용약관, 개인정보수집 및 이용동의,<br>
+                개인정보 제3자 제공에 대한 동의안에<br>
+                모두 동의해 주십시오,
+            </div>          
+            <div class="pbot_btn"><a href="#" class="btn_bl" data-close-pop="">확인</a></div> 
+        </div>
+            
+    </div>
+</div>
+</body>
+
+<script type="text/javascript" src="../js/mcore.min.js"></script>
+
+<!-- 화면 스크립트 -->
+<script type="text/javascript">
+$(function(){
+    var $chkContain = $(".agree_a");
+    var $chkbox = $("input.j_chd3");
+ 
+    $chkContain.on("change", "input",function(e){
+        var checked = $(this).is(":checked");
+        if(checked){
+            $(this).parent().addClass("on").prop("checked", checked);;
+        }else{
+           $(this).parent().removeClass("on").prop("checked", checked);;
+        }
+
+        chkAllChecked();       
+    });
+
+    var $allChkbox =  $("#all_agree")
+    $allChkbox.on("change", function(){
+        var checked = $allChkbox.is(":checked");//$allChkbox.prop("checked");
+        $chkbox.prop("checked", checked);
+        if(checked){
+            $chkContain.addClass("on");
+         }else{
+            $chkContain.removeClass("on");
+         }
+    });
+   
+    var chkAllChecked=function(){
+        var chkLen = $chkbox.length;
+        var result = false;
+        $chkbox.each(function(){
+            if($(this).is(":checked")){
+                chkLen--;
+            }else{
+                $allChkbox.prop("checked", false);
+                return false;
+            }            
+        });
+
+        if(chkLen == 0){
+            $allChkbox.prop("checked", true);
+            result = true;
+        }
+
+        return result;
+    };
+
+    $(".btn_next").on("click", function(e){
+        e.preventDefault();
+        if(chkAllChecked()){
+            M.page.html("user.profile.html",{
+                actionType: "NO_HISTORY"
+            });
+        }else{
+            window.Wellness.showLayerPopup("pop_terms");
+        }
+    });
+  
+    var
+    controller = MainController.sharedInstance(),
+    popupController = PopupController.sharedInstance(),
+    formController = new FormViewController( $("#signup-form") );
+  
+    controller.bind("didSuccessExecute", function( sender ) {
+
+		if ( sender.action === "info.terms" ) {
+            var result = sender.result;
+            
+            $("#info-terms").text( result.terms );
+            $("#info-privacy").text( result.privacy );
+            $("#info-privacy-trust").text( result.privacy_trust );
+            $("#info-consign").text( result.consign );
+        }
+	});
+
+	controller.bind("didErrorExecute", function( sender ) {
+        
+        if ( sender.action === "info.terms" ) {
+            popupController.confirm( 
+                "데이타를 불러 올 수 없습니다..\n다시 시도하시겠습니까",
+                ["다시 시도"],
+                function() {
+                    controller.retry( sender );
+                }
+            );
+        }
+	});
+  
+    controller.execute( "info.terms", {} );
+  
+});
+</script>
+<!-- //화면 스크립트 -->
+
+<!-- M-API -->
+<script type="text/javascript">
+
+M.onReady(function(e) {
+    var
+    controller = MainController.sharedInstance();
+    controller.clearStack();
+});
+
+M.onHide(function(e){
+	
+});
+
+M.onRestore(function(e) {
+	
+});
+
+</script>
+<!-- //M-API -->
+
+</html>

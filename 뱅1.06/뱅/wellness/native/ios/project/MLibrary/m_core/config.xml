@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+	<group id="Frameworks">
+		<file>Accelerate.framework</file>
+		<file>CFNetwork.framework</file>
+		<file>MobileCoreServices.framework</file>
+		<file>SystemConfiguration.framework</file>
+		<file>MessageUI.framework</file>
+		<file>AudioToolbox.framework</file>
+		<file>MessageUI.framework</file>
+		<file>QuartzCore.framework</file>
+		<file>libxml2.dylib</file>
+		<file>libz.dylib</file>
+		<file>CoreData.framework</file>
+		<file>CoreTelephony.framework</file>
+		<file>Security.framework</file>
+		<file>CoreGraphics.framework</file>
+		<file>Foundation.framework</file>
+		<file>UIKit.framework</file>
+		<file>ImageIO.framework</file>
+	</group>
+</config>

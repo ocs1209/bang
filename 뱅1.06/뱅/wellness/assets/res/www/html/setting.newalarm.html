@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="ko">
+	<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-touch-fullscreen" content="yes" />
+	<title>알람시간</title>
+	<script type="text/javascript" src="../js/mcore.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="../css/common.css" />
+	<!--picker-->
+	<script type="text/javascript" src="../js/libs/mobiscroll/mobiscroll.core.js"></script>
+	<script type="text/javascript" src="../js/libs/mobiscroll/mobiscroll.frame.js"></script>
+	<script type="text/javascript" src="../js/libs/mobiscroll/mobiscroll.scroller.js"></script>
+	<link rel="stylesheet" type="text/css" href="../js/libs/mobiscroll/mobiscroll.scroller.css">
+	<!--/picker-->
+</head>
+<body>
+<!-- wrap -->
+<div id="wrap">
+	<!-- header-->
+	<div class="header">
+		<h1>알람시간</h1>
+		<div class="btn_right"><a class="btn_txt btn_save" nohref="#"><span>저장</span></a></div>
+		<div class="btn_left" role="back"><a nohref class="btn_back" data-command="page.back" auto-command><span class="arrow"></span></a></div>
+	</div> 
+	<!-- /header-->
+
+	<!-- 추가 container-->
+	<div class="container">	
+		<!--content-->
+		<div class="contents">
+			<div class="alram_edit">
+				<p class="ae_tit">알람시간</p>
+				<div id="timepicker" class="time_picker">
+					<!--<div class="ar_clock_w">
+						<div class="sele_line"></div>
+						<ul class="ar_lsit">
+							<li>23</li>
+							<li class="selt">00</li>
+							<li>01</li>
+							<li>23</li>
+							<li>00</li>
+							<li>01</li>
+						</ul>
+					</div>
+					<div class="sd_dot">:</div>
+					<div class="ar_clock_w right">
+						<div class="sele_line"></div>
+						<ul class="ar_lsit">
+							<li>23</li>
+							<li class="selt">00</li>
+							<li>01</li>
+						</ul>
+					</div>-->
+				</div>
+			</div>
+			
+			<div class="alram_edit2">
+				<p class="ae_tit">알람이름</p>
+				<p class="ae_tit2">
+                    <span class="chd_box">
+                        <input type="checkbox" id="medical_alarm" name="medical_r" class="j_chd"> <label for="medical_r">복약 알람</label>
+                    </span>
+                </p>
+			</div>
+			
+			<p class="ae_tit">요일선택</p>
+			<div class="alram_edit3 alram_set_week">
+				<ul>
+					<!--day_off, day_on-->
+					<li data-index="0"><a nohref class="day_off">월</a></li>
+					<li data-index="1"><a nohref class="day_off">화</a></li>
+					<li data-index="2"><a nohref class="day_off">수</a></li>
+					<li data-index="3"><a nohref class="day_off">목</a></li>
+					<li data-index="4"><a nohref class="day_off">금</a></li>
+					<li data-index="5"><a nohref class="day_off">토</a></li>
+					<li data-index="6"><a nohref class="day_off">일</a></li>
+				</ul>
+			</div>
+		</div>
+		<!-- /content-->
+		<!-- 추가 layer(dimd)-->			
+		<div class="layer dn"></div>	
+		<!--/ 추가 layer(dimd)-->	
+	</div>
+	<!-- /추가 container-->
+</div>
+<!-- /wrap -->	
+</body>
+
+<script>
+
+M.onReady(function(e) {
+	var
+	Class = UI.Class,
+	controller = MainController.sharedInstance(),
+	DeivceAlarmInfo = Class.DeivceAlarmInfo,
+	popupController = PopupController.sharedInstance(),
+	enabled, type, time, selectedIndex, weeks, firstSettingFlag;
+
+	enabled = M.data.param("enabled");
+	type = M.data.param("type");
+	time = M.data.param("time");
+	selectedIndex = parseInt(M.data.param("index"));
+	weeks = M.data.param("weeks");
+    firstSettingFlag = true;
+
+	var alarmTime = time.split(':'); 
+	var alarmHour = parseInt(alarmTime[0]);
+	var alarmMinute = parseInt(alarmTime[1]);
+
+	var timepicker = window.Wellness.createTimepicker($('#timepicker'), [alarmHour,alarmMinute]);
+	
+	if (type == "MEDICATION") {
+		$("#medical_alarm").attr("checked", true); 
+	}
+	
+	if (weeks.MON == true) {
+		$(".alram_set_week li a").eq(0).addClass("day_on").removeClass("day_off");
+          firstSettingFlag = false;
+	}
+	if (weeks.TUE == true) {
+		$(".alram_set_week li a").eq(1).addClass("day_on").removeClass("day_off");
+          firstSettingFlag = false;
+	}
+	if (weeks.WED == true) {
+		$(".alram_set_week li a").eq(2).addClass("day_on").removeClass("day_off");
+          firstSettingFlag = false;
+	}
+	if (weeks.THU == true) {
+		$(".alram_set_week li a").eq(3).addClass("day_on").removeClass("day_off");
+          firstSettingFlag = false;
+	}
+	if (weeks.FRI == true) {
+		$(".alram_set_week li a").eq(4).addClass("day_on").removeClass("day_off");
+          firstSettingFlag = false;
+	}
+	if (weeks.SAT == true) {
+		$(".alram_set_week li a").eq(5).addClass("day_on").removeClass("day_off");
+          firstSettingFlag = false;
+	}
+	if (weeks.SUN == true) {
+		$(".alram_set_week li a").eq(6).addClass("day_on").removeClass("day_off");
+          firstSettingFlag = false;
+	}
+          
+          if(firstSettingFlag){
+            $(".alram_set_week li a").eq(new Date().getDay()).addClass("day_on").removeClass("day_off");
+          }
+	
+	$(".btn_save").on("click", function(){		
+		var timeData = window.Wellness.getTimepickerVal(timepicker);
+		var selectedDays = {};
+		
+		selectedDays.MON = ($(".alram_set_week li a").eq(0).hasClass("day_on") == true) ? true : false;
+		selectedDays.TUE = ($(".alram_set_week li a").eq(1).hasClass("day_on") == true) ? true : false;
+		selectedDays.WED = ($(".alram_set_week li a").eq(2).hasClass("day_on") == true) ? true : false;
+		selectedDays.THU = ($(".alram_set_week li a").eq(3).hasClass("day_on") == true) ? true : false;
+		selectedDays.FRI = ($(".alram_set_week li a").eq(4).hasClass("day_on") == true) ? true : false;
+		selectedDays.SAT = ($(".alram_set_week li a").eq(5).hasClass("day_on") == true) ? true : false;
+		selectedDays.SUN = ($(".alram_set_week li a").eq(6).hasClass("day_on") == true) ? true : false;
+		
+		var type = ($("#medical_alarm").is(":checked") == false)? "NORMAL" : "MEDICATION"; 
+		debug.log(selectedDays);
+
+		var count =0;
+		for ( var index in selectedDays ) {
+            var dataValue = selectedDays[index];
+            if(dataValue==true) count++;
+    	}
+    	if(count <1){
+    		popupController.alert('요일을 선택해주세요.');
+        	return;
+        }
+
+		var deivceAlarmInfo = new Object();
+		deivceAlarmInfo.index = selectedIndex;
+		deivceAlarmInfo.type = type;
+		deivceAlarmInfo.enabled= enabled;
+		deivceAlarmInfo.weeks =selectedDays;
+		var time1 = timeData[0].length ==1? '0'+timeData[0] : timeData[0];
+		var time2 = timeData[1].length ==1? '0'+timeData[1] : timeData[1];
+		deivceAlarmInfo.time = time1+':'+time2;
+
+		console.log('deivceAlarmInfo', deivceAlarmInfo);
+
+
+		if(M.navigator.os("android")) {
+			M.fit.alarm.set({
+	            index: selectedIndex,
+	            type: type,
+	            enabled: enabled,
+	            weeks: selectedDays,
+	            time: timeData[0] + ':' + timeData[1],
+	            callback:function( result ) {
+	            }
+	    
+	        });
+		}
+		else {
+			M.execute("ex2PluginFitAlarmSet", {
+				index: selectedIndex,
+	            type: type,
+	            enabled: "1",
+	            weeks: selectedDays,
+	            time: timeData[0] + ':' + timeData[1],
+	            callback:function( result ) {
+	            }
+			});
+		}
+
+        
+		var list = [];
+		list=  DeivceAlarmInfo.sharedInfo().getListData();
+    	list[selectedIndex] = null;
+    	list[selectedIndex] = deivceAlarmInfo;
+		list.sort();
+    	DeivceAlarmInfo.sharedInfo().setListData(JSON.stringify(list));
+    	debug.log("preference deviceAlarmInfo setting", DeivceAlarmInfo.sharedInfo().getListData());
+    	
+		M.page.back( {param:"act=refresh"} );
+	});
+
+	$(".alram_set_week li a").on("click", function(){
+		var $t = $(this);
+		if($t.hasClass("day_off")){
+			$t.addClass("day_on").removeClass("day_off");
+		} else {
+			$t.addClass("day_off").removeClass("day_on");
+		}
+	});
+});
+
+</script>
+</html>

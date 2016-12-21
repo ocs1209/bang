@@ -1,0 +1,9 @@
+
+#include "./config.xcconfig"
+
+// ** Build Settings **
+INSTALL_PATH = /Library/Bundles
+SKIP_INSTALL = YES
+WRAPPER_EXTENSION = bundle
+COMBINE_HIDPI_IMAGES = YES
+STRINGS_FILE_OUTPUT_ENCODING = UTF-8

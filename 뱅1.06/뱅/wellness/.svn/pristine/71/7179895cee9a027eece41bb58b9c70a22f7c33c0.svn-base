@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-touch-fullscreen" content="yes" />
+<title>새 기기 연결</title>
+<script type="text/javascript" src="../js/mcore.min.js"></script>
+<link rel="stylesheet" type="text/css" href="../css/common.for.firmware.css" />
+</head>
+
+<body>
+	<!-- wrap -->
+	<div id="wrap">
+
+		<!-- header -->
+		<div class="header">
+			<h1>펌웨어 업데이트</h1>
+			<div class="btn_left" ><a nohref class="btn_back" bind-event data-command="go.prev.setting" ><span class="arrow"></span></a></div>
+		</div>
+		<!--// header -->
+			
+		<!-- menu -->
+		<div id="menu"></div>
+		<!--// menu -->
+
+		<!-- container -->
+		<div class="container">
+			<!-- contents -->
+			<div class="contents">
+
+				<!-- Panel -->
+				<div class="u-panel">
+					<div class="space full">
+						<ul class="li_device">
+							<li class="hbox se">
+								<img src="../images/img_de_02.png" alt="활동량계"/>
+								<div class="flex">
+									<p class="name"><script>document.write(DeviceInfo.sharedInfo().bandDeviceName());</script></p>
+									<p class="btn_hbox" id='firmwareIsReady'><a href="#" class="btn_txt blue" id='firmwareIsReadyClass'>업데이트 준비</a></p>
+								</div>	
+								<div class="flex">
+									<p class="btn_hbox"  id='firmwareConnect'><a href="#" class="btn_txt gray" id='firmwareConnectClass'>업데이트 시작</a></p>
+								</div>
+							</li>
+							<li class="hbox se">
+									<p id="nowVersion"></p>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<!--// Panel -->
+
+			</div>
+			<!--// contents -->
+		</div>
+		<!--// container -->
+
+		
+	<!-- popup -->	
+		<div class="pop_bg dn" data-pop-wrap  id="loadingPopDiv">
+			<div class="popup_wrap loading_pop" id="loading_pop">
+				<div class="tit type_02">
+					펌웨어 업데이트
+				</div>
+				<div class="pop_txtw">
+					<div class="m-loadingspinner m-loadingspinner-sm m-loadingspinner-gray">
+						<div class="m-spn m-spinner-icon m-draw"></div>
+					</div>
+					<div class="p_txt_bold fc_0 " id="loading-message">
+						파일 업데이트 중입니다.  
+					</div>
+					<br><div><span id="perCount"></span></div>
+
+				</div>
+				<div class="pop_txtw">
+					<p class="p_txt">* 펌웨어 업데이트 중 어플을 강제 종료하면 정상적으로 업데이트 되지 않습니다. 업데이트는 1~2분정도 소요됩니다.</p>
+				</div>
+			</div>
+		</div> 
+	<!-- popup -->
+	
+	</div>
+	<!--// wrap -->
+</body>
+<script type="text/javascript">
+//백키 제어를 위해 전역변수 설정.
+var pageBackYn ="Y"; 
+var controller = MainController.sharedInstance();
+var popupController = PopupController.sharedInstance();
+$(function() {
+	var fimwareEnable= 'N';
+	var nowVersion;
+	var appVesrion;
+	var currentLatestVersion = 'N';
+	var 
+    fitManager = controller.fitManager(),
+	Class = UI.Class,
+	DeviceInfo = Class.DeviceInfo;
+	
+	
+	//뒤로가기버튼 막음.
+    $("[data-command][bind-event]").bind("click", function(e) {
+        var command = $(this).attr("data-command");
+
+        if ( command == "go.prev.setting" ) {
+			debug.log('pageBack firmwareEnd', pageBackYn); 
+			if(pageBackYn ==="Y"){
+				controller.execute( "page.back" );
+			}else{
+				popupController.alert("펌웨어 업데이트 중 페이지 이동은 불가능합니다.");
+			}
+        }
+    });
+	
+	
+	//#############################
+	//#########버전체크###############
+	//#############################
+	fitManager.firmwareVersion(function( result ) {
+		 debug.log(result.status);
+		 if(result.status ==='SUCCESS'){
+			 debug.log(result.version);
+			 nowVersion = result.version;
+			 
+			 $("#nowVersion").text("현재버전: "+nowVersion);
+			 
+			 appVesrion = DeviceInfo.sharedInfo().bandVersion();
+	         debug.log('appVersion', appVesrion);
+	         if(appVesrion === nowVersion ) {
+		        currentLatestVersion ='Y';
+		       $("#firmwareIsReadyClass").removeClass('blue').addClass('gray');
+ 			}			 
+		 }else{
+			 //밴드와 연결 안되었을 시 디폴트값 세팅.
+			 $("#nowVersion").text("현재버전: -");
+			 $("#firmwareIsReadyClass").removeClass('blue').addClass('gray');
+		 }
+	});
+	
+	$("#firmwareConnect").on("click", function() {		
+		debug.log('###firmwareConnect')
+		if(currentLatestVersion =='Y'){
+			 popupController.alert( "펌웨어가 최신버전 입니다." );
+			 return;
+		}
+		 Wellness.showLayerPopup("loading_pop");
+		if(fimwareEnable==='Y'){
+				 fitManager.firmwareUpgrade( function( result ) {
+					 debug.log(result.count);
+					 debug.log(result.status);
+					 if(result.status ==='PROCESSING'){
+						 $("#loading-message").text("파일 업데이트 중입니다.");
+						 $("#perCount").text(result.count + "%");   
+						 if(result.count == 100){//완료 시 팝업닫음.
+							 Wellness.hideLayerPopup("loading_pop");
+							 DeviceInfo.sharedInfo().set("paired_band_version", nowVersion);
+							 popupController.confirm(
+		                             "펌웨어 업데이트가 완료 되었습니다. 앱을 종료 후 재실행하셔야 업데이트가 완료됩니다.", 
+		                             ["확인"],
+		                             function( buttonIndex ) {
+		                                 if ( buttonIndex === 0 ) {
+		                                	  M.sys.exit();
+		                                 }
+		                             }
+		                         );
+						 }
+					 }else if(result.status ==='FAIL'){
+						 pageBackYn ="Y";//화면이동가능
+						 Wellness.hideLayerPopup("loading_pop");
+						 popupController.alert( "펌웨어 업데이트에 실패하였습니다." );
+					 }
+					 callback();
+				 });
+		}else{
+			 Wellness.hideLayerPopup("loading_pop");
+			 popupController.alert( "업데이트 준비  후 펌웨어 업데이트 가능합니다." );
+		}
+	});
+	$("#firmwareIsReady").on("click", function() {
+		if(currentLatestVersion =='Y'){
+			 popupController.alert( "펌웨어가 최신버전 입니다." );
+			 return;
+		} 
+		
+		fitManager.firmwareUpgradeReady( function( result ) {
+			if(fimwareEnable ==='N'){
+				 pageBackYn ="N"; //화면이동 불가능
+				$("#loading-message").text("펌웨어 업그레이드 준비중..."); 
+				Wellness.showLayerPopup("loading_pop");
+				 debug.log(result.status);
+				 if(result.status ==='SUCCESS'){
+					 fimwareEnable='Y';
+					 $("#firmwareConnectClass").removeClass('gray').addClass('blue');
+					 Wellness.hideLayerPopup("loading_pop");
+				 }
+			}
+			 /* else{
+				 popupController.alert( "펌웨어 업데이트 준비에 실패하였습니다." );
+			 }*/
+ 		 });
+		
+		
+	});
+	
+	M.onBack(function(e) {
+		if(pageBackYn ==="Y"){
+			controller.execute( "page.back" );
+			}else{
+				popupController.alert("펌웨어 업데이트 중 페이지 이동은 불가능합니다.");
+			}
+		
+	});
+});
+</script>
+</html>

@@ -1,0 +1,262 @@
+{
+    "head":{
+        "result_code":200,
+        "result_message":"Success"
+    },
+    "body":{
+        "gender": "F",
+        "user_profile_url":"http://211.241.199.3:9090/gw/upload/R4_0446a3237f3818aedbf59591e3453060_20151019235444.JPG",
+        "user_bitth": "1965-06-17",
+        "goal_step": "25000",
+        "body_height": "158CM",
+        "composit": [
+            {
+                "weight": 61.6,
+                "height": 165,
+                "muscle": 25.8,
+                "fat_rate": 23.7,
+                "datetime": "2015-10-01 17:09",
+                "fat_amout": 14.6,
+                "basal_metabolism": 1384,
+                "bmi": 22.6
+            },
+            {
+                "weight": 62.7,
+                "height": 165,
+                "muscle": 33.9,
+                "fat_rate": 5.5,
+                "datetime": "2015-10-15 17:10",
+                "fat_amout": 3.5,
+                "basal_metabolism": 1649,
+                "bmi": 23
+            }
+        ],
+        "samples": [
+            {
+                "datetime": "2015-10-18",
+                "count": 8,
+                "avg": 42.25,
+                "value": 338,
+                "type": "STEP"
+            },
+            {
+                "datetime": "2015-10-19",
+                "count": 8,
+                "avg": 82.125,
+                "value": 617,
+                "type": "STEP"
+            },
+            {
+                "datetime": "2015-10-20",
+                "count": 41,
+                "avg": 60,
+                "value": 9430,
+                "type": "STEP"
+            },
+            {
+                "datetime": "2015-10-21",
+                "count": 41,
+                "avg": 60,
+                "value": 2370,
+                "type": "STEP"
+            },
+            {
+                "datetime": "2015-10-22",
+                "count": 41,
+                "avg": 60,
+                "value": 1460,
+                "type": "STEP"
+            },
+            {
+                "datetime": "2015-10-23",
+                "count": 41,
+                "avg": 60,
+                "value": 760,
+                "type": "STEP"
+            },
+            {
+                "datetime": "2015-10-24",
+                "count": 41,
+                "avg": 60,
+                "value": 760,
+                "type": "STEP"
+            }
+        ],
+        "total_steps": "3774",
+        "total_sleeps": "338",
+        "goal_info": [
+            {
+                "end_ymd": "20151004",
+                "start_ymd": "20151002",
+                "goal_weight": "66",
+                "goal_step": "25000"
+            },
+            {
+                "end_ymd": "20151015",
+                "start_ymd": "20151005",
+                "goal_weight": "66",
+                "goal_step": "25000"
+            }
+        ],
+        "body_weight": "53KG",
+        "measures": [
+            {
+              "datetime":"2015-09-01 07:33",
+              "type":"BP",   
+              "measure":"systolic",
+              "value":108
+            },
+            {
+              "datetime":"2015-09-01 07:33",
+              "type":"BP",   
+              "measure":"diastolic",
+              "value":70
+            },
+            {
+              "datetime":"2015-09-13 07:33",
+              "type":"BP",   
+              "measure":"systolic",
+              "value":115
+            },
+            {
+              "datetime":"2015-09-13 07:33",
+              "type":"BP",   
+              "measure":"diastolic",
+              "value":78
+            },
+            {
+              "datetime":"2015-09-15 07:33",
+              "type":"BP",   
+              "measure":"systolic",
+              "value":115
+            },
+            {
+              "datetime":"2015-09-15 07:33",
+              "type":"BP",   
+              "measure":"diastolic",
+              "value":78
+            },
+            {
+              "datetime":"2015-09-17 07:33",
+              "type":"BP",   
+              "measure":"systolic",
+              "value":131
+            },
+            {
+              "datetime":"2015-09-17 07:33",
+              "type":"BP",   
+              "measure":"diastolic",
+              "value":72
+            },
+            {
+              "datetime":"2015-09-21 07:33",
+              "type":"BP",   
+              "measure":"systolic",
+              "value":105
+            },
+            {
+              "datetime":"2015-09-21 07:33",
+              "type":"BP",   
+              "measure":"diastolic",
+              "value":83
+            },
+            {
+              "datetime":"2015-09-21 07:33",
+              "type":"BP",   
+              "measure":"systolic",
+              "value":106
+            },
+            {
+              "datetime":"2015-09-21 07:33",
+              "type":"BP",   
+              "measure":"diastolic",
+              "value":73
+            },
+            {
+              "datetime":"2015-10-12 07:33",
+              "type":"BP",   
+              "measure":"systolic",
+              "value":127
+            },
+            {
+              "datetime":"2015-10-12 07:33",
+              "type":"BP",   
+              "measure":"diastolic",
+              "value":78
+            },
+            {
+              "datetime":"2015-09-11 07:33",
+              "type":"BS",   
+              "measure":"before",
+              "value":99
+            },
+            {
+              "datetime":"2015-09-21 07:33",
+              "type":"BS",   
+              "measure":"before",
+              "value":90
+            },
+            {
+              "datetime":"2015-09-21 07:33",
+              "type":"BS",   
+              "measure":"after",
+              "value":111
+            },
+            {
+              "datetime":"2015-09-21 07:33",
+              "type":"BS",   
+              "measure":"after",
+              "value":122
+            },
+            {
+              "datetime":"2015-10-12 07:33",
+              "type":"BS",   
+              "measure":"before",
+              "value":92
+            },
+            {
+              "datetime":"2015-10-12 07:33",
+              "type":"BS",   
+              "measure":"after",
+              "value":102
+            },
+            {
+              "datetime":"2015-10-13 07:33",
+              "type":"BS",   
+              "measure":"after",
+              "value":122
+            },
+            {
+              "datetime":"2015-10-15 07:33",
+              "type":"BS",   
+              "measure":"before",
+              "value":105
+            },
+            {
+              "datetime":"2015-10-15 07:33",
+              "type":"BS",   
+              "measure":"after",
+              "value":155
+            },
+            {
+              "datetime":"2015-10-17 07:33",
+              "type":"BS",   
+              "measure":"before",
+              "value":100
+            },
+            {
+              "datetime":"2015-10-17 07:33",
+              "type":"BS",   
+              "measure":"after",
+              "value":161
+            },
+            {
+              "datetime":"2015-09-02 07:33",
+              "type":"BS",   
+              "measure":"after",
+              "value":99
+            }
+        ],
+        "goal_weight": "66"
+    }
+}

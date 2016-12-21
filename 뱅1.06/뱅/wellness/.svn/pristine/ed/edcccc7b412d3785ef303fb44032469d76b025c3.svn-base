@@ -1,0 +1,327 @@
+
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-touch-fullscreen" content="yes" />
+<script type="text/javascript" src="../js/mcore.min.js"></script>
+<!-- <script type="text/javascript" src="../js/libs/jquery/jquery.js"></script>
+<script type="text/javascript" src="../js/ui/common.js"></script> -->
+<link rel="stylesheet" type="text/css" href="../css/common.css" />
+</head>
+<body class="info_bg">
+	<!-- wrap -->
+	<div id="wrap" class="a3bg_h">
+		<!-- 기본정보입력-->
+		<div class="join3_wrap">
+			<p class="tit1">회원가입이 완료되었습니다!</p>
+			<p class="tit2">자기소개를 입력해주세요.</p>
+			<p class="tit3">*입력된 정보는 기본 칼로리 대사량 정보 <br/>제공에 이용됩니다.</p>
+
+			<form id="profile-form" name="profile-form" action="user.profile.edit" >
+			<!-- 정보입력 -->
+			<div class="join3_list">
+				<div class="join3">
+					<span class="tit"><label for="user_name">이름</label></span>
+					<span class="input_txt_area">
+						<span class="ic_notice dn">!</span>
+						<input maxlength="10" type="text" id="user_name" name="user_name" title="이름" class="intb" placeholder="" required autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+					</span>
+				</div>
+				<div class="join3">
+					<span class="tit"><label for="user_birth">생일</label></span>
+					<span class="input_txt_area">
+						<span class="ic_notice dn">!</span>
+						<input type="text" id="user_birth" name="user_birth" title="생일" class="intb" placeholder="" value="" readonly required autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+						<span class="user_birth"></span>
+					</span>
+				</div>
+				<div class="join3">
+					<div class="box1">
+						<span class="tit"><label for="body_height">키</label></span>
+						<span class="input_txt_area2">
+							<span class="ic_notice dn">!</span>
+							<input type="tel" pattern="\d*" min="0" maxlength="3" id="body_height" name="body_height" title="키" class="intb" placeholder="" required/>
+							<span class="dn_txt">cm</span>
+						</span>
+					</div>
+					<div class="box1">
+						<span class="titt2"><label for="body_weight">체중</label></span>
+						<span class="input_txt_area2">
+							<span class="ic_notice dn">!</span>
+							<input type="tel" pattern="\d*" min="0" maxlength="3" id="body_weight" name="body_weight" title="체중" class="intb" placeholder="" required/>
+							<span class="dn_txt">kg</span>
+						</span>
+					</div>
+				</div>
+				
+				<div class="join3">
+					<span class="tit"><label for="user_gender">성별</label></span>
+					<button type="button" class="input_txt_area" data-open-pop="pop_user_gender">
+						<span class="ic_notice dn">!</span>
+						<input class="user_gender dn" readonly type="text" id="user_gender" name="user_gender" title="성별" placeholder="" readonly required/>
+						<span class="user_gender"></span>
+					</button>
+				</div>
+				<!--<div class="join3">
+					<span class="tit4_tac"><label for="user_phone">휴대전화</label></span>
+					<span class="input_txt_area6">								
+						<input type="tel" maxlength="11" pattern="\d*" id="user_phone" name="user_phone" class="intb"  title="휴대전화" placeholder="">
+					</span>
+				</div>-->
+			</div>
+			
+			<!-- /정보입력 -->
+			<div class="join1_chd">
+				<input type="checkbox" id="news_r" name="news_r" class="j_chd"><label for="news_r">송도 포스코 더샵 아파트 주민이십니까?</label>
+			</div>
+			<div class="join3_list apt_field dn">
+				<div class="join3">
+					<span class="tit4"><label for="descCd">아파트명</label></span>
+					<div class="box_r">
+						<span class="input_txt_area6 apt_name_field">
+							<input class="dn" type="text" id="descCd" name="descCd" class="intb" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" title="아파트명">
+							<input type="hidden" id="apt_name" name="apt_name" class="intb" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+
+							<span class="intb descCd_field">&nbsp;</span>
+						</span>
+						<div class="box_r2">
+							<span class="input_txt_area6">
+								<input type="tel" maxlength="5" pattern="\d*" id="dong" name="dong" class="intb2" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" title="아파트 정보(동)">동
+								<input type="tel" maxlength="5" pattern="\d*" min="0" id="ho" name="ho" class="intb2" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" title="아파트 정보(호)">호
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			</form>
+			<!-- 하단버튼 -->
+			<div class="bot_btn pstbt">
+             <a nohref bind-event data-command="submit" data-target-form="profile-form" class="btn_rd">저장</a>
+            </div>
+			<!-- /하단버튼 -->
+		</div>
+		<!-- /기본정보입력-->
+	</div>
+	<!-- /wrap -->
+<!--popup-->
+<div class="pop_bg dn" data-pop-wrap>
+	<div id="pop_user_gender" class="popup_wrap">
+		<p class="tit">성별</p>
+		<div class="pop_txtw">
+			<div class="pp_sex_w">
+				<a nohref class="ic_man"></a><!-- on추가시 활성화 -->
+				<a nohref class="ic_woman"></a><!-- on추가시 활성화 -->
+			</div>
+			<!--자동 닫기 data-close-pop추가-->
+			<div class="pbot_btn"><a nohref data-close-pop class="btn_bl">완료</a></div>
+		</div>
+	</div>
+</div>
+<!--/popup-->
+<!-- 화면 스크립트 -->
+<script type="text/javascript">
+$(function(){
+	//아파트 주민체크
+	var $field = $(".apt_field");
+	var $chk = $("#news_r").on("change", function(){
+		if($chk.prop("checked")){
+			$field.removeClass("dn");
+			$field.find("input[title]").attr("required","required");
+		}else{
+			$field.addClass("dn").find("input").val("");
+			$field.addClass("dn").find(".descCd_field").html("");
+			$field.find("input[title]").removeAttr("required");
+		}
+	});
+
+	var endDate = function() {
+		var d = new Date();
+		var year, month, date;
+		year = d.getFullYear();
+		month = d.getMonth()+1;
+		date = d.getDate();
+
+		if(month<10){
+			month = "0"+month;
+		}
+
+		if(date<10){
+			date = "0"+date;
+		}
+
+		return String(year)+String(month)+String(date);
+	}();
+
+	var $birth = $("#user_birth").on("click", function() {
+		M.pop.date({
+		    type      : 'YMD',
+		    initDate  : ! $birth.val() ? '19800101' : $birth.val().split(".").join("").split("-").join(""),
+		    startDate : '19190101',
+		    endDate   : endDate
+		}, function(result, setting) {
+			if(result.status =="CANCEL"){return;}
+		    M.tool.log( result );
+		    $birth.html(result.yyyy + "." + result.MM + "." + result.dd);
+			$birth.val(result.yyyy + "." + result.MM + "." + result.dd);
+		});
+	});
+	    
+	var apartListInfo;
+	var aptDescData = {};
+	var willSelectIdx = 0;
+	var $apart = $(".apt_name_field").on("click", function() {
+
+		M.pop.list({
+		    title : '아파트 명',
+		    mode : 'SINGLE',
+		    buttons: ["확인", "취소"],
+		    list : apartListInfo,
+		    selected : willSelectIdx,
+		}, function (buttonIdx, rowInfo, setting) {
+
+			M.tool.log( buttonIdx, rowInfo );
+			if ( buttonIdx == 0 ) {
+				// 라벨과 Value 분리
+				//$apart
+				//alert("rowInfo.value.desc "+rowInfo.value.desc);
+				$("#descCd").val(aptDescData[rowInfo.value]);
+				$("#apt_name").val(rowInfo.value);
+				$(".descCd_field").html(rowInfo.title);
+				willSelectIdx = rowInfo.index; 
+			}
+		});
+	});
+
+/////////////////////////////////////////////////////////////////////
+
+
+    
+    var 
+    controller = MainController.sharedInstance(), 
+    popupController = PopupController.sharedInstance(), 
+    formController = new FormViewController( $("#profile-form") );
+  
+    // 디버깅을 위한 소스
+    /* $("#user_name").val("유라클연구소");
+    $("#user_birth").val("1980-11-22");
+    $("#body_height").val(176);
+    $("#body_weight").val(80);
+    $("#user_gender").val("M"); */
+  
+  	
+    controller.bind("didSuccessExecute", function( sender ) {
+    	testData = sender;
+
+		if ( sender.action === "user.profile.edit" ) {
+            var result = sender.result;
+            
+            controller.userInfo().data( result );
+            controller.profileInfo().data( result );
+            controller.fitManager().info().data( result );
+            
+            controller.execute( "user.auth.start", result );
+		}
+        else if ( sender.action === "apartment.info" ) {
+            var result = sender.result;
+            
+            apartListInfo = [];
+			
+			for (var i = 0; i < result.list.length; i++) {
+				var apartInfo = result.list[i];
+				
+				if( apartInfo.desc_cd == "POSCO" ){
+					var item = new Object();
+					item.title = apartInfo.nm_cd;
+					item.value = apartInfo.no_cd;
+					//{"desc":apartInfo.desc_cd, "no": apartInfo.no_cd};
+					aptDescData[apartInfo.no_cd] = apartInfo.desc_cd;
+					apartListInfo.push(item);	
+				}
+			}
+        }
+        
+	});
+
+	controller.bind("didErrorExecute", function( sender ) {
+        
+        if ( sender.action == "user.profile.edit" ) {
+            popupController.toast( sender.error );
+        }
+	});
+  
+    controller.execute("apartment.info", {});
+  
+    $("[data-command]").bind("click", function(e) {
+        var command = $(this).attr("data-command");
+        
+        if ( command == "submit" ) {
+            var invalidData = [], firstBreak = false;
+            
+            if ( ! formController.isValidForm( invalidData, firstBreak ) ) {
+                for ( var i in invalidData ) {
+                    var item = invalidData[i];
+                    var type = item.type;
+                    var field = item.field;
+
+                    switch ( type ) {
+                        case 'checkbox':
+                            popupController.alert( M.locale.localizedString( "message_format_select_multi_option", $(field).attr('title')),
+                            function() {
+                                formController.scrollToElement( field );
+                            });
+                            
+                        break;
+
+                        case 'radio':
+                            popupController.alert( M.locale.localizedString( "message_format_select_option", $(field).attr('title')),
+                            function() {
+                                formController.scrollToElement( field );
+                            });
+                            
+                        break;
+                        case 'tel':
+                        case 'text':
+                        case 'password':
+                            popupController.alert( M.locale.localizedString( "message_format_required_input", $(field).attr('title')),
+                            function() {
+                                field.focus();
+                                field.select();
+                            });
+                            
+                        break;	
+                    }
+                    break;
+                }
+                
+                return false;
+            }
+            
+            formController.submit();
+        }
+    }).removeAttr("bind-event");
+});
+</script>
+<!-- //화면 스크립트 -->
+
+<!-- M-API -->
+<script type="text/javascript">
+
+M.onReady(function(e) {
+		
+});
+
+M.onHide(function(e){
+	
+});
+
+M.onRestore(function(e) {
+	
+});
+
+</script>
+<!-- //M-API -->
+</body>
+</html>

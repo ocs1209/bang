@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-touch-fullscreen" content="yes" />
+<title>나의 체성분</title>
+<script type="text/javascript" src="../js/mcore.min.js"></script>
+<link rel="stylesheet" type="text/css" href="../css/common.css" />
+<script type="text/javascript" src="../js/libs/chart/chart_custom.js"></script>
+<script type="text/javascript" src="../js/ui/graph.line.js"></script>
+</head>
+
+<body>
+<!-- wrap -->
+<div id="wrap">
+    <!-- header -->
+    <div class="header">
+        <div class="btn_left" role="back"><a nohref class="btn_back" data-command="page.back" auto-command><span class="arrow"></span></a></div>
+        <h1>나의 체성분</h1>
+        <div class="btn_right" role="list"><a nohref class="btn_menu"><span>목록</span></a></div>
+    </div> 
+    <!--// header -->
+    <!-- menu -->
+    <div id="menu"></div>
+    <!--// menu -->
+
+   <!-- container -->
+   <div class="container">
+        <div class="contents dn">
+            <div class="no_data">
+                <p class="no_data_img"></p>
+                <p class="no_data_txt">측정된 데이터 없습니다.</p>
+            </div>
+        </div>
+        <!-- contents -->
+        <div class="contents dn">
+			<!-- 콘텐츠 영역 -->
+				<!-- -->
+			<div class="bggray_bar">신장 : <em>0</em>cm</div>
+			<!--/ -->
+
+			<!-- -->
+			<div class="bodyfat_rdbg txt1">현재 체중 : <em class="weight_txt">0</em>kg</div>
+			<!--/ -->
+            <p class="weight_info">위 표기된 체중은 리본기기 측정 데이터로,<br>입력하신 체중과 다를 수 있습니다.</p>
+			<!-- 그래프 -->
+			<div class="bdf_grf" ><canvas id="chart1"></canvas></div>
+			<!-- /그래프 -->
+
+			<!-- -->
+			<div class="bodyfat_rdbg txt2" >체지방률 : <em class="bmi_txt">0</em>%</div>
+			<!--/ -->
+
+			<!-- 그래프 -->
+			<div class="bdf_grf" ><canvas id="chart2"></canvas></div>
+			<!-- /그래프 -->
+
+			<!-- -->
+			<div class="bodyfat_rdbg txt3">근육량 : <em class="muscle_txt">0</em>kg</div>
+			<!--/ -->
+
+			<!-- 그래프 -->
+			<div class="bdf_grf" ><canvas id="chart3"></canvas></div>
+			<!-- /그래프 -->
+
+			<!--/콘텐츠 영역 -->
+		</div> 
+       <!--// contents -->
+       
+
+       <div class="pop_bg dn" data-pop-wrap>
+            <div class="popup_wrap loading_pop" id="loading_pop">
+                <div class="pop_txtw">
+                    <div data-instacne="" class="m-loadingspinner m-loadingspinner-sm m-loadingspinner-gray"><div class="m-spn m-spinner-icon m-draw2"></div></div>
+                    <div class="p_txt_bold dn" id="loading-message"></div>
+                </div>
+            </div>
+        </div>  
+   </div>
+   <!--// container -->   
+    <!-- layer(dimd) -->
+   <div class="layer dn"></div>
+   <!--// layer(dimd) -->   
+</div>
+<!--// wrap -->
+</body>
+
+<script type="text/javascript">
+$(document.body).bind("didLoad", function() {
+    var 
+    controller = MainController.sharedInstance(), 
+    popupController = PopupController.sharedInstance(), 
+    fitManager = FitManager.defaultManager().initialize(),
+    macro = controller.macro();
+
+    controller.loadView = function() {
+
+        var bodyCompositionData = controller.fitManager().bodyCompositionData();
+
+        $(".bggray_bar em").html(fitManager.profileInfo().bodyHeight());
+
+        if ( !(bodyCompositionData.dateKeys && bodyCompositionData.dateKeys.length) ) {
+            $(".contents").eq(0).removeClass("dn");
+            $(".contents").eq(1).addClass("dn");
+            return;
+        }
+
+        $(".contents").eq(0).addClass("dn");
+        $(".contents").eq(1).removeClass("dn");
+
+        $(".weight_txt").html(bodyCompositionData.lastData.weight);
+        $(".bmi_txt").html(bodyCompositionData.lastData.fatRate);
+        $(".muscle_txt").html(bodyCompositionData.lastData.muscle);
+
+        var getDateAry=function(ary){
+            var newAry = [];        
+            var dataAry = ary.concat();
+            var newAry = [];
+            for(var i=0; i<dataAry.length; i++){
+                newAry.push( controller.fitManager().dateFormat("MM.DD", dataAry[i] ));
+            }
+            return newAry;
+        }
+        
+        var labels = getDateAry( bodyCompositionData.dateKeys );
+        var weightData = [];
+        var fatRateData = [];
+        var muscleData = [];
+
+        $.each(bodyCompositionData.dateKeys, function(){
+            var data = bodyCompositionData.data[this];
+            if(data){          
+                weightData.push(data["weight"]);
+                fatRateData.push(data["fatRate"]);
+                muscleData.push(data["muscle"]);
+            }
+        });
+
+        new WellnessLineGraph( $("#chart1"), {
+            labels : labels,
+            datasets : [
+                {
+                    label: "",
+                    strokeColor : "#71abca",
+                    pointColor : "#fff",
+                    pointStrokeColor : "#71abca",
+                    data : weightData
+                }
+            ]
+        });
+
+        new WellnessLineGraph( $("#chart2"), {
+            labels : labels,
+            datasets : [
+                {
+                    label: "",
+                    strokeColor : "#8dbd4a",
+                    pointColor : "#fff",
+                    pointStrokeColor : "#8dbd4a",
+                    data : fatRateData
+                }
+            ]
+        });
+
+        new WellnessLineGraph( $("#chart3"), {
+            labels : labels,
+            datasets : [
+                {
+                    label: "",
+                    strokeColor : "#f78d23",
+                    pointColor : "#fff",
+                    pointStrokeColor : "#f78d23",
+                    data : muscleData
+                }
+            ]
+        });
+    };
+
+    macro.register("fit.dashboard.rebon.load", function() {
+        var self = this;
+
+        if ( ! controller.userInfo().isRebonUser() ) {
+            self.complete();
+            return;
+        }
+
+        popupController.setIndicatorMessage("데이타 가져오는 중...");
+        
+        controller.execute("fit.dashboard.rebon", {}, {
+            showIndicator: false,
+            callback: function( event ) {
+
+                if ( event.error ) {
+                    popupController.toast( event.error );
+                    macro.cancel( function( ) {
+
+                        popupController.confirm( 
+                            "데이타를 가져올 수 없습니다.\n다시 시도하시겠습니까", 
+                            ["다시 시도"],
+                            function( buttonIndex ) {
+                                if ( buttonIndex == 0 ) {
+                                    macro.execute("dashboard.load", "dashboard.data.retry" );
+                                }
+                            }
+                        );
+
+                    });
+                    return;
+                }
+                    
+                self.complete();
+            }
+        });
+    });
+
+    macro.register( "load.view", function() {
+        var self = this;
+
+        controller.loadView();
+
+        self.complete();
+    });
+
+    macro.register( "show.indicator", function() {
+        var self = this;
+
+        popupController.showIndicator();
+
+        self.complete();
+    });
+
+    macro.register( "hide.indicator", function() {
+        var self = this;
+
+        popupController.hideIndicator();
+
+        self.complete();
+    });
+});
+
+$(document.body).bind("didAppear", function() {
+    var 
+    controller = MainController.sharedInstance(), 
+    macro = controller.macro();
+    
+    macro.clear();
+
+    macro.add( "show.indicator" );
+    macro.add( "fit.dashboard.rebon.load" );
+    macro.add( "load.view" );
+    macro.add( "hide.indicator" );
+
+    macro.start();
+});
+
+</script>
+<!-- M-API -->
+<script type="text/javascript">
+
+M.onReady(function(e) {
+    
+});
+
+M.onHide(function(e){
+    
+});
+
+M.onRestore(function(e) {
+    
+});
+</script>
+<!--// M-API -->
+</html>

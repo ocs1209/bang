@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-touch-fullscreen" content="yes" />
+<title>혈당관리</title>
+<script type="text/javascript" src="../js/mcore.min.js"></script>
+<link rel="stylesheet" type="text/css" href="../css/common.css" />
+<script type="text/javascript" src="../js/libs/chart/chart_custom.js"></script>
+<script type="text/javascript" src="../js/ui/graph.line.js"></script>
+</head>
+
+<body>
+<!-- wrap -->
+<div id="wrap">
+    <!-- header -->
+    <div class="header">
+        <div class="btn_left" role="back"><a nohref class="btn_back" data-command="page.back" auto-command><span class="arrow"></span></a></div>
+        <h1>혈당관리</h1>
+        <div class="btn_right" role="list"><a nohref class="btn_menu"><span>목록</span></a></div>
+    </div> 
+    <!--// header -->
+	<!-- menu -->
+	<div id="menu"></div>
+	<!--// menu -->
+
+   <!-- container -->
+   <div class="container dash_sub blood_sg">   		
+       	<!-- contents -->
+		<div class="contents">
+			<ul class="blood_sugar_tab">
+				<li><a href="#" class="selectd" data-tab-btn="before_cont">공복</a></li>
+				<li><a href="#" data-tab-btn="after_cont">식후</a></li>
+			</ul>
+			<!--before content-->
+			<div class="before_cont dn" data-tab-content="before_cont">
+				<div class="no_data">
+					<p class="no_data_img"></p>
+					<p class="no_data_txt">측정된 데이터 없습니다.</p>
+				</div>
+				<div class="user_data">
+					<div class="bggray_bar">최근측정일 : <em></em></div>
+					<!--<div class="bodyfat_txt1"><strong><em>공복</em> 혈당수치</strong>(  mg/dL  )</div>-->
+					<!--공복 추가 클래스 없음, 식후 after클래스 추가-->
+					<div class="bodyfat_txt2"><span class="b_war">0</span><span class="bodyfat_txt1">mg/dL</span><a href="#" class="ic_notice" data-open-pop="blood_sg_info"></a></div>
+					<div class="bodyfat_rdbg2 dn"><span class="txt_n">고 위험</span> (병원 방문을 권고합니다.)</div>
+					
+					<div class="state_txt">
+						<div class="bodyfat_rdbg"></div>
+						<p class="comment dn"><span>오렌지주스 반컵이나 사탕 3개 섭취</span></p>
+					</div>
+					
+					<div class="set-cont">
+						<!-- 그래프 정보 -->						
+						<!-- /그래프 정보 -->
+						<!-- 그래프 -->
+						<div class="bdf_grf" style=""><canvas id="chart1"></canvas></div>
+						<!-- /그래프 -->
+					</div>
+				</div>
+			</div>	
+			<!--//before content-->		
+			<!--after content-->
+			<div class="after_cont dn" data-tab-content="after_cont">
+				<div class="no_data">
+					<p class="no_data_img"></p>
+					<p class="no_data_txt">측정된 데이터 없습니다.</p>
+				</div>
+				<div class="user_data">
+					<div class="bggray_bar">최근측정일 : <em></em></div>
+					<!--<div class="bodyfat_txt1"><strong><em>식후</em> 혈당수치</strong>(  mg/dL  )</div>-->
+					<!--공복 추가 클래스 없음, 식후 after클래스 추가-->
+					<div class="bodyfat_txt2"><span class="b_war after">0</span><span class="bodyfat_txt1">mg/dL</span><a href="#" class="ic_notice" data-open-pop="blood_sg_info"></a></div>
+					<div class="bodyfat_rdbg2 dn"><span class="txt_n">고 위험</span> (병원 방문을 권고합니다.)</div>
+					<div class="state_txt">
+						<div class="bodyfat_rdbg"></div>
+						<p class="comment dn"><span>오렌지주스 반컵이나 사탕 3개 섭취</span></p>
+					</div>
+					<div class="set-cont">
+						<!-- 그래프 -->
+						<div class="bdf_grf" style=""><canvas id="chart"></canvas></div>
+						<!-- /그래프 -->
+					</div>
+				</div>
+			</div>	
+			<!--//after content-->		
+		</div> 
+       <!--// contents -->
+       <!-- layer(dimd) -->
+       <div class="layer dn"></div>
+       <!--// layer(dimd) -->
+
+       <div class="pop_bg dn" data-pop-wrap>
+            <div class="popup_wrap loading_pop" id="loading_pop">
+                <div class="pop_txtw">
+                    <div data-instacne="" class="m-loadingspinner m-loadingspinner-sm m-loadingspinner-gray"><div class="m-spn m-spinner-icon m-draw2"></div></div>
+                    <div class="p_txt_bold dn" id="loading-message"></div>
+                </div>
+            </div>
+
+            <div id="blood_sg_info" class="popup_wrap">
+				<p class="tit">알림</p>
+				<div class="pop_txtw">
+					<div class="p_txt">
+						공복시 60이상 100미만,<br>
+						식후 60이상 140미만이<br>
+						정상 혈당 수치 입니다.<br><br>
+						당뇨병이 아닌데도 공복혈당 측정 시<br>
+						“높음” 평가를 받았다면 당뇨병이<br>의심되므로 병원방문을 권고합니다.
+					</div>			
+					<div class="pbot_btn"><a href="#" class="btn_bl" data-close-pop>완료</a></div>	
+				</div>
+					
+			</div>
+        </div>  
+   </div>
+   <!--// container -->      
+</div>
+<!--// wrap -->
+</body>
+
+<script type="text/javascript">
+$(document.body).bind("didLoad", function() {
+    var 
+    controller = MainController.sharedInstance(), 
+    popupController = PopupController.sharedInstance(), 
+    fitManager = FitManager.defaultManager().initialize(),
+    macro = controller.macro();
+    
+	
+	
+
+	$(".ic_notice").add(".btn_bl").on("click", function(e){
+        e.preventDefault();
+    });
+    
+    controller.loadView = function() {
+    	$(".before_cont").removeClass("dn");
+		$(".after_cont").removeClass("dn");
+		//그래프 사이즈가 잡히지 않아서 보이는 상태에서 시작해야함
+
+    	var bloodSugarData = fitManager.bloodSugarData();
+    	var getDateAry=function(ary){
+			var dataAry = ary.concat();
+			var newAry = [];
+			for(var i=0; i<dataAry.length; i++){
+				newAry.push( controller.fitManager().dateFormat("MM.DD", dataAry[i] ) );
+			}
+			return newAry;
+		};
+
+		var setBloodSugarContent=function( $el, data, chartData ){
+			if ( !(data.dateKeys && data.dateKeys.length) ) {
+		       	$el.find(".no_data").removeClass("dn");
+		      	$el.find(".user_data").addClass("dn"); 
+				return;	
+			}
+
+			$el.find(".no_data").addClass("dn");
+		    $el.find(".user_data").removeClass("dn");
+
+		    //최근측정날짜
+		    $el.find(".bggray_bar em").html( controller.fitManager().dateFormat("YYYY년 M월 D일", data.lastData.date) );
+			$el.find(".bodyfat_rdbg").html(data.lastData.statusText);
+			$el.find(".b_war").html(data.lastData.value);
+			//test comment
+			//data.lastData.comment = "오렌지주스 반컵이나 사탕 3개 섭취"
+		    if (data.lastData.comment=="") {
+				$el.find(".state_txt .comment").addClass("dn");
+			}else {
+				$el.find(".state_txt .comment").removeClass("dn");
+				$el.find(".state_txt .comment>span").html(data.lastData.comment);
+			}
+
+			var labels = getDateAry( data.dateKeys );
+			var userData = [];
+			
+			$.each(data.dateKeys, function(){
+				var current = data.data[this];
+				if(current){
+					userData.push(current["value"]);
+				}
+			});
+
+			//console.log("labels", labels);
+			//console.log("userData", userData);
+			//console.log("chartData", chartData, $("#"+chartData.id), chartData.color);
+
+			new WellnessLineGraph( $("#"+chartData.id), {
+				labels : labels, 
+				datasets : [
+					{
+						label: "",
+						strokeColor : chartData.color,
+						pointColor : "#fff",
+						pointStrokeColor : chartData.color,
+						data : userData
+					}
+				]
+			});
+		}
+
+		setBloodSugarContent($(".before_cont"), bloodSugarData.before, {id: "chart1", color: "#75adcb"});
+		setBloodSugarContent($(".after_cont"), bloodSugarData.after, {id: "chart", color: "#8dbd4a"});
+
+		$(".after_cont").addClass("dn");
+    };
+
+    macro.register("fit.dashboard.rebon.load", function() {
+        var self = this;
+
+        if ( ! controller.userInfo().isRebonUser() ) {
+            self.complete();
+            return;
+        }
+
+        popupController.setIndicatorMessage("데이타 가져오는 중...");
+        
+        controller.execute("fit.dashboard.rebon", {}, {
+            showIndicator: false,
+            callback: function( event ) {
+
+                if ( event.error ) {
+                    popupController.toast( event.error );
+                    macro.cancel( function( ) {
+
+                        popupController.confirm( 
+                            "데이타를 가져올 수 없습니다.\n다시 시도하시겠습니까", 
+                            ["다시 시도"],
+                            function( buttonIndex ) {
+                                if ( buttonIndex == 0 ) {
+                                    macro.execute("dashboard.load", "dashboard.data.retry" );
+                                }
+                            }
+                        );
+
+                    });
+                    return;
+                }
+                    
+                self.complete();
+            }
+        });
+    });
+
+    macro.register( "load.view", function() {
+        var self = this;
+
+        controller.loadView();
+
+        self.complete();
+    });
+
+    macro.register( "show.indicator", function() {
+        var self = this;
+
+        popupController.showIndicator();
+
+        self.complete();
+    });
+
+    macro.register( "hide.indicator", function() {
+        var self = this;
+
+        popupController.hideIndicator();
+
+        self.complete();
+    });
+});
+
+$(document.body).bind("didAppear", function() {
+	var 
+    controller = MainController.sharedInstance(), 
+    macro = controller.macro();
+
+    macro.clear();
+
+    macro.add( "show.indicator" );
+    macro.add( "fit.dashboard.rebon.load" );
+    macro.add( "load.view" );
+    macro.add( "hide.indicator" );
+
+    macro.start();
+});
+</script>
+
+<!-- M-API -->
+<script type="text/javascript">
+
+M.onReady(function(e) {
+    
+});
+
+M.onHide(function(e){
+	
+});
+
+M.onRestore(function(e) {
+	
+});
+</script>
+<!--// M-API -->
+</html>

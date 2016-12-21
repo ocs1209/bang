@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-touch-fullscreen" content="yes" />
+	<title>Wellness</title>
+	<link rel="stylesheet" type="text/css" href="../css/common.css" />
+	<script type="text/javascript" src="../js/mcore.min.js"></script>
+</head>
+
+<body class="index_bg splash">
+	<!-- wrap -->
+	<div id="wrap">
+		<h1><span>Bang</span><img src="../images/bang_logo.png"></h1>
+		<!--  리소스 업데이트 UI 필요  -->
+		<div class="set-loading">
+			<div class="loading_cont">
+				<span class="per_txt">0%</span>
+				<span class="loading_icon"></span>
+			</div>
+		    <img src="../images/loading_txt.png">
+	    </div>
+	    <p class="copyright">Copyright (c)Uracle Corporation. All Rights Reservesd.</p>
+	</div>
+	<!-- /wrap -->
+</body>
+
+<!-- 화면 스크립트 -->
+<script type="text/javascript">
+
+</script>
+<!-- //화면 스크립트 -->
+
+<!-- M-API -->
+<script type="text/javascript">
+window.Wellness.startSpinAnimation($(".loading_icon"));
+M.onReady(function(e) {
+
+    var controller = MainController.sharedInstance(),
+    popupController = PopupController.sharedInstance();
+    
+    updateResource({
+    	reset:false, 
+    	ignoreUpdate:false,
+    	finish: function() {
+    		$(".per_txt").html( '100%' );	        
+    		setTimeout(function(){
+    			if ( ! controller.userInfo().isLogin() ) {
+	                if ( M.data.storage( "APPEARED_INTRO") == "N" || M.data.storage( "APPEARED_INTRO") == "") {
+			        	M.page.html("intro.html", {action:"NO_HISTORY", animation:"FADE"});
+			        }
+			        else {
+			        	M.page.html("user.login.html", {action:"NO_HISTORY", animation:"SLIDE_LEFT"});
+			        }
+			    }
+			    else {
+			    	controller.sessionController().startSession();
+	                
+	                controller.execute("user.auth.start", controller.userInfo().data(), {showIndicator:false});
+			    }
+    		}, 50 );
+	    }
+	});
+});
+
+M.onHide(function(e){
+	
+});
+
+M.onRestore(function(e) {
+	
+});
+
+// Return 1 if a > b
+// Return -1 if a < b
+// Return 0 if a == b
+function versionCompare(a, b) {
+    if (a === b) {
+       return 0;
+    }
+
+    var a_components = a.split(".");
+    var b_components = b.split(".");
+
+    var len = Math.min(a_components.length, b_components.length);
+
+    // loop while the components are equal
+    for (var i = 0; i < len; i++) {
+        // A bigger than B
+        if (parseInt(a_components[i]) > parseInt(b_components[i])) {
+            return 1;
+        }
+
+        // B bigger than A
+        if (parseInt(a_components[i]) < parseInt(b_components[i])) {
+            return -1;
+        }
+    }
+
+    // If one's a prefix of the other, the longer one is greater.
+    if (a_components.length > b_components.length) {
+        return 1;
+    }
+
+    if (a_components.length < b_components.length) {
+        return -1;
+    }
+
+    // Otherwise they are the same.
+    return 0;
+}
+
+// @param noticeList {Array} 권장 업데이트 실행 여부
+// @param moveToNextPage {Function} 다음 페이지로 이동하는 함
+function updateRecommendApp( appVersionInfo, moveToNextPage ) {
+
+	var needToUpdate = false; // 권장 업데이트 실행 여부
+
+	try {
+		// client_app_verstion : 현재 앱 버전
+		// current_app_version : 최신 앱 버전 
+		// required_app_version : 최소 요구 버전
+
+		if ( ! appVersionInfo["client_app_version"] || ! appVersionInfo["current_app_version"] ) {
+			var clientAppVersion = appVersionInfo["client_app_version"];
+			var currentAppVersion = appVersionInfo["current_app_version"];
+
+			if ( versionCompare( clientAppVersion, currentAppVersion ) === -1 ) {
+				if (confirm( "업데이트된 앱이 있습니다.\n업데이트 하시겠습니까?" )) {
+					needToUpdate = true; // 권장 업데이트 실행
+
+					var appUrl = appVersionInfo["download_market_url"];
+	    			M.apps.browser(appUrl);
+				}
+				else {
+					moveToNextPage();
+				}
+			}
+		}
+	}
+	catch(e) {
+		needToUpdate = false; // 오류로 권장 업데이트 실행 실패
+	}
+
+	return needToUpdate; // 권장 업데이트 실행 여부 리턴
+}
+
+
+// @param noticeList {Array} 공지사항 정보 
+// @param moveToNextPage {Function} 다음 실행
+function checkNotice( noticeList, moveToNextPage ) {
+	var hasNotice = false; // 공지사항 정보 유무
+
+	try {
+		// 배열이 아닌 경우 false
+		if ( Object.prototype.toString.call(noticeList) !== "[object Array]" || noticeList.length == 0 ) {
+			hasNotice = false; // 공지사항 없음
+		}
+		else {
+			hasNotice = true; // 공지사항 있음
+
+			// 긴급 공지와, 일반 공지가 동시에 있는 경우를 대비해서 배열로 받음
+			for ( var i in noticeList ) {
+				var notice = noticeList[i];
+				// 긴급 공지 여부, 다시 보지않기 기능을 하기 위한 고유키값, HTML 여부가 필요
+				// HTML 인 경우, 추가적인 API 호출
+			}
+		}
+	}
+	catch(e) {
+		hasNotice = false; // 오류로 공지사항 없음으로 처리
+	}
+
+	return hasNotice; // 공지사항 정보 유무 리턴
+}
+
+// 리소스 업데이트 
+function updateResource( setting ) {
+    var moveToNextPage = function() { // 페이지 이동 함수
+        
+        if ( setting.finish ) {
+            setting.finish();
+            return;
+        }
+        
+        M.page.html(setting.nextPage, {action:setting.action, animation:setting.animation});
+    };
+
+	if ( setting.reset === true ) {
+		M.net.res.reset();
+	}
+    
+    if ( setting.ignoreUpdate === true ) {
+        moveToNextPage();
+        return;
+    }
+
+	M.net.res.update({
+	    finish : function(status, info, option) {
+	        switch (status) {
+	            // 리소스 업데이트 성공
+	            case 'SUCCESS':
+	          		if ( ! updateRecommendApp( info.app_version_info, moveToNextPage ) ) { // 권장 업데이트 정보가 필요하지 않은 경우
+	            		if ( ! checkNotice( info.notice_list, moveToNextPage ) ) { // 공지사항 정보가 없는 경우 
+            				moveToNextPage();
+	            		}
+	            	}
+                    break;
+	            // 리소스 업데이트 성공 & Refresh
+	            case 'SUCCESS_AND_REFRESH':
+                    M.page.html("index.html", {action:"NO_HISTORY", animation:"NONE"});
+	            	break;
+	            // 앱 강제 업데이트
+	            case 'FORCED_APP_UPDATING' :
+	                if (confirm( "설치된 앱이 낮은 버전입니다.\n업데이트 하시겠습니까?" )) {
+	                    var appUrl = info.app_version_info.download_market_url;
+	                    M.apps.browser(appUrl);
+	                } else {
+	                    M.sys.exit();
+	                }
+	                break;
+
+	            // 라이센스 체크 에러
+	            case 'LICENSE_IS_NOT_EXISTENCE':
+	            // 라이센스 무결성 회손
+	            case 'BROKEN_INTEGRITY_OF_LICENSE':
+	            // 라이센스 기간 만료
+	            case 'EXPIRED_LICENSE':
+	            	if (confirm( "라이센스 오류 입니다.\n\n다시 시도하시겠습니까?")) {
+	                    M.net.res.retry();
+	                } else {
+	                    M.sys.exit();
+	                }
+	                break;
+
+	            // 설치 메모리 부족
+	            case 'INSUFFICIENT_MEMORY':
+	            	if (confirm( "프로그램을 설치 할 수 있는 메모리가 부족합니다.\n\n다시 시도하시겠습니까?" )) {
+	                    M.net.res.retry();
+	                } else {
+	                    M.sys.exit();
+	                }
+	                break;
+
+	            // 외장 메모리 카드 사용 오류
+	            case 'EXT_MEM_NOT_AVAIL':
+	            	if (confirm( "외장 메모리 카드를 사용 할수 없습니다. 외장 메모리카드를 확인해주시기 바랍니다.\n\n다시 시도하시겠습니까?" )) {
+	                    M.net.res.retry();
+	                } else {
+	                    M.sys.exit();
+	                }
+	                break;
+	                
+	            // UNDEFINED ERROR
+	            default:
+	            	if (confirm( "프로그램 초기화 및 리소스 업데이트 중 에러가 발생하였습니다.\n\n다시 시도하시겠습니까?" ) ) {
+	                    M.net.res.retry();
+	                } else {
+	                    M.sys.exit();
+	                }
+	                break;
+	        }
+	    },
+	    
+	    progress : function(total, read, remain, percentage, option) {
+	        console.log('** progress', total, read, remain, percentage);
+	        /*var progressBarWidth = Math.max( Math.min( percentage, 100 ), 0 ) + "%";
+	        $(".progress-bar").css("width", progressBarWidth);*/
+	        //window.Wellness.startSpinAnimation($(".loading_icon"));
+	    	$(".per_txt").html( percentage + '%' );
+	    },
+	    
+	    error : function(errCode, errMsg, option) {
+	        console.error("** error : ", errCode, errMsg);
+
+	        if (confirm( "프로그램 초기화 및 리소스 업데이트 중 에러가 발생하였습니다.\n\n다시 시도하시겠습니까?" )) {
+	            M.net.res.retry();
+	        } else {
+	            M.sys.exit();
+	        }
+	    }
+	});
+}
+
+</script>
+<!-- //M-API -->
+
+</html>

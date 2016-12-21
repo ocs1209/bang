@@ -1,0 +1,15 @@
+{
+    "head":{
+        "result_code":200,
+        "result_message":"Success"
+    },
+    "body":{
+        "user_key":"u100001",
+        "auth_token":"dummytoken1234",
+        "user_email":"tester@test.com",
+        "user_name":"Tester",
+        "datetime_last_login":0,
+        "status":"Y",
+        "status_msg":"Success"
+    }
+}

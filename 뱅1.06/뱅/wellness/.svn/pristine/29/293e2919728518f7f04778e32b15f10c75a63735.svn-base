@@ -1,0 +1,32 @@
+
+    <ul>
+        <li><a nohref auto-link data-link="dashboard.main.html" data-action="CLEAR_TOP" ><span class="ic_m0"></span>홈</a><button type="button" close-gnb class="ic_close"></button></li>
+        
+        <li class="only_rebon dn"><a nohref auto-link data-link="dashboard.body.composition.html" data-action="NEW_SRC" data-params="clear-stack=Y" class="white"><span class="ic_m1"></span><span class="txt">나의체성분</span></a></li>
+        <li class="only_rebon dn"><a nohref auto-link data-link="dashboard.blood.pressure.html" data-action="NEW_SRC" data-params="clear-stack=Y" class="white"><span class="ic_m2"></span><span class="txt">혈압관리</span></a></li>
+        <li class="only_rebon dn"><a nohref auto-link data-link="dashboard.blood.sugar.html" data-action="NEW_SRC" data-params="clear-stack=Y" class="white"><span class="ic_m3"></span><span class="txt">혈당관리</span></a></li>
+        
+        <!-- li><a nohref auto-link data-link="challenge.main.html" data-action="NEW_SRC" class="white"><span class="ic_m4"></span><span class="txt">챌린지</span></a></li-->
+        <!-- li><a nohref auto-link data-link="" data-action="NEW_SRC" class="white"><span class="ic_m5"></span><span class="txt">친구</span></a></li -->
+<!--     <li id="myPage"><a nohref auto-link data-link="user.mypage.html" data-action="NEW_SRC" data-params="clear-stack=Y" class="white bdn"><span class="ic_m6" ></span><span class="txt">마이페이지</span></a></li>           -->
+       <li id="myPage"><a data-params="clear-stack=Y" class="white bdn"><span class="ic_m6" ></span><span class="txt">마이페이지</span></a></li>       
+
+        <li id="menu-device-pairing" class="dn"><a nohref auto-command data-command="device.pairing" ><span class="ic_disconnected"></span>기기연결</a></li>
+        <li id="menu-device-unpairing" class="dn"><a nohref auto-command data-command="device.unpairing" ><span class="ic_connected"></span>기기해제</a></li>
+        <li id="menu-device-setting" ><a nohref auto-command data-command="move.setting" >기기설정</a></li>
+
+        <li><a nohref auto-link data-link="support.help.html" data-action="NEW_SRC" data-params="clear-stack=Y" data-clear-stack="true" >도움말</a></li>
+        <li><a nohref data-command="user.logout" auto-command>로그아웃</a></li>
+        <li><a nohref data-command="synch.manual" auto-command>지난 데이터 가져오기 </a></li>
+    </ul>
+
+    
+    <script type="text/javascript">
+    $("[data-android-only]").each(function( idx, element ) { 
+		if ( M.navigator.os("ios") ) {
+			$(element).hide();
+		}
+	});
+
+
+    </script>

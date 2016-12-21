@@ -1,0 +1,71 @@
+{
+    "head":{
+        "result_code":200,
+        "result_message":"Success"
+    },
+    "body": {
+        "count": 10,
+        "samples": [
+          {
+            "datetime": "2015-10-22 01:00",
+            "active": "A",
+            "type": "SLEEP",
+            "value": 24
+          },
+          {
+            "datetime": "2015-10-22 01:02",
+            "active": "A",
+            "type": "SLEEP",
+            "value": 14
+          },
+          {
+            "datetime": "2015-10-22 01:04",
+            "active": "A",
+            "type": "SLEEP",
+            "value": 1
+          },
+          {
+            "datetime": "2015-10-22 02:20",
+            "active": "A",
+            "type": "SLEEP",
+            "value": 38
+          },
+          {
+            "datetime": "2015-10-22 04:32",
+            "active": "A",
+            "type": "SLEEP",
+            "value": 8
+          },
+          {
+            "datetime": "2015-10-22 04:34",
+            "active": "A",
+            "type": "SLEEP",
+            "value": 22
+          },
+          {
+            "datetime": "2015-10-22 04:42",
+            "active": "A",
+            "type": "SLEEP",
+            "value": 48
+          },
+          {
+            "datetime": "2015-10-22 05:12",
+            "active": "A",
+            "type": "SLEEP",
+            "value": 123
+          },
+          {
+            "datetime": "2015-10-22 06:46",
+            "active": "A",
+            "type": "SLEEP",
+            "value": 72
+          },
+          {
+            "datetime": "2015-10-22 06:48",
+            "active": "A",
+            "type": "SLEEP",
+            "value": 6
+          }
+        ]
+    }
+}

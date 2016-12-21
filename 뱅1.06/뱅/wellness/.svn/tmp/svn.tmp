@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-touch-fullscreen" content="yes" />
+<title>알람시간 설정</title>
+<script type="text/javascript" src="../js/mcore.min.js"></script>
+<link rel="stylesheet" type="text/css" href="../css/common.css" />
+</head>
+<body>
+<!-- wrap -->
+<div id="wrap">
+	<!-- header-->
+	<div class="header">
+		<h1>알람시간 설정</h1>
+		<!-- <div class="btn_right"><a class="btn_alarm" nohref auto-link data-link="setting.newalarm.html" data-action="NEW_SRC"><span>알람추가</span></a></div> -->
+		<!-- <div class="btn_left"><a nohref class="btn_back"><span>뒤로</span></a></div> -->
+		<div class="btn_left" role="back"><a nohref class="btn_back" data-command="page.back" auto-command><span class="arrow"></span></a></div>
+	</div> 
+	<!-- /header-->
+	<!--추가 menu-->
+	<section id="menu"></section>
+	<!--/ 추가 menu-->
+
+	<!-- 추가 container-->
+	<div class="container">	
+		<!--content-->
+		<div class="contents alarm_list_none dn">
+			<div class="no_alram">
+				<p class="al_img"></p>
+				<p class="al_txt">알람이 없습니다.</p>
+			</div>
+		</div> 
+		<!-- /content-->
+
+		<div class="contents alarm_list">			
+			<ul class="ss_alram">
+				<!-- <li>
+					<div class="ar_left">
+						<p><span class="ic_alram"></span><span class="altxt">00:00</span></p>
+						<p class="pdt10"><span class="tx_bl">혈당체크</span></p>
+					</div>
+					<div class="ar_right">
+						switch 버튼 on일때 data-isOn="true", off일때 data-isOn="true"삭제 혹은 data-isOn="false"
+						<div class="m-switch m-switch-sm" data-instance="Switch" data-isOn="true"><input type="checkbox" name=""></div>
+						<p class="pdt10">
+							<span class="tx_bl">일</span>
+							<span class="tx_bl">월</span>
+							<span class="tx_bl">화</span>
+							<span class="tx_df">수</span>
+							<span class="tx_df">목</span>
+							<span class="tx_df">금</span>
+							<span class="tx_df">토</span>
+						</p>
+					</div>
+				</li> -->
+			</ul>
+		</div> 
+
+		<!-- 추가 layer(dimd)-->			
+		<div class="layer dn"></div>	
+		<!--/ 추가 layer(dimd)-->	
+		<!-- <div class="pop_bg" data-pop-wrap>
+            <div class="popup_wrap loading_pop" id="loading_pop">
+                <div class="pop_txtw">
+                    <div class="m-loadingspinner m-loadingspinner-sm m-loadingspinner-gray"><div class="m-spn m-spinner-icon m-draw"></div></div>
+                    <div class="p_txt_bold" id="loading-message">데이터 로딩중...</div>
+                </div>
+            </div>
+        </div> -->
+
+		<div class="pop_bg dn" data-pop-wrap>
+		    <div class="dn popup_wrap loading_pop" id="loading_pop">
+		        <div class="pop_txtw">
+		            <div class="m-loadingspinner m-loadingspinner-sm m-loadingspinner-gray"><div class="m-spn m-spinner-icon m-draw2"></div></div>
+		            <div class="p_txt_bold" id="loading-message">동기화 중...</div>
+		        </div>
+		    </div>
+		 </div>
+	</div>
+	<!-- /추가 container-->
+</div>
+<!-- /wrap -->	
+<!-- M-API -->
+
+<script type="text/x-template" id="alarm-list-item">
+<li data-type="{{type}}" data-time="{{time}}" data-index="{{index}}" data-weeks="{{weeks}}">
+	<div class="ar_left">
+	    <p><span class="ic_alram"></span><span class="altxt">{{time}}</span></p>
+		<p class="pdt10"><span class="tx_bl">{{type-localized}}</span></p>
+	</div>
+	<div class="ar_right">
+		<div class="m-switch m-switch-sm m-switch-animate">
+			<input type="checkbox" name="switch-{{index}}"></div>
+			<p class="pdt10">
+				<span class="{{week_class_1}}">{{week_name_1}}</span>
+				<span class="{{week_class_2}}">{{week_name_2}}</span>
+				<span class="{{week_class_3}}">{{week_name_3}}</span>
+				<span class="{{week_class_4}}">{{week_name_4}}</span>
+				<span class="{{week_class_5}}">{{week_name_5}}</span>
+				<span class="{{week_class_6}}">{{week_name_6}}</span>
+				<span class="{{week_class_7}}">{{week_name_7}}</span>
+			</p>
+		</div>
+	</div>
+</li>
+</script>
+
+<script type="text/javascript">
+$(document.body).bind("didLoad", function(e) {
+	var 
+	Class = UI.Class,
+	DeivceAlarmInfo = Class.DeivceAlarmInfo,
+	controller = MainController.sharedInstance(),
+	popupController = PopupController.sharedInstance(), 
+	macro = controller.macro(),
+	itemTemplate = UI.Template.parse( $("#alarm-list-item").html() );
+
+	$('.alarm_list_none').addClass("dn");
+	$('.alarm_list').addClass("dn");
+
+	macro.register("load.alarm.list", function() {
+		var self = this;
+		var $container = $('ul.ss_alram').first();
+		popupController.showIndicator();
+		popupController.hideIndicator();
+
+				$('.alarm_list_none').removeClass("dn");
+				$('.alarm_list').addClass("dn");
+
+				var list = [];
+
+				//프리퍼런스에 값 없을경우 DEFAULT 셋팅
+				if(DeivceAlarmInfo.sharedInfo().getListData() === undefined || 
+				   DeivceAlarmInfo.sharedInfo().getListData() ==null){
+					for ( var i=0; i<8; i++ ) {
+						var deivceAlarmInfo = new Object();
+						deivceAlarmInfo.index = i;
+						deivceAlarmInfo.type = 'NORMAL';
+						deivceAlarmInfo.enabled=0;
+						deivceAlarmInfo.weeks ='{\"MON\":false,\"TUE\":false,\"WED\":false,\"THU\":false,\"FRI\":false,\"SAT\":false,\"SUN\":false}';
+						deivceAlarmInfo.time = '00:00';
+		            	list.push(deivceAlarmInfo);
+					}
+					DeivceAlarmInfo.sharedInfo().setListData(JSON.stringify(list));
+				}else{
+					list = DeivceAlarmInfo.sharedInfo().getListData();
+				}
+
+				debug.log("###deviceAlarmInfo list###", list);
+				debug.log("###deviceAlarmInfo list length###", list.length);
+				var jsonData =  JSON.stringify(list);
+				debug.log("###deviceAlarmInfo jsonData###", jsonData);
+				$container.empty();
+
+				$(list).each( function( index, itemData ) {
+					var type = itemData["type"];
+					var time = itemData["time"];
+					var enabled = itemData["enabled"];
+					var weeks = typeof itemData["weeks"] === "string" ? $.parseJSON(itemData["weeks"]) : itemData["weeks"];
+					debug.log( "type", type );
+					debug.log( "time", time );
+					debug.log( "enabled", enabled );
+					debug.log( "weeks", weeks );
+				
+
+					itemData["type-localized"] = type === "MEDICATION" ? "복약 알람" : "기본 알람";
+
+					var weekNames = ["월", "화", "수", "목", "금", "토", "일"];
+					var weekKeys = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"];
+
+					for ( var i=0; i<weekKeys.length; i++ ) {
+						var weekKey = weekKeys[i];
+						var weekName = weekNames[i];
+						var weekClass = weeks[weekKey] == true ? "tx_bl" : "tx_df";
+
+						itemData["week_class_" + (i+1)] = weekClass;
+						itemData["week_name_" + (i+1)] = weekName;
+					}
+
+					var html = itemTemplate.render(itemData);
+					var $item = $(html);
+
+					$item.find(".ar_left").bind("click", function(e) {
+
+						M.page.html('setting.newalarm.html', {
+							param: {
+								index: index,
+						        type: type,
+						        time: time,
+						        enabled: enabled,
+						        weeks: weeks
+							},
+							action: 'NO_HISTORY',
+							animate: 'DEFAULT',
+							orient: 'DEFAULT'
+						});
+					});
+
+					$item.find(".ar_right .m-switch").instance("Switch", {
+						isOn: enabled,
+						change: function( ui, isOn ) {
+
+							enabled = isOn;
+
+							if(M.navigator.os("android")) {
+								M.fit.alarm.set({
+						            index: selectedIndex,
+						            type: type,
+						            enabled: enabled,
+						            weeks: selectedDays,
+						            time: timeData[0] + ':' + timeData[1],
+						            callback:function( result ) {
+						            }						    
+						        });
+							}
+							else {
+								M.execute("ex2PluginFitAlarmSet", {
+									index: selectedIndex,
+						            type: type,
+						            enabled: enabled,
+						            weeks: selectedDays,
+						            time: timeData[0] + ':' + timeData[1],
+						            callback:function( result ) {
+						            }
+								});
+							}
+							
+							M.fit.alarm.set({
+						        index: index,
+						        type: type,
+						        time: time,
+						        enabled: isOn,
+						        weeks: weeks,
+						        callback:function( result ) {
+
+						        	var deivceAlarmInfo = new Object();
+						    		deivceAlarmInfo.index = index;
+						    		deivceAlarmInfo.type = type;
+						    		deivceAlarmInfo.enabled= isOn;
+						    		deivceAlarmInfo.weeks =weeks;
+						    		deivceAlarmInfo.time = time;
+						    		
+						        	debug.log("deviceAlarmInfo setting", deivceAlarmInfo);
+
+						    		var list = [];
+						    		list=  DeivceAlarmInfo.sharedInfo().getListData();
+						        	list[index] = null;
+						        	list[index] = deivceAlarmInfo;
+						    		list.sort();
+						        	DeivceAlarmInfo.sharedInfo().setListData(JSON.stringify(list));
+						        	debug.log("preference deviceAlarmInfo setting", DeivceAlarmInfo.sharedInfo().getListData());    
+						        }
+						    });
+						}
+					});
+
+					$container.append( $item );
+				});
+
+				if ( list.length == 0 ) {
+					$('.alarm_list_none').removeClass("dn");
+					$('.alarm_list').addClass("dn");
+				}
+				else {
+					$('.alarm_list_none').addClass("dn");
+					$('.alarm_list').removeClass("dn");
+				}
+			}); 
+});
+</script>
+
+<!-- M-API -->
+<script type="text/javascript">
+M.onReady(function(e) {
+	MainController.sharedInstance().macro().execute("load.alarm.list");
+});
+
+M.onHide(function(e){
+	
+});
+
+M.onRestore(function(e) {
+	if (M.data.param('act') == 'refresh') {
+		M.data.param('act', '');
+		
+		MainController.sharedInstance().macro().execute("load.alarm.list");
+	}
+});
+
+</script>
+<!-- //M-API -->
+</body>
+</html>

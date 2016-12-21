@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-touch-fullscreen" content="yes" />
+<title>수면시간</title>
+<script type="text/javascript" src="../js/mcore.min.js"></script>
+<link rel="stylesheet" type="text/css" href="../css/common.css" />
+<style>
+.sleep_bargr{margin-right: 10px;}
+.sleep_bargr li{ display: -webkit-flex;}
+.dw_bar{ -webkit-flex:1;}
+.sleep_bargr li .dw_bar .bar1>div {background: none !important;border-radius: auto !important;}
+.dw_bar .bar1>div{
+    position: relative; width: 100%;box-sizing: border-box;padding-right: 65px;}
+.dw_bar .bar1 .ss_bar .handle{ background: #c2caea;}
+.dw_bar .bar1 .handle{display: block;height: 100%;width: 0%;min-width: 13px;
+    position: relative;float: left; background: #294b6e; border-radius: 10px;}
+.dw_bar .bar1 .ds_txt{ margin-right: -80px;}
+.handle{ -webkit-transition: width 500ms ease-out;transition: width 500ms ease-out;}
+.sleep_bargr li .dw.bad{background-color: #999;}
+</style>
+</head>
+<body>
+    <!-- wrap -->
+    <div id="wrap">
+
+        <!-- header -->
+        <div class="header">
+            <div class="btn_left" role="back"><a nohref class="btn_back" data-command="page.back" auto-command><span class="arrow"></span></a></div>
+            <h1>수면시간</h1>
+            <div class="btn_right" role="list"><a nohref class="btn_menu"><span>목록</span></a></div>
+        </div> 
+        <!--// header -->
+            
+        <!-- menu -->
+        <div id="menu"></div>
+        <!--// menu -->
+        <!-- container -->
+        <div class="container dash_sub sleep_week">
+            <!-- contents -->
+            <div class="contents">
+                <!--circle tab -->
+                <ul class="circle_tab ">
+                    <li><a nohref auto-link data-link="dashboard.sleep.today.html" data-action="REPLACE">어제</a></li>
+                    <li><a nohref auto-link data-link="dashboard.sleep.weekly.html" data-action="REPLACE" class="selected">이번주</a></li>
+                    <li><a nohref auto-link data-link="dashboard.sleep.monthly.html" data-action="REPLACE" ><script>document.write( FitManager.defaultManager().targetDateFormat("M월") );</script></a></li>
+                </ul>
+                <!--/circle tab -->
+                <!-- text -->
+                <div class="suc_txt">
+                    <div class="suc_ok">GOOD SLEEP <em>0</em>일</div>
+                    <div class="suc_txt_sl2">SOSO SLEEP <em>0</em>일</div>
+                    <div class="suc_fa">BAD SLEEP <em>0</em>일</div>
+                </div>
+                <!-- /text -->
+                <!--/circle tab -->
+                <div class="set-cont">
+                    <!-- 수면그래프 -->
+                    <div class="stg_wrap">
+                        <div class="top_g">
+                            <span class="ic_deeps"></span>
+                            <span class="ic_txt">숙면</span>
+                        </div>
+                        <div class="top_g">
+                            <span class="ic_snoozes"></span>
+                            <span class="ic_txt">선잠</span>
+                        </div>
+                    </div>
+
+                    <div class="sleep_bargr">
+                        <ul>
+                        </ul>
+                    </div>
+                    <!-- /수면그래프 -->
+                </div>
+            </div> 
+            <!--// contents -->
+            <!-- layer(dimd) -->
+            <div class="layer dn"></div>
+            <!--// layer(dimd) -->
+        </div>
+        <!--// container -->        
+    </div>
+    <!--// wrap -->
+    
+</body>
+
+<!-- 화면 스크립트 -->
+<script type="text/javascript">
+
+var  controller = MainController.sharedInstance(),
+fitManager = controller.fitManager();
+
+$(document.body).bind("didAppear", function() {
+    controller.execute("fit.sleep.weekly",{},{});
+});
+    
+
+</script>
+<!--// 화면 스크립트 -->
+
+<!-- M-API -->
+<script type="text/javascript">
+function refreshBySynchResult(){
+	debug.log("hyjeon","[  히스토리 synch 결과를 가져온다.----> 주간 수면 html ");
+	controller.execute("fit.sleep.weekly",{},{});
+};
+M.onReady(function(e) {
+    
+});
+
+M.onHide(function(e){
+    
+});
+
+M.onRestore(function(e) {
+    
+});
+
+</script>
+<!--// M-API -->
+</html>

@@ -1,0 +1,25 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "c552ba0a-0b73-b348-8ccb-33d3e66a7166++4536",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+    "c552ba0a-0b73-b348-8ccb-33d3e66a7166++4536" : {
+
+    }
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "c552ba0a-0b73-b348-8ccb-33d3e66a7166++4536" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "45F814CE-B1D1-4896-BC9B-0CEE6BBD3EDE",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "c552ba0a-0b73-b348-8ccb-33d3e66a7166++4536" : "Wellness\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Wellness",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "native\/ios\/project\/Wellness.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "http:\/\/211.241.199.188\/svn\/wellness",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "c552ba0a-0b73-b348-8ccb-33d3e66a7166++4536"
+    }
+  ]
+}

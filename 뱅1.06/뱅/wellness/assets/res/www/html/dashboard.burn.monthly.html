@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-touch-fullscreen" content="yes" />
+<title>칼로리 소모량</title>
+<script type="text/javascript" src="../js/mcore.min.js"></script>
+<script type="text/javascript" src="../js/libs/instance/instance.ui.js"></script>
+<link rel="stylesheet" type="text/css" href="../css/common.css" />
+</head>
+<body>
+    <!-- wrap -->
+    <div id="wrap">
+        <!-- header -->
+        <div class="header">
+            <div class="btn_left" role="back"><a nohref class="btn_back" data-command="page.back" auto-command><span class="arrow"></span></a></div>
+            <h1>칼로리 소모량</h1>
+            <div class="btn_right" role="list"><a nohref class="btn_menu"><span>목록</span></a></div>
+        </div> 
+        <!--// header -->
+            
+        <!-- menu -->
+        <div id="menu"></div>
+        <!--// menu -->
+        <!-- container -->
+        <div class="container dash_sub cal_month">
+
+            <!-- contents -->
+            <div class="contents">
+                <!--circle tab -->
+                <ul class="circle_tab ">
+<!--                    <li><a nohref auto-link data-link="dashboard.burn.today.html" data-action="REPLACE">오늘</a></li>-->
+                    <li><a nohref auto-link data-link="dashboard.burn.weekly.html" data-action="REPLACE">이번주</a></li>
+                    <li><a nohref auto-link data-link="dashboard.burn.monthly.html" data-action="REPLACE" class="selected"><script>document.write( FitManager.defaultManager().targetDateFormat("M월") );</script></a></li>
+                </ul>
+                <!--/circle tab -->
+                <!-- text -->
+                <div class="suc_txt">
+                    <em class="user_value">0</em>kcal 소모<br/>
+                    <span class="txt1 goal">목표 <em>0</em>kcal 소모</span>
+                    <div class="suc_ok">목표 달성 <em>0</em>회</div>
+                    <div class="suc_fa">목표 미달 <em>8</em>회</div>
+                </div>
+                <!-- /text -->
+                <!--/circle tab -->
+                <div class="set-cont step-month m-calendar">
+                    <!-- 달력 --
+                    <table class="cal_list">
+
+                        <colgroup>
+                            <col style="width:40px;" />
+                            <col style="width:40px;" />
+                            <col style="width:40px;" />
+                            <col style="width:40px;" />
+                            <col style="width:40px;" />
+                            <col style="width:40px;" />
+                            <col style="width:40px;" />
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>MON</th>
+                                <th>TUE</th>
+                                <th>WED</th>
+                                <th>THU</li>
+                                <th>FRI</th>
+                                <th>SAT</th>
+                                <th>SUN</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td></td>
+                                <td><div class="cierbx failure">1</div></td>
+                                <td><div class="cierbx failure">2</div></td>
+                                <td><div class="cierbx ok">3</div></td>
+                                <td><div class="cierbx ok">4</div></td>
+                                <td><div class="cierbx ok">5</div></td>
+                                <td><div class="cierbx ok">6</div></td>
+                            </tr>
+                            <tr>
+                                <td><div class="cierbx failure">7</div></td>
+                                <td><div class="cierbx failure">8</div></td>
+                                <td><div class="cierbx ok">9</div></td>
+                                <td><div class="cierbx ok">10</div></td>
+                                <td><div class="cierbx ok">11</div></td>
+                                <td><div class="cierbx ok">12</div></td>
+                                <td><div class="cierbx failure">13</div></td>
+                            </tr>
+                            <tr>
+                                <td><div class="cierbx failure">14</div></td>
+                                <td><div class="cierbx ok">15</div></td>
+                                <td><div class="cierbx ok">16</div></td>
+                                <td><div class="cierbx ok">17</div></td>
+                                <td><div class="cierbx ok">18</div></td>
+                                <td><div class="cierbx failure">19</div></td>
+                                <td><div class="cierbx failure">20</div></td>
+                            </tr>
+                            <tr>
+                                <td><div class="cierbx ok">21</div></td>
+                                <td><div class="cierbx ok">22</div></td>
+                                <td><div class="cierbx ok">23</div></td>
+                                <td><div class="cierbx ok">24</div></td>
+                                <td><div class="cierbx failure">25</div></td>
+                                <td><div class="cierbx failure">26</div></td>
+                                <td><div class="cierbx ok">27</div></td>
+                            </tr>
+                            <tr>
+                                <td><div class="cierbx ok">28</div></td>
+                                <td><div class="cierbx ok">29</div></td>
+                                <td><div class="cierbx ok">30</div></td>
+                                <td><div class="cierbx ok">31</div></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    -->
+                    <!-- /달력 -->
+                </div>
+            <!--// contents -->
+            </div>
+            <!-- layer(dimd) -->
+            <div class="layer dn"></div>
+            <!--// layer(dimd) -->
+        </div>
+        <!--// container -->        
+    </div>
+    <!--// wrap -->    
+      
+    <div class="popup_wrap toast_popup dn" id="guide_pop">
+        <div class="pop_txtw"></div>
+    </div>    
+</body>
+<!-- 화면 스크립트 -->
+<script type="text/javascript">
+//window.Wellness.showLayerPopup("guide_pop");
+
+var  controller = MainController.sharedInstance(),
+fitManager = controller.fitManager();
+ $(document.body).bind("didAppear", function() {
+	controller.execute("fit.calory.monthly",{},{});
+});   
+</script>
+<!--// 화면 스크립트 -->
+
+<!-- M-API -->
+<script type="text/javascript">
+function refreshBySynchResult(){
+	debug.log("hyjeon","[  히스토리 synch 결과를 가져온다. 월별 칼로리 ");
+	controller.execute("fit.calory.monthly",{},{});
+};
+M.onReady(function(e) {
+    
+});
+
+M.onHide(function(e){
+    
+});
+
+M.onRestore(function(e) {
+    
+});
+
+</script>
+<!--// M-API -->
+</html>
